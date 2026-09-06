@@ -7,7 +7,16 @@ export const { sanityFetch, SanityLive } = defineLive({
     stega: {
       enabled: true,
       studioUrl: '/studio',
-      filter: () => true,
+      filter: (props) => {
+        if (
+          props.sourcePath.at(-1) === 'url' ||
+          props.sourcePath.includes('resumeUrl') ||
+          props.sourcePath.includes('resumeFileUrl')
+        ) {
+          return false;
+        }
+        return true;
+      },
     },
   }),
 });

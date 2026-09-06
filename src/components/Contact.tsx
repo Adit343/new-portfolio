@@ -28,11 +28,10 @@ const contactValidationSchema = Yup.object({
 
 interface ContactProps {
   siteSettings?: any;
+  aboutData?: any;
 }
 
-export const Contact: React.FC<ContactProps> = ({ siteSettings }) => {
-  const [copiedEmail, setCopiedEmail] = useState(false);
-  const [copiedPhone, setCopiedPhone] = useState(false);
+export const Contact: React.FC<ContactProps> = ({ siteSettings, aboutData }) => {
   const [formSubmitted, setFormSubmitted] = useState(false);
 
   const badge = siteSettings?.contactBadge || 'Direct Contact & Collaboration';
@@ -41,16 +40,39 @@ export const Contact: React.FC<ContactProps> = ({ siteSettings }) => {
   const formTitle = siteSettings?.contactFormTitle || 'Send Direct Message';
   const formSubtitle = siteSettings?.contactFormSubtitle || 'Send a message directly for project inquiries';
 
-  const copyToClipboard = (text: string, type: 'email' | 'phone') => {
-    navigator.clipboard.writeText(text);
-    if (type === 'email') {
-      setCopiedEmail(true);
-      setTimeout(() => setCopiedEmail(false), 2500);
-    } else {
-      setCopiedPhone(true);
-      setTimeout(() => setCopiedPhone(false), 2500);
-    }
-  };
+  const contactCardTitle = siteSettings?.contactCardTitle !== undefined
+    ? siteSettings.contactCardTitle.replace(/[\u200B-\u200D\uFEFF]/g, '').trim()
+    : 'Contact Info';
+  const contactCardSubtitle = siteSettings?.contactCardSubtitle !== undefined
+    ? siteSettings.contactCardSubtitle.replace(/[\u200B-\u200D\uFEFF]/g, '').trim()
+    : 'Direct communication channels';
+  const contactCardBadge = siteSettings?.contactCardBadge !== undefined
+    ? siteSettings.contactCardBadge.replace(/[\u200B-\u200D\uFEFF]/g, '').trim()
+    : 'Verified';
+
+  const globalClientTitle = siteSettings?.globalClientTitle !== undefined
+    ? siteSettings.globalClientTitle.replace(/[\u200B-\u200D\uFEFF]/g, '').trim()
+    : 'Global Client Communication';
+  const globalClientText = siteSettings?.globalClientText !== undefined
+    ? siteSettings.globalClientText.replace(/[\u200B-\u200D\uFEFF]/g, '').trim()
+    : (aboutData?.clientCommunication || 'Proficient in English speaking with hands-on experience handling international clients, requirement workshops, and technical presentations.').replace(/[\u200B-\u200D\uFEFF]/g, '').trim();
+
+  const rawEmail = aboutData?.email ?? siteSettings?.socialLinks?.email ?? personalDetails.email;
+  const email = rawEmail ? rawEmail.replace(/[\u200B-\u200D\uFEFF]/g, '').trim() : '';
+
+  const rawPhone = aboutData?.phone ?? siteSettings?.socialLinks?.phone ?? personalDetails.phone;
+  const phone = rawPhone ? rawPhone.replace(/[\u200B-\u200D\uFEFF]/g, '').trim() : '';
+
+  const rawPhoneRaw = aboutData?.phoneRaw ?? siteSettings?.socialLinks?.phoneRaw ?? personalDetails.phoneRaw;
+  const phoneRaw = rawPhoneRaw ? rawPhoneRaw.replace(/[\u200B-\u200D\uFEFF]/g, '').trim() : phone;
+
+  const rawLinkedin = aboutData?.linkedin ?? siteSettings?.socialLinks?.linkedin ?? personalDetails.linkedin;
+  const linkedin = rawLinkedin ? rawLinkedin.replace(/[\u200B-\u200D\uFEFF]/g, '').trim() : '';
+
+  const rawGithub = aboutData?.github ?? siteSettings?.socialLinks?.github ?? personalDetails.github;
+  const github = rawGithub ? rawGithub.replace(/[\u200B-\u200D\uFEFF]/g, '').trim() : '';
+
+  const hasAnyContactInfo = Boolean(email || phone || linkedin || github || globalClientText);
 
   // Formik Hook Integration with Yup Schema & Sanity CMS Submission
   const formik = useFormik({
@@ -123,104 +145,128 @@ export const Contact: React.FC<ContactProps> = ({ siteSettings }) => {
         )}
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 max-w-6xl mx-auto">
+      <div className={`grid grid-cols-1 ${hasAnyContactInfo ? 'lg:grid-cols-12' : ''} gap-8 max-w-6xl mx-auto`}>
         
         {/* Left Column: Direct Contact Info Cards (5 Cols) */}
-        <div className="lg:col-span-5 flex flex-col justify-between space-y-6">
-          
-          <div className="apple-glass-panel p-4 sm:p-8 rounded-2xl sm:rounded-3xl space-y-5 sm:space-y-6 border border-cyan-500/30 ring-1 ring-cyan-500/40 shadow-xl shadow-cyan-500/10 bg-cyan-950/[0.08]">
-            <div className="flex items-center justify-between pb-4 border-b border-white/10">
-              <div>
-                <h3 className="text-xl sm:text-2xl font-bold text-white">Contact Info</h3>
-                <p className="text-xs text-slate-400 mt-0.5">Direct communication channels</p>
-              </div>
-              <span className="text-[10px] font-mono font-bold px-2.5 py-1 rounded-full bg-cyan-500/20 text-cyan-300 border border-cyan-500/30">
-                Verified
-              </span>
-            </div>
+        {hasAnyContactInfo && (
+          <div className="lg:col-span-5 flex flex-col justify-between space-y-6">
+            
+            <div className="apple-glass-panel p-4 sm:p-8 rounded-2xl sm:rounded-3xl space-y-5 sm:space-y-6 border border-cyan-500/30 ring-1 ring-cyan-500/40 shadow-xl shadow-cyan-500/10 bg-cyan-950/[0.08]">
+              {(contactCardTitle || contactCardSubtitle || contactCardBadge) && (
+                <div className="flex items-center justify-between pb-4 border-b border-white/10">
+                  <div>
+                    {contactCardTitle && <h3 className="text-xl sm:text-2xl font-bold text-white">{contactCardTitle}</h3>}
+                    {contactCardSubtitle && <p className="text-xs text-slate-400 mt-0.5">{contactCardSubtitle}</p>}
+                  </div>
+                  {contactCardBadge && (
+                    <span className="text-[10px] font-mono font-bold px-2.5 py-1 rounded-full bg-cyan-500/20 text-cyan-300 border border-cyan-500/30">
+                      {contactCardBadge}
+                    </span>
+                  )}
+                </div>
+              )}
 
-            {/* Email Card */}
-            <div className="apple-glass-pill p-3.5 sm:p-4 rounded-2xl border border-emerald-500/30 hover:border-emerald-500/60 flex items-center justify-between gap-2 group transition-all min-w-0">
-              <div className="flex items-center gap-3 min-w-0 flex-1">
-                <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl apple-glass-button flex items-center justify-center text-emerald-400 border border-emerald-500/30 shrink-0">
-                  <Mail className="w-4 h-4 sm:w-5 sm:h-5" />
-                </div>
-                <div className="min-w-0 flex-1">
-                  <div className="text-[10px] sm:text-[11px] font-mono text-slate-400">Email Address</div>
-                  <a href={`mailto:${personalDetails.email}`} className="text-xs sm:text-sm font-bold text-white hover:text-emerald-300 truncate block">
-                    {personalDetails.email}
-                  </a>
-                </div>
-              </div>
-              <button
-                onClick={() => copyToClipboard(personalDetails.email, 'email')}
-                className="p-2 rounded-xl apple-glass-button text-slate-400 hover:text-white shrink-0"
-                title="Copy Email"
-              >
-                {copiedEmail ? <Check className="w-4 h-4 text-emerald-400" /> : <Copy className="w-4 h-4" />}
-              </button>
-            </div>
+              {/* Email Card */}
+              {email && (
+                <a 
+                  href={`mailto:${email}`} 
+                  className="apple-glass-pill p-3.5 sm:p-4 rounded-2xl border border-emerald-500/30 hover:border-emerald-500/60 flex items-center gap-3 group transition-all min-w-0"
+                >
+                  <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl apple-glass-button flex items-center justify-center text-emerald-400 border border-emerald-500/30 shrink-0 group-hover:scale-105 transition-transform">
+                    <Mail className="w-4 h-4 sm:w-5 sm:h-5" />
+                  </div>
+                  <div className="min-w-0 flex-1">
+                    <div className="text-[10px] sm:text-[11px] font-mono text-slate-400">Email Address</div>
+                    <div className="text-xs sm:text-sm font-bold text-white group-hover:text-emerald-300 truncate">
+                      {email}
+                    </div>
+                  </div>
+                </a>
+              )}
 
-            {/* Phone Card */}
-            <div className="apple-glass-pill p-3.5 sm:p-4 rounded-2xl border border-cyan-500/30 hover:border-cyan-500/60 flex items-center justify-between gap-2 group transition-all min-w-0">
-              <div className="flex items-center gap-3 min-w-0 flex-1">
-                <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl apple-glass-button flex items-center justify-center text-cyan-400 border border-cyan-500/30 shrink-0">
-                  <Phone className="w-4 h-4 sm:w-5 sm:h-5" />
-                </div>
-                <div className="min-w-0 flex-1">
-                  <div className="text-[10px] sm:text-[11px] font-mono text-slate-400">Phone Number</div>
-                  <a href={`tel:${personalDetails.phoneRaw}`} className="text-xs sm:text-sm font-bold text-white hover:text-cyan-300 truncate block">
-                    {personalDetails.phone}
-                  </a>
-                </div>
-              </div>
-              <button
-                onClick={() => copyToClipboard(personalDetails.phoneRaw, 'phone')}
-                className="p-2 rounded-xl apple-glass-button text-slate-400 hover:text-white shrink-0"
-                title="Copy Phone"
-              >
-                {copiedPhone ? <Check className="w-4 h-4 text-emerald-400" /> : <Copy className="w-4 h-4" />}
-              </button>
-            </div>
+              {/* Phone Card */}
+              {phone && (
+                <a 
+                  href={`tel:${phoneRaw || phone}`} 
+                  className="apple-glass-pill p-3.5 sm:p-4 rounded-2xl border border-cyan-500/30 hover:border-cyan-500/60 flex items-center gap-3 group transition-all min-w-0"
+                >
+                  <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl apple-glass-button flex items-center justify-center text-cyan-400 border border-cyan-500/30 shrink-0 group-hover:scale-105 transition-transform">
+                    <Phone className="w-4 h-4 sm:w-5 sm:h-5" />
+                  </div>
+                  <div className="min-w-0 flex-1">
+                    <div className="text-[10px] sm:text-[11px] font-mono text-slate-400">Phone Number</div>
+                    <div className="text-xs sm:text-sm font-bold text-white group-hover:text-cyan-300 truncate">
+                      {phone}
+                    </div>
+                  </div>
+                </a>
+              )}
 
-            {/* LinkedIn Card */}
-            <div className="apple-glass-pill p-3.5 sm:p-4 rounded-2xl border border-purple-500/30 hover:border-purple-500/60 flex items-center justify-between gap-2 group transition-all min-w-0">
-              <div className="flex items-center gap-3 min-w-0 flex-1">
-                <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl apple-glass-button flex items-center justify-center text-purple-400 border border-purple-500/30 shrink-0">
-                  <svg className="w-4 h-4 sm:w-5 sm:h-5 fill-current" viewBox="0 0 24 24">
-                    <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/>
-                  </svg>
-                </div>
-                <div className="min-w-0 flex-1">
-                  <div className="text-[10px] sm:text-[11px] font-mono text-slate-400">LinkedIn Profile</div>
-                  <a 
-                    href={personalDetails.linkedin} 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="text-xs sm:text-sm font-bold text-white hover:text-purple-300 truncate block"
-                  >
-                    <span>linkedIn / Adit Shah</span>
-                  </a>
-                </div>
-              </div>
-            </div>
+              {/* LinkedIn Card */}
+              {linkedin && (
+                <a 
+                  href={linkedin} 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="apple-glass-pill p-3.5 sm:p-4 rounded-2xl border border-purple-500/30 hover:border-purple-500/60 flex items-center gap-3 group transition-all min-w-0"
+                >
+                  <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl apple-glass-button flex items-center justify-center text-purple-400 border border-purple-500/30 shrink-0 group-hover:scale-105 transition-transform">
+                    <svg className="w-4 h-4 sm:w-5 sm:h-5 fill-current" viewBox="0 0 24 24">
+                      <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/>
+                    </svg>
+                  </div>
+                  <div className="min-w-0 flex-1">
+                    <div className="text-[10px] sm:text-[11px] font-mono text-slate-400">LinkedIn Profile</div>
+                    <div className="text-xs sm:text-sm font-bold text-white group-hover:text-purple-300 truncate">
+                      LinkedIn / Adit Shah
+                    </div>
+                  </div>
+                </a>
+              )}
 
-            {/* English & Client Communication Highlight */}
-            <div className="pt-2">
-              <div className="apple-glass-pill p-3.5 sm:p-4 rounded-2xl border border-emerald-500/30 bg-emerald-500/[0.05] space-y-2">
-                <div className="flex items-center gap-2 text-xs font-bold text-emerald-300">
-                  <Globe className="w-4 h-4 text-emerald-400 shrink-0" />
-                  <span>Global Client Communication</span>
+              {/* GitHub Card */}
+              {github && (
+                <a 
+                  href={github} 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="apple-glass-pill p-3.5 sm:p-4 rounded-2xl border border-slate-500/30 hover:border-emerald-500/60 flex items-center gap-3 group transition-all min-w-0"
+                >
+                  <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl apple-glass-button flex items-center justify-center text-slate-200 border border-white/20 shrink-0 group-hover:scale-105 transition-transform">
+                    <svg className="w-4 h-4 sm:w-5 sm:h-5 fill-current" viewBox="0 0 24 24">
+                      <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+                    </svg>
+                  </div>
+                  <div className="min-w-0 flex-1">
+                    <div className="text-[10px] sm:text-[11px] font-mono text-slate-400">GitHub Profile</div>
+                    <div className="text-xs sm:text-sm font-bold text-white group-hover:text-emerald-300 truncate">
+                      GitHub / Adit Shah
+                    </div>
+                  </div>
+                </a>
+              )}
+
+              {/* Global Client Communication Highlight */}
+              {globalClientText && (
+                <div className="pt-2">
+                  <div className="apple-glass-pill p-3.5 sm:p-4 rounded-2xl border border-emerald-500/30 bg-emerald-500/[0.05] space-y-2">
+                    {globalClientTitle && (
+                      <div className="flex items-center gap-2 text-xs font-bold text-emerald-300">
+                        <Globe className="w-4 h-4 text-emerald-400 shrink-0" />
+                        <span>{globalClientTitle}</span>
+                      </div>
+                    )}
+                    <p className="text-xs text-slate-300 leading-relaxed">
+                      {globalClientText}
+                    </p>
+                  </div>
                 </div>
-                <p className="text-xs text-slate-300 leading-relaxed">
-                  Proficient in English speaking with hands-on experience handling international clients, requirement workshops, and technical presentations.
-                </p>
-              </div>
+              )}
+
             </div>
 
           </div>
-
-        </div>
+        )}
 
         {/* Right Column: Direct Message Form with Formik + Yup Validation (7 Cols) */}
         <div className="lg:col-span-7">

@@ -1,7 +1,7 @@
 'use client';
 
-import React, { useState } from 'react';
-import { FolderGit2, Search, ArrowUpRight, Sliders } from 'lucide-react';
+import React, { useState, useRef } from 'react';
+import { FolderGit2, Search, ArrowUpRight, ChevronLeft, ChevronRight, Code2 } from 'lucide-react';
 import type { Project } from '../data/portfolioData';
 import { ProjectModal } from './ProjectModal';
 
@@ -16,6 +16,32 @@ export const Projects: React.FC<ProjectsProps> = ({ data, siteSettings }) => {
   const [selectedCategory, setSelectedCategory] = useState<string>('All');
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [activeProject, setActiveProject] = useState<Project | null>(null);
+
+  const [canScrollLeft, setCanScrollLeft] = useState<boolean>(false);
+  const [canScrollRight, setCanScrollRight] = useState<boolean>(false);
+  const scrollRef = useRef<HTMLDivElement>(null);
+
+  const checkScrollButtons = () => {
+    if (scrollRef.current) {
+      const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current;
+      setCanScrollLeft(scrollLeft > 5);
+      setCanScrollRight(scrollLeft + clientWidth < scrollWidth - 5);
+    }
+  };
+
+  React.useEffect(() => {
+    checkScrollButtons();
+    window.addEventListener('resize', checkScrollButtons);
+    return () => window.removeEventListener('resize', checkScrollButtons);
+  }, []);
+
+  const scrollCategory = (direction: 'left' | 'right') => {
+    if (scrollRef.current) {
+      const scrollAmount = direction === 'left' ? -160 : 160;
+      scrollRef.current.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+      setTimeout(checkScrollButtons, 350);
+    }
+  };
 
   const badge = siteSettings?.projectsBadge || 'Featured Production Applications';
   const title = siteSettings?.projectsTitle || 'Production Projects';
@@ -62,21 +88,52 @@ export const Projects: React.FC<ProjectsProps> = ({ data, siteSettings }) => {
       {/* Filter Tabs & Search Bar */}
       <div className="flex flex-col md:flex-row items-center justify-between gap-4 mb-10 max-w-5xl mx-auto w-full">
         
-        {/* Category Pills */}
-        <div className="flex flex-nowrap overflow-x-auto no-scrollbar items-center gap-1.5 sm:gap-2 apple-glass-pill p-1.5 rounded-2xl border border-white/10 w-full md:w-auto">
-          {categories.map((cat) => (
+        {/* Category Pills Container with Smart Hiding Scroll Buttons & Hidden Scrollbar */}
+        <div className="relative flex items-center w-full md:w-auto min-w-0 max-w-full">
+          {/* Scroll Left Button */}
+          {canScrollLeft && (
             <button
-              key={cat}
-              onClick={() => setSelectedCategory(cat)}
-              className={`px-3.5 py-2 rounded-xl text-xs font-semibold shrink-0 transition-all duration-200 ${
-                selectedCategory === cat
-                  ? 'apple-glass-button-primary text-white shadow-lg'
-                  : 'text-slate-400 hover:text-white hover:bg-white/10'
-              }`}
+              onClick={() => scrollCategory('left')}
+              className="p-2 rounded-xl apple-glass-button text-slate-300 hover:text-white hover:border-emerald-500/40 shrink-0 mr-1.5 flex items-center justify-center border border-white/10 shadow-sm transition-all animate-fadeIn"
+              aria-label="Scroll categories left"
+              title="Scroll left"
             >
-              {cat}
+              <ChevronLeft className="w-4 h-4 text-emerald-400" />
             </button>
-          ))}
+          )}
+
+          {/* Scrollable Pills List */}
+          <div 
+            ref={scrollRef}
+            onScroll={checkScrollButtons}
+            className="flex flex-nowrap overflow-x-auto items-center gap-1.5 sm:gap-2 apple-glass-pill p-1.5 rounded-2xl border border-white/10 w-full scroll-smooth no-scrollbar"
+          >
+            {categories.map((cat) => (
+              <button
+                key={cat}
+                onClick={() => setSelectedCategory(cat)}
+                className={`px-3.5 py-2 rounded-xl text-xs font-semibold shrink-0 transition-all duration-200 ${
+                  selectedCategory === cat
+                    ? 'apple-glass-button-primary text-white shadow-lg'
+                    : 'text-slate-400 hover:text-white hover:bg-white/10'
+                }`}
+              >
+                {cat}
+              </button>
+            ))}
+          </div>
+
+          {/* Scroll Right Button */}
+          {canScrollRight && (
+            <button
+              onClick={() => scrollCategory('right')}
+              className="p-2 rounded-xl apple-glass-button text-slate-300 hover:text-white hover:border-emerald-500/40 shrink-0 ml-1.5 flex items-center justify-center border border-white/10 shadow-sm transition-all animate-fadeIn"
+              aria-label="Scroll categories right"
+              title="Scroll right"
+            >
+              <ChevronRight className="w-4 h-4 text-emerald-400" />
+            </button>
+          )}
         </div>
 
         {/* Search Bar */}
@@ -145,7 +202,7 @@ export const Projects: React.FC<ProjectsProps> = ({ data, siteSettings }) => {
               )}
             </div>
 
-            {/* Bottom Tech Badges & Interactive Demo Pill */}
+            {/* Bottom Tech Badges & Inspect CTA */}
             <div className="mt-6 pt-4 border-t border-white/10">
               {project.tech && project.tech.length > 0 && (
                 <div className="flex flex-wrap gap-1.5 mb-4">
@@ -162,10 +219,9 @@ export const Projects: React.FC<ProjectsProps> = ({ data, siteSettings }) => {
 
               <div className="flex items-center justify-between text-xs font-semibold text-emerald-400 group-hover:text-emerald-300">
                 <span className="flex items-center gap-1.5">
-                  <Sliders className="w-3.5 h-3.5 text-emerald-400" />
-                  <span>Architecture & Live Demo</span>
+                  <Code2 className="w-3.5 h-3.5 text-emerald-400" />
+                  <span>Technical Details & Architecture</span>
                 </span>
-                <span className="text-slate-400 font-mono text-[10px]">Inspect</span>
               </div>
             </div>
 

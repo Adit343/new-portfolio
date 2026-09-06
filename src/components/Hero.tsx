@@ -1,7 +1,7 @@
 'use client';
 
-import React, { useState } from 'react';
-import { Mail, Phone, MapPin, Copy, Check, Globe, Award, Sparkles, ChevronRight, ExternalLink } from 'lucide-react';
+import React from 'react';
+import { Mail, Phone, MapPin, Globe, Award, Sparkles, ChevronRight, ExternalLink } from 'lucide-react';
 import { PersonalDetails } from '../data/portfolioData';
 
 interface HeroProps {
@@ -13,25 +13,11 @@ interface HeroProps {
 export const Hero: React.FC<HeroProps> = ({ onOpenResume, data, siteSettings }) => {
   if (!data) return null;
   const personalDetails = data;
-  const [copiedEmail, setCopiedEmail] = useState(false);
-  const [copiedPhone, setCopiedPhone] = useState(false);
-
-  const copyToClipboard = (text: string, type: 'email' | 'phone') => {
-    if (!text) return;
-    navigator.clipboard.writeText(text);
-    if (type === 'email') {
-      setCopiedEmail(true);
-      setTimeout(() => setCopiedEmail(false), 2500);
-    } else {
-      setCopiedPhone(true);
-      setTimeout(() => setCopiedPhone(false), 2500);
-    }
-  };
 
   const statusPill = siteSettings?.heroStatusPill || 'Available for MERN & Full-Stack Engineering Roles';
   const ctaText = siteSettings?.heroProjectsCtaText || 'Explore Production Projects';
   const summaryTitle = siteSettings?.recruiterSummaryTitle || 'Recruiter Quick Summary';
-  const greetingPrefix = personalDetails.greetingPrefix || "Hello, I'm";
+  const greetingPrefix = personalDetails.greetingPrefix ? personalDetails.greetingPrefix.replace(/[\u200B-\u200D\uFEFF]/g, '').trim() : '';
 
   return (
     <section id="about" className="relative pt-24 pb-10 sm:pt-32 sm:pb-16 md:pt-36 md:pb-16 px-3.5 sm:px-6 lg:px-8 max-w-7xl mx-auto">
@@ -53,7 +39,11 @@ export const Hero: React.FC<HeroProps> = ({ onOpenResume, data, siteSettings }) 
           <div className="w-full">
             {personalDetails.name && (
               <h1 className="text-3xl xs:text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-white leading-tight sm:leading-none">
-                {greetingPrefix} <br className="hidden sm:inline" />
+                {greetingPrefix ? (
+                  <>
+                    <span>{greetingPrefix}</span> <br className="hidden sm:inline" />
+                  </>
+                ) : null}
                 <span className="text-gradient-accent">{personalDetails.name}</span>
               </h1>
             )}
@@ -116,29 +106,23 @@ export const Hero: React.FC<HeroProps> = ({ onOpenResume, data, siteSettings }) 
             {(personalDetails.email || personalDetails.phone) && (
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 w-full">
                 {personalDetails.email && (
-                  <button
-                    onClick={() => copyToClipboard(personalDetails.email, 'email')}
-                    className="apple-glass-button px-3.5 sm:px-5 py-3 sm:py-3.5 rounded-2xl font-medium text-xs sm:text-sm text-slate-200 hover:text-white flex items-center justify-between gap-2 w-full min-w-0"
+                  <a
+                    href={`mailto:${personalDetails.email}`}
+                    className="apple-glass-button px-3.5 sm:px-5 py-3 sm:py-3.5 rounded-2xl font-medium text-xs sm:text-sm text-slate-200 hover:text-white flex items-center gap-2.5 w-full min-w-0 transition-all hover:border-emerald-500/50"
                   >
-                    <div className="flex items-center gap-2 min-w-0 truncate">
-                      <Mail className="w-4 h-4 text-emerald-400 shrink-0" />
-                      <span className="truncate">{personalDetails.email}</span>
-                    </div>
-                    {copiedEmail ? <Check className="w-3.5 h-3.5 text-emerald-400 shrink-0" /> : <Copy className="w-3.5 h-3.5 text-slate-400 shrink-0" />}
-                  </button>
+                    <Mail className="w-4 h-4 text-emerald-400 shrink-0" />
+                    <span className="truncate">{personalDetails.email}</span>
+                  </a>
                 )}
 
                 {personalDetails.phone && (
-                  <button
-                    onClick={() => copyToClipboard(personalDetails.phoneRaw || personalDetails.phone, 'phone')}
-                    className="apple-glass-button px-3.5 sm:px-5 py-3 sm:py-3.5 rounded-2xl font-medium text-xs sm:text-sm text-slate-200 hover:text-white flex items-center justify-between gap-2 w-full min-w-0"
+                  <a
+                    href={`tel:${personalDetails.phoneRaw || personalDetails.phone}`}
+                    className="apple-glass-button px-3.5 sm:px-5 py-3 sm:py-3.5 rounded-2xl font-medium text-xs sm:text-sm text-slate-200 hover:text-white flex items-center gap-2.5 w-full min-w-0 transition-all hover:border-cyan-500/50"
                   >
-                    <div className="flex items-center gap-2 min-w-0 truncate">
-                      <Phone className="w-4 h-4 text-cyan-400 shrink-0" />
-                      <span className="truncate">{personalDetails.phone}</span>
-                    </div>
-                    {copiedPhone ? <Check className="w-3.5 h-3.5 text-emerald-400 shrink-0" /> : <Copy className="w-3.5 h-3.5 text-slate-400 shrink-0" />}
-                  </button>
+                    <Phone className="w-4 h-4 text-cyan-400 shrink-0" />
+                    <span className="truncate">{personalDetails.phone}</span>
+                  </a>
                 )}
               </div>
             )}

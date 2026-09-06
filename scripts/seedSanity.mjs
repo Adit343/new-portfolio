@@ -73,6 +73,11 @@ async function seedSanity() {
     contactSubtitle: 'Open for full-stack MERN engineering roles, Next.js projects, and client consultation.',
     contactFormTitle: 'Send Direct Message',
     contactFormSubtitle: 'Send a message directly for project inquiries',
+    contactCardTitle: 'Contact Info',
+    contactCardSubtitle: 'Direct communication channels',
+    contactCardBadge: 'Verified',
+    globalClientTitle: 'Global Client Communication',
+    globalClientText: 'Proficient in English speaking with hands-on experience handling international clients, requirement workshops, and technical presentations.',
     socialLinks: {
       email: 'shahadit68@gmail.com',
       phone: '+91 9265955849',

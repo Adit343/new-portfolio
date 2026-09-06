@@ -82,7 +82,7 @@ export function MainPortfolio({
           {initialEducation && initialEducation.degree && (
             <Education data={initialEducation} siteSettings={initialSiteSettings} />
           )}
-          <Contact siteSettings={initialSiteSettings} />
+          <Contact siteSettings={initialSiteSettings} aboutData={initialHeroData} />
         </main>
 
         <Footer siteSettings={initialSiteSettings} />
@@ -92,6 +92,7 @@ export function MainPortfolio({
       <ResumeModal
         isOpen={isResumeOpen}
         onClose={() => setIsResumeOpen(false)}
+        siteSettings={initialSiteSettings}
       />
 
     </div>

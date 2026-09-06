@@ -1,16 +1,24 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { X, Printer, Copy, Check, FileText } from 'lucide-react';
+import { X, Download, Copy, Check, FileText } from 'lucide-react';
 import { personalDetails, projectsData, experienceData, educationData } from '../data/portfolioData';
 
 interface ResumeModalProps {
   isOpen: boolean;
   onClose: () => void;
+  siteSettings?: {
+    resumeFileUrl?: string;
+    resumeUrl?: string;
+  } | null;
+  resumeUrl?: string;
 }
 
-export const ResumeModal: React.FC<ResumeModalProps> = ({ isOpen, onClose }) => {
+export const ResumeModal: React.FC<ResumeModalProps> = ({ isOpen, onClose, siteSettings, resumeUrl }) => {
   const [copied, setCopied] = useState(false);
+
+  const rawUrl = siteSettings?.resumeFileUrl || siteSettings?.resumeUrl || resumeUrl;
+  const pdfUrl = rawUrl ? rawUrl.replace(/[\u200B-\u200D\uFEFF]/g, '').trim() : '';
 
   useEffect(() => {
     if (isOpen) {
@@ -37,10 +45,6 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({ isOpen, onClose }) => 
   }, [isOpen, onClose]);
 
   if (!isOpen) return null;
-
-  const handlePrint = () => {
-    window.print();
-  };
 
   const handleCopyText = () => {
     const resumeText = `
@@ -112,14 +116,19 @@ EDUCATION
               <span className="hidden xs:inline">{copied ? 'Copied!' : 'Copy'}</span>
             </button>
 
-            <button
-              onClick={handlePrint}
-              className="apple-glass-button-primary px-3.5 py-2 rounded-xl text-xs font-semibold text-white flex items-center gap-1.5 transition-all"
-              title="Print or Save PDF"
-            >
-              <Printer className="w-4 h-4" />
-              <span className="hidden xs:inline">Print / PDF</span>
-            </button>
+            {pdfUrl && (
+              <a
+                href={pdfUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                download="Resume_Adit_Shah.pdf"
+                className="apple-glass-button-primary px-3.5 py-2 rounded-xl text-xs font-semibold text-white flex items-center gap-1.5 transition-all cursor-pointer no-underline"
+                title="Download PDF Resume"
+              >
+                <Download className="w-4 h-4" />
+                <span className="hidden xs:inline">Download PDF</span>
+              </a>
+            )}
 
             {/* Clear, Accessible Close Button */}
             <button

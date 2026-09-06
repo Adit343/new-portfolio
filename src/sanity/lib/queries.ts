@@ -28,8 +28,14 @@ export const siteSettingsQuery = groq`
     contactSubtitle,
     contactFormTitle,
     contactFormSubtitle,
+    contactCardTitle,
+    contactCardSubtitle,
+    contactCardBadge,
+    globalClientTitle,
+    globalClientText,
     socialLinks,
     resumeUrl,
+    "resumeFileUrl": resumeFile.asset->url,
     footerCopyright
   }
 `;

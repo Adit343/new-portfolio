@@ -160,6 +160,24 @@
     scrollbar-width: none;
   }
 
+  /* Custom styled horizontal scrollbar for mobile filter navigation */
+  .custom-horizontal-scrollbar::-webkit-scrollbar {
+    height: 4px;
+    display: block;
+  }
+  .custom-horizontal-scrollbar::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.06);
+    border-radius: 9999px;
+  }
+  .custom-horizontal-scrollbar::-webkit-scrollbar-thumb {
+    background: rgba(var(--accent-rgb), 0.55);
+    border-radius: 9999px;
+  }
+  .custom-horizontal-scrollbar {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(var(--accent-rgb), 0.55) rgba(255, 255, 255, 0.06);
+  }
+
   code, pre, .font-mono {
     font-family: 'JetBrains Mono', SFMono-Regular, Consolas, monospace;
   }

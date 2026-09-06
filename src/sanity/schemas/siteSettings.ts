@@ -175,6 +175,37 @@ export const siteSettings = defineType({
       type: 'string',
       initialValue: 'Send a message directly for project inquiries',
     }),
+    defineField({
+      name: 'contactCardTitle',
+      title: 'Contact Info Card Title',
+      type: 'string',
+      initialValue: 'Contact Info',
+    }),
+    defineField({
+      name: 'contactCardSubtitle',
+      title: 'Contact Info Card Subtitle',
+      type: 'string',
+      initialValue: 'Direct communication channels',
+    }),
+    defineField({
+      name: 'contactCardBadge',
+      title: 'Contact Info Card Badge Tag',
+      type: 'string',
+      initialValue: 'Verified',
+    }),
+    defineField({
+      name: 'globalClientTitle',
+      title: 'Global Client Communication Title',
+      type: 'string',
+      initialValue: 'Global Client Communication',
+    }),
+    defineField({
+      name: 'globalClientText',
+      title: 'Global Client Communication Text',
+      type: 'text',
+      rows: 3,
+      initialValue: 'Proficient in English speaking with hands-on experience handling international clients, requirement workshops, and technical presentations.',
+    }),
 
     defineField({
       name: 'socialLinks',
@@ -189,9 +220,19 @@ export const siteSettings = defineType({
       ],
     }),
     defineField({
+      name: 'resumeFile',
+      title: 'Resume PDF Document Upload',
+      type: 'file',
+      options: {
+        accept: '.pdf',
+      },
+      description: 'Upload your PDF resume document here to enable the Download PDF button in the Resume modal.',
+    }),
+    defineField({
       name: 'resumeUrl',
       title: 'Resume Direct Link / File URL',
       type: 'string',
+      description: 'Alternative direct URL to your resume PDF (used if no file is uploaded).',
     }),
     defineField({
       name: 'footerCopyright',
