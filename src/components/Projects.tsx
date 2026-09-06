@@ -220,8 +220,9 @@ export const Projects: React.FC<ProjectsProps> = ({ data, siteSettings }) => {
               <div className="flex items-center justify-between text-xs font-semibold text-emerald-400 group-hover:text-emerald-300">
                 <span className="flex items-center gap-1.5">
                   <Code2 className="w-3.5 h-3.5 text-emerald-400" />
-                  <span>Technical Details & Architecture</span>
+                  <span>Click to view full project details</span>
                 </span>
+                <ChevronRight className="w-4 h-4 text-emerald-400 group-hover:translate-x-1 transition-transform" />
               </div>
             </div>
 

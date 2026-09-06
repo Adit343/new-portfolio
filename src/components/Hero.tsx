@@ -20,7 +20,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenResume, data, siteSettings }) 
   const greetingPrefix = personalDetails.greetingPrefix ? personalDetails.greetingPrefix.replace(/[\u200B-\u200D\uFEFF]/g, '').trim() : '';
 
   return (
-    <section id="about" className="relative pt-24 pb-10 sm:pt-32 sm:pb-16 md:pt-36 md:pb-16 px-3.5 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+    <section id="about" className="relative pt-28 pb-10 sm:pt-40 md:pt-44 lg:pt-48 md:pb-16 px-3.5 sm:px-6 lg:px-8 max-w-7xl mx-auto">
       {/* Hero Container */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
         
