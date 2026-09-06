@@ -1,0 +1,230 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --accent-rgb: 16, 185, 129; /* Emerald default */
+    --accent-hex: #10b981;
+    --accent-glow: rgba(16, 185, 129, 0.35);
+    --accent-gradient: linear-gradient(135deg, #10b981 0%, #06b6d4 100%);
+    --glass-bg: rgba(255, 255, 255, 0.03);
+    --glass-border: rgba(255, 255, 255, 0.12);
+  }
+
+  [data-accent="cyan"] {
+    --accent-rgb: 6, 182, 212;
+    --accent-hex: #06b6d4;
+    --accent-glow: rgba(6, 182, 212, 0.35);
+    --accent-gradient: linear-gradient(135deg, #06b6d4 0%, #3b82f6 100%);
+  }
+
+  [data-accent="violet"] {
+    --accent-rgb: 139, 92, 246;
+    --accent-hex: #8b5cf6;
+    --accent-glow: rgba(139, 92, 246, 0.35);
+    --accent-gradient: linear-gradient(135deg, #8b5cf6 0%, #ec4899 100%);
+  }
+
+  [data-accent="amber"] {
+    --accent-rgb: 245, 158, 11;
+    --accent-hex: #f59e0b;
+    --accent-glow: rgba(245, 158, 11, 0.35);
+    --accent-gradient: linear-gradient(135deg, #f59e0b 0%, #ef4444 100%);
+  }
+
+  body {
+    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif;
+    background-color: #030509;
+    color: #f1f5f9;
+    overflow-x: hidden;
+  }
+
+  code, pre, .font-mono {
+    font-family: 'JetBrains Mono', SFMono-Regular, Consolas, monospace;
+  }
+}
+
+/* APPLE VISIONOS / LIQUID GLASSMORPHISM STYLES */
+
+/* Main Apple Glass Container */
+.apple-glass-panel {
+  background: rgba(14, 20, 32, 0.45);
+  backdrop-filter: blur(40px) saturate(200%);
+  -webkit-backdrop-filter: blur(40px) saturate(200%);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 
+    0 30px 60px -12px rgba(0, 0, 0, 0.6),
+    0 18px 36px -18px rgba(0, 0, 0, 0.8),
+    inset 0 1px 1px 0 rgba(255, 255, 255, 0.25),
+    inset 0 -1px 1px 0 rgba(0, 0, 0, 0.4);
+}
+
+/* Interactive Apple Glass Card */
+.apple-glass-card {
+  background: rgba(18, 26, 42, 0.35);
+  backdrop-filter: blur(30px) saturate(180%);
+  -webkit-backdrop-filter: blur(30px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 
+    0 16px 40px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0.5px 0 rgba(255, 255, 255, 0.18);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.apple-glass-card:hover {
+  background: rgba(24, 34, 56, 0.55);
+  border-color: rgba(255, 255, 255, 0.25);
+  transform: translateY(-5px) scale(1.01);
+  box-shadow: 
+    0 24px 50px rgba(0, 0, 0, 0.6),
+    0 0 35px var(--accent-glow),
+    inset 0 1px 1px 0 rgba(255, 255, 255, 0.4);
+}
+
+/* Light Reflective Shimmer Sweep */
+.apple-glass-card::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    45deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.03) 45%,
+    rgba(255, 255, 255, 0.12) 50%,
+    rgba(255, 255, 255, 0.03) 55%,
+    transparent 100%
+  );
+  transform: rotate(30deg) translateY(-100%);
+  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+}
+
+.apple-glass-card:hover::before {
+  transform: rotate(30deg) translateY(100%);
+}
+
+/* Apple Floating Pill */
+.apple-glass-pill {
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow: 
+    0 4px 16px rgba(0, 0, 0, 0.2),
+    inset 0 1px 0.5px 0 rgba(255, 255, 255, 0.3);
+}
+
+/* Apple Magnetic Button */
+.apple-glass-button {
+  background: rgba(255, 255, 255, 0.07);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 
+    0 8px 20px rgba(0, 0, 0, 0.25),
+    inset 0 1px 0.5px 0 rgba(255, 255, 255, 0.35);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.apple-glass-button:hover {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(var(--accent-rgb), 0.6);
+  transform: translateY(-2px);
+  box-shadow: 
+    0 12px 28px rgba(0, 0, 0, 0.4),
+    0 0 25px var(--accent-glow),
+    inset 0 1px 1px 0 rgba(255, 255, 255, 0.5);
+}
+
+.apple-glass-button-primary {
+  background: var(--accent-gradient);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: #ffffff;
+  box-shadow: 
+    0 10px 30px var(--accent-glow),
+    inset 0 1px 1px 0 rgba(255, 255, 255, 0.4);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.apple-glass-button-primary:hover {
+  opacity: 0.95;
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 
+    0 16px 36px var(--accent-glow),
+    inset 0 1px 1px 0 rgba(255, 255, 255, 0.6);
+}
+
+/* Gradient Text Utilities */
+.text-gradient {
+  background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 50%, var(--accent-hex) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.text-gradient-accent {
+  background: var(--accent-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Ambient Glowing Background Keyframes */
+@keyframes appleOrbFloat {
+  0%, 100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  33% {
+    transform: translate3d(40px, -60px, 0) scale(1.12);
+  }
+  66% {
+    transform: translate3d(-30px, 30px, 0) scale(0.92);
+  }
+}
+
+.animate-apple-orb {
+  animation: appleOrbFloat 16s infinite cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.animate-apple-orb-reverse {
+  animation: appleOrbFloat 20s infinite cubic-bezier(0.4, 0, 0.2, 1) reverse;
+  animation-delay: -6s;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #030509;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.16);
+  border-radius: 9999px;
+  border: 2px solid transparent;
+  background-clip: content-box;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(var(--accent-rgb), 0.6);
+}
+
+/* Hide Sanity visual editing 'Open Studio' floating elements & overlay buttons on frontend */
+a[href*="/studio"],
+[data-sanity-overlay-element],
+[data-sanity-presentation-overlay],
+[data-sanity-visual-editing],
+.sanity-visual-editing-overlay,
+.sanity-visual-editing,
+div[class*="VisualEditing"],
+div[class*="visual-editing"],
+[data-sanity-target],
+[data-sanity-edit-target] {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+

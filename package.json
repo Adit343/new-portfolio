@@ -1,0 +1,36 @@
+{
+  "name": "portfolio-website",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
+  },
+  "dependencies": {
+    "@sanity/icons": "^5.2.1",
+    "@sanity/image-url": "^2.1.1",
+    "@sanity/presentation": "^2.0.0",
+    "@sanity/structure": "^2.36.2",
+    "formik": "^2.4.9",
+    "framer-motion": "^13.2.0",
+    "lenis": "^1.3.26",
+    "lucide-react": "^1.41.0",
+    "next": "^16.3.4",
+    "next-sanity": "^13.3.4",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8",
+    "sanity": "^6.12.0",
+    "yup": "^1.7.1"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4.3.3",
+    "@types/node": "^24.13.3",
+    "@types/react": "^19.2.18",
+    "@types/react-dom": "^19.2.4",
+    "postcss": "^8.5.28",
+    "tailwindcss": "^4.3.3",
+    "typescript": "~6.0.2"
+  }
+}
