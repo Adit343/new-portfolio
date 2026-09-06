@@ -57,20 +57,73 @@ export const Contact: React.FC<ContactProps> = ({ siteSettings, aboutData }) => 
     ? siteSettings.globalClientText.replace(/[\u200B-\u200D\uFEFF]/g, '').trim()
     : (aboutData?.clientCommunication || 'Proficient in English speaking with hands-on experience handling international clients, requirement workshops, and technical presentations.').replace(/[\u200B-\u200D\uFEFF]/g, '').trim();
 
-  const rawEmail = aboutData?.email ?? siteSettings?.socialLinks?.email ?? personalDetails.email;
+  const cleanAndNormalizeUrl = (url?: string): string => {
+    if (!url) return '';
+    const cleaned = url.replace(/[\u200B-\u200D\uFEFF]/g, '').trim();
+    if (!cleaned) return '';
+    return /^https?:\/\//i.test(cleaned) ? cleaned : `https://${cleaned}`;
+  };
+
+  const isGenericLinkedIn = (url?: string): boolean => {
+    const normalized = cleanAndNormalizeUrl(url).toLowerCase().replace(/\/$/, '');
+    return !normalized || normalized === 'https://linkedin.com' || normalized === 'https://www.linkedin.com';
+  };
+
+  const isGenericGitHub = (url?: string): boolean => {
+    const normalized = cleanAndNormalizeUrl(url).toLowerCase().replace(/\/$/, '');
+    return !normalized || normalized === 'https://github.com' || normalized === 'https://www.github.com';
+  };
+
+  const rawEmail = siteSettings?.socialLinks?.email ?? aboutData?.email ?? personalDetails.email;
   const email = rawEmail ? rawEmail.replace(/[\u200B-\u200D\uFEFF]/g, '').trim() : '';
 
-  const rawPhone = aboutData?.phone ?? siteSettings?.socialLinks?.phone ?? personalDetails.phone;
+  const rawPhone = siteSettings?.socialLinks?.phone ?? aboutData?.phone ?? personalDetails.phone;
   const phone = rawPhone ? rawPhone.replace(/[\u200B-\u200D\uFEFF]/g, '').trim() : '';
 
-  const rawPhoneRaw = aboutData?.phoneRaw ?? siteSettings?.socialLinks?.phoneRaw ?? personalDetails.phoneRaw;
+  const rawPhoneRaw = siteSettings?.socialLinks?.phoneRaw ?? aboutData?.phoneRaw ?? personalDetails.phoneRaw;
   const phoneRaw = rawPhoneRaw ? rawPhoneRaw.replace(/[\u200B-\u200D\uFEFF]/g, '').trim() : phone;
 
-  const rawLinkedin = aboutData?.linkedin ?? siteSettings?.socialLinks?.linkedin ?? personalDetails.linkedin;
-  const linkedin = rawLinkedin ? rawLinkedin.replace(/[\u200B-\u200D\uFEFF]/g, '').trim() : '';
+  const resolveLinkedInUrl = (): string => {
+    const siteUrl = cleanAndNormalizeUrl(siteSettings?.socialLinks?.linkedin);
+    const aboutUrl = cleanAndNormalizeUrl(aboutData?.linkedin);
+    const fallbackUrl = cleanAndNormalizeUrl(personalDetails.linkedin);
 
-  const rawGithub = aboutData?.github ?? siteSettings?.socialLinks?.github ?? personalDetails.github;
-  const github = rawGithub ? rawGithub.replace(/[\u200B-\u200D\uFEFF]/g, '').trim() : '';
+    if (siteUrl && !isGenericLinkedIn(siteUrl)) return siteUrl;
+    if (aboutUrl && !isGenericLinkedIn(aboutUrl)) return aboutUrl;
+    if (siteUrl) return siteUrl;
+    if (aboutUrl) return aboutUrl;
+    return fallbackUrl;
+  };
+
+  const resolveGitHubUrl = (): string => {
+    const siteUrl = cleanAndNormalizeUrl(siteSettings?.socialLinks?.github);
+    const aboutUrl = cleanAndNormalizeUrl(aboutData?.github);
+    const fallbackUrl = cleanAndNormalizeUrl(personalDetails.github);
+
+    if (siteUrl && !isGenericGitHub(siteUrl)) return siteUrl;
+    if (aboutUrl && !isGenericGitHub(aboutUrl)) return aboutUrl;
+    if (siteUrl) return siteUrl;
+    if (aboutUrl) return aboutUrl;
+    return fallbackUrl;
+  };
+
+  const linkedin = resolveLinkedInUrl();
+  const github = resolveGitHubUrl();
+
+  const formattedName = (() => {
+    const raw = aboutData?.name || personalDetails.name || 'Adit Shah';
+    const cleaned = raw.replace(/[\u200B-\u200D\uFEFF]/g, '').trim();
+    if (cleaned.toUpperCase() === 'ADIT SHAH') return 'Adit Shah';
+    return cleaned.split(' ').map((w: string) => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase()).join(' ');
+  })();
+
+  const getLinkedInDisplay = (url: string) => {
+    return `Linkedin/${formattedName}`;
+  };
+
+  const getGitHubDisplay = (url: string) => {
+    return `Github/${formattedName}`;
+  };
 
   const hasAnyContactInfo = Boolean(email || phone || linkedin || github || globalClientText);
 
@@ -218,7 +271,7 @@ export const Contact: React.FC<ContactProps> = ({ siteSettings, aboutData }) => 
                   <div className="min-w-0 flex-1">
                     <div className="text-[10px] sm:text-[11px] font-mono text-slate-400">LinkedIn Profile</div>
                     <div className="text-xs sm:text-sm font-bold text-white group-hover:text-purple-300 truncate">
-                      LinkedIn / Adit Shah
+                      {getLinkedInDisplay(linkedin)}
                     </div>
                   </div>
                 </a>
@@ -240,27 +293,10 @@ export const Contact: React.FC<ContactProps> = ({ siteSettings, aboutData }) => 
                   <div className="min-w-0 flex-1">
                     <div className="text-[10px] sm:text-[11px] font-mono text-slate-400">GitHub Profile</div>
                     <div className="text-xs sm:text-sm font-bold text-white group-hover:text-emerald-300 truncate">
-                      GitHub / Adit Shah
+                      {getGitHubDisplay(github)}
                     </div>
                   </div>
                 </a>
-              )}
-
-              {/* Global Client Communication Highlight */}
-              {globalClientText && (
-                <div className="pt-2">
-                  <div className="apple-glass-pill p-3.5 sm:p-4 rounded-2xl border border-emerald-500/30 bg-emerald-500/[0.05] space-y-2">
-                    {globalClientTitle && (
-                      <div className="flex items-center gap-2 text-xs font-bold text-emerald-300">
-                        <Globe className="w-4 h-4 text-emerald-400 shrink-0" />
-                        <span>{globalClientTitle}</span>
-                      </div>
-                    )}
-                    <p className="text-xs text-slate-300 leading-relaxed">
-                      {globalClientText}
-                    </p>
-                  </div>
-                </div>
               )}
 
             </div>

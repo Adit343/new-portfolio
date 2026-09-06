@@ -14,7 +14,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenResume, data, siteSettings }) 
   if (!data) return null;
   const personalDetails = data;
 
-  const statusPill = siteSettings?.heroStatusPill || 'Available for MERN & Full-Stack Engineering Roles';
+  const statusPill = siteSettings?.heroStatusPill ? siteSettings.heroStatusPill.replace(/[\u200B-\u200D\uFEFF]/g, '').trim() : '';
   const ctaText = siteSettings?.heroProjectsCtaText || 'Explore Production Projects';
   const summaryTitle = siteSettings?.recruiterSummaryTitle || 'Recruiter Quick Summary';
   const greetingPrefix = personalDetails.greetingPrefix ? personalDetails.greetingPrefix.replace(/[\u200B-\u200D\uFEFF]/g, '').trim() : '';
@@ -92,39 +92,37 @@ export const Hero: React.FC<HeroProps> = ({ onOpenResume, data, siteSettings }) 
           </div>
 
           {/* Quick Contact & Action Buttons */}
-          <div className="flex flex-col gap-3 sm:gap-4 pt-3 sm:pt-4 w-full">
+          <div className="flex flex-col sm:flex-row flex-wrap items-stretch sm:items-center gap-3 pt-3 w-full">
             {ctaText && (
               <a
                 href="#projects"
-                className="apple-glass-button-primary px-5 sm:px-6 py-3 sm:py-3.5 rounded-2xl font-semibold text-xs sm:text-sm flex items-center justify-center gap-2 group w-full"
+                className="apple-glass-button-primary px-6 py-3.5 rounded-2xl font-bold text-xs sm:text-sm flex items-center justify-center gap-2 group shadow-lg transition-all hover:scale-[1.02] active:scale-[0.98] w-full sm:w-auto shrink-0 min-h-[46px]"
               >
                 <span>{ctaText}</span>
-                <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform shrink-0" />
               </a>
             )}
 
-            {(personalDetails.email || personalDetails.phone) && (
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 w-full">
-                {personalDetails.email && (
-                  <a
-                    href={`mailto:${personalDetails.email}`}
-                    className="apple-glass-button px-3.5 sm:px-5 py-3 sm:py-3.5 rounded-2xl font-medium text-xs sm:text-sm text-slate-200 hover:text-white flex items-center gap-2.5 w-full min-w-0 transition-all hover:border-emerald-500/50"
-                  >
-                    <Mail className="w-4 h-4 text-emerald-400 shrink-0" />
-                    <span className="truncate">{personalDetails.email}</span>
-                  </a>
-                )}
+            {personalDetails.email && (
+              <a
+                href={`mailto:${personalDetails.email}`}
+                className="apple-glass-button px-4 py-3.5 rounded-2xl font-medium text-xs sm:text-sm text-slate-200 hover:text-white flex items-center justify-center gap-2.5 transition-all hover:border-emerald-500/50 hover:bg-emerald-500/10 w-full sm:w-auto sm:flex-1 min-w-0 min-h-[46px]"
+                title="Send Direct Email"
+              >
+                <Mail className="w-4 h-4 text-emerald-400 shrink-0" />
+                <span className="truncate">{personalDetails.email}</span>
+              </a>
+            )}
 
-                {personalDetails.phone && (
-                  <a
-                    href={`tel:${personalDetails.phoneRaw || personalDetails.phone}`}
-                    className="apple-glass-button px-3.5 sm:px-5 py-3 sm:py-3.5 rounded-2xl font-medium text-xs sm:text-sm text-slate-200 hover:text-white flex items-center gap-2.5 w-full min-w-0 transition-all hover:border-cyan-500/50"
-                  >
-                    <Phone className="w-4 h-4 text-cyan-400 shrink-0" />
-                    <span className="truncate">{personalDetails.phone}</span>
-                  </a>
-                )}
-              </div>
+            {personalDetails.phone && (
+              <a
+                href={`tel:${personalDetails.phoneRaw || personalDetails.phone}`}
+                className="apple-glass-button px-4 py-3.5 rounded-2xl font-medium text-xs sm:text-sm text-slate-200 hover:text-white flex items-center justify-center gap-2.5 transition-all hover:border-cyan-500/50 hover:bg-cyan-500/10 w-full sm:w-auto sm:flex-1 min-w-0 min-h-[46px]"
+                title="Call Phone Number"
+              >
+                <Phone className="w-4 h-4 text-cyan-400 shrink-0" />
+                <span className="truncate">{personalDetails.phone}</span>
+              </a>
             )}
           </div>
 
@@ -139,22 +137,9 @@ export const Hero: React.FC<HeroProps> = ({ onOpenResume, data, siteSettings }) 
             {/* Ambient Inner Glowing Spot */}
             <div className="absolute top-0 right-0 w-56 h-56 bg-emerald-500/15 rounded-full blur-3xl group-hover:bg-emerald-500/25 transition-all duration-700"></div>
 
-            {/* Header */}
-            <div className="flex items-center justify-between pb-6 border-b border-white/10">
-              <div className="flex items-center gap-3">
-                <div className="w-12 h-12 rounded-2xl apple-glass-pill flex items-center justify-center border border-white/25">
-                  <Sparkles className="w-6 h-6 text-emerald-400" />
-                </div>
-                <div>
-                  <h3 className="font-bold text-white text-lg">{personalDetails.name || 'Developer Profile'}</h3>
-                  {personalDetails.title && <p className="text-xs font-mono text-slate-400">{personalDetails.title}</p>}
-                </div>
-              </div>
-            </div>
-
             {/* Body: Recruiter Quick Summary */}
             {personalDetails.highlights && personalDetails.highlights.length > 0 && (
-              <div className="mt-6 space-y-3">
+              <div className="space-y-3">
                 {summaryTitle && (
                   <h4 className="text-xs font-semibold text-slate-400 uppercase tracking-wider">{summaryTitle}</h4>
                 )}

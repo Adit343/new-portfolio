@@ -39,7 +39,7 @@ async function seedSanity() {
 
   // 1. Site Settings Document
   console.log('Creating Site Settings document...');
-  await client.createOrReplace({
+  await client.createIfNotExists({
     _id: 'siteSettings',
     _type: 'siteSettings',
     brandName: 'ADIT SHAH',
@@ -53,7 +53,7 @@ async function seedSanity() {
       { label: 'Education', href: '#education' },
       { label: 'Contact', href: '#contact' },
     ],
-    heroStatusPill: 'Available for MERN & Full-Stack Engineering Roles',
+    heroStatusPill: '',
     heroProjectsCtaText: 'Explore Production Projects',
     recruiterSummaryTitle: 'Recruiter Quick Summary',
     experienceBadge: 'Industry Career Track',
@@ -90,7 +90,7 @@ async function seedSanity() {
 
   // 2. About Profile Document
   console.log('Creating About Profile document...');
-  await client.createOrReplace({
+  await client.createIfNotExists({
     _id: 'about',
     _type: 'about',
     greetingPrefix: "Hello, I'm",

@@ -8,10 +8,21 @@ export const { sanityFetch, SanityLive } = defineLive({
       enabled: true,
       studioUrl: '/studio',
       filter: (props) => {
+        const last = props.sourcePath.at(-1);
         if (
-          props.sourcePath.at(-1) === 'url' ||
-          props.sourcePath.includes('resumeUrl') ||
-          props.sourcePath.includes('resumeFileUrl')
+          last === 'url' ||
+          last === 'linkedin' ||
+          last === 'github' ||
+          last === 'email' ||
+          last === 'phone' ||
+          last === 'phoneRaw' ||
+          last === 'liveUrl' ||
+          last === 'githubUrl' ||
+          last === 'resumeUrl' ||
+          last === 'resumeFileUrl' ||
+          last === 'href' ||
+          props.sourcePath.includes('socialLinks') ||
+          props.sourcePath.includes('resumeFile')
         ) {
           return false;
         }

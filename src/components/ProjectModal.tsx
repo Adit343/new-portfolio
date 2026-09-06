@@ -59,7 +59,6 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
           </div>
 
           <div className="flex items-center gap-3">
-            {project.role && <span className="text-[11px] font-mono text-slate-400 hidden sm:inline">Role: {project.role}</span>}
             <button
               onClick={onClose}
               className="p-2 rounded-xl apple-glass-button text-slate-400 hover:text-white transition-colors"
