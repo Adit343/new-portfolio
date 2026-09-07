@@ -45,7 +45,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenResume, data, siteSettings }) 
                 animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
                 transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
               >
-                <h1 className="text-3xl xs:text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-[76px] font-extrabold tracking-tight text-white leading-tight sm:leading-none">
+                <h1 className="text-5xl xs:text-[52px] sm:text-5xl md:text-6xl lg:text-7xl xl:text-[76px] font-extrabold tracking-tight text-white leading-tight sm:leading-none">
                   {greetingPrefix ? (
                     <span className="block text-base sm:text-xl font-semibold tracking-normal text-slate-300 mb-1 sm:mb-2">
                       {greetingPrefix}
