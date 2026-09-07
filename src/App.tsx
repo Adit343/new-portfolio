@@ -8,11 +8,10 @@ import { Skills } from './components/Skills';
 import { Education } from './components/Education';
 import { Contact } from './components/Contact';
 import { Footer } from './components/Footer';
-import { ResumeModal } from './components/ResumeModal';
+import { downloadResume } from './utils/downloadResume';
 
 export function App() {
   const [accent, setAccent] = useState<string>('emerald');
-  const [isResumeOpen, setIsResumeOpen] = useState<boolean>(false);
 
   useEffect(() => {
     document.documentElement.setAttribute('data-accent', accent);
@@ -31,13 +30,13 @@ export function App() {
         <Navbar
           accent={accent}
           setAccent={setAccent}
-          onOpenResume={() => setIsResumeOpen(true)}
+          onOpenResume={() => downloadResume()}
         />
 
         {/* Main Content Sections */}
         <main className="space-y-12 sm:space-y-20">
           <Hero 
-            onOpenResume={() => setIsResumeOpen(true)}
+            onOpenResume={() => downloadResume()}
           />
           <Experience />
           <Projects />
@@ -50,12 +49,6 @@ export function App() {
         <Footer />
 
       </div>
-
-      {/* Full Resume PDF Modal */}
-      <ResumeModal
-        isOpen={isResumeOpen}
-        onClose={() => setIsResumeOpen(false)}
-      />
 
     </div>
   );

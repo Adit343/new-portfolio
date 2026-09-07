@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { Search, X, FileText, Mail, Phone, ExternalLink, Sparkles, Command } from 'lucide-react';
+import { Search, X, FileText, Download, Mail, Phone, ExternalLink, Sparkles, Command } from 'lucide-react';
 import { personalDetails } from '../data/portfolioData';
+import { downloadResume } from '../utils/downloadResume';
 
 interface CommandPaletteProps {
   isOpen: boolean;
   onClose: () => void;
-  onOpenResume: () => void;
+  onOpenResume?: () => void;
   setAccent: (accent: string) => void;
 }
 
@@ -34,10 +35,10 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({ isOpen, onClose,
   const actions = [
     {
       id: 'resume',
-      title: 'View / Download Resume PDF',
-      subtitle: 'Official Adit Shah CV document',
-      icon: FileText,
-      action: () => { onOpenResume(); onClose(); }
+      title: 'Download Resume PDF',
+      subtitle: 'Official Adit Shah CV document direct download',
+      icon: Download,
+      action: () => { downloadResume(); onClose(); }
     },
     {
       id: 'email',

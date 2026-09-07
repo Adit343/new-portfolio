@@ -166,10 +166,10 @@ export const Projects: React.FC<ProjectsProps> = ({ data, siteSettings }) => {
 
             <div>
               {/* Badge & Category */}
-              <div className="flex items-center justify-between mb-4 pt-2">
+              <div className="flex flex-wrap items-center justify-between gap-2.5 mb-4 pt-2">
                 {project.badge && (
                   <span 
-                    className="text-[11px] font-mono font-bold px-3 py-1 rounded-full text-white shadow-sm"
+                    className="text-[11px] font-mono font-bold px-3 py-1 rounded-full text-white shadow-sm whitespace-nowrap shrink-0"
                     style={{ 
                       backgroundColor: `${project.accentColor || '#10b981'}33`, 
                       border: `1px solid ${project.accentColor || '#10b981'}66` 
@@ -178,14 +178,18 @@ export const Projects: React.FC<ProjectsProps> = ({ data, siteSettings }) => {
                     {project.badge}
                   </span>
                 )}
-                {project.category && <span className="text-[11px] font-mono text-slate-400">{project.category}</span>}
+                {project.category && (
+                  <span className="text-[11px] font-mono font-semibold text-cyan-300 whitespace-nowrap shrink-0">
+                    {project.category}
+                  </span>
+                )}
               </div>
 
               {/* Title & Subtitle */}
               {project.title && (
                 <h3 className="text-xl sm:text-2xl font-extrabold text-white group-hover:text-emerald-300 transition-colors flex items-center justify-between tracking-tight">
                   <span>{project.title}</span>
-                  <ArrowUpRight className="w-5 h-5 text-slate-400 group-hover:text-emerald-400 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                  <ArrowUpRight className="w-5 h-5 text-slate-400 group-hover:text-emerald-400 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform shrink-0 ml-2" />
                 </h3>
               )}
 
@@ -209,7 +213,7 @@ export const Projects: React.FC<ProjectsProps> = ({ data, siteSettings }) => {
                   {project.tech.map((t) => (
                     <span
                       key={t}
-                      className="text-[10px] font-mono px-2.5 py-1 rounded-lg apple-glass-pill text-slate-200 border border-white/10"
+                      className="text-[10px] font-mono px-2.5 py-1 rounded-lg apple-glass-pill text-slate-200 border border-white/10 whitespace-nowrap"
                     >
                       {t}
                     </span>

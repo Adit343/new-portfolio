@@ -1,11 +1,13 @@
 'use client';
 
 import React from 'react';
-import { Mail, Phone, MapPin, Globe, Award, Sparkles, ChevronRight, ExternalLink } from 'lucide-react';
+import { Mail, Phone, MapPin, Globe, Award, Sparkles, ChevronRight, Download } from 'lucide-react';
+import { motion } from 'framer-motion';
 import { PersonalDetails } from '../data/portfolioData';
+import { downloadResume } from '../utils/downloadResume';
 
 interface HeroProps {
-  onOpenResume: () => void;
+  onOpenResume?: () => void;
   data?: (PersonalDetails & { greetingPrefix?: string }) | null;
   siteSettings?: any;
 }
@@ -38,16 +40,24 @@ export const Hero: React.FC<HeroProps> = ({ onOpenResume, data, siteSettings }) 
           {/* Main Name & Title */}
           <div className="w-full">
             {personalDetails.name && (
-              <h1 className="text-3xl xs:text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-white leading-tight sm:leading-none">
-                {greetingPrefix ? (
-                  <>
-                    <span>{greetingPrefix}</span> <br className="hidden sm:inline" />
-                  </>
-                ) : null}
-                <span className="text-gradient-accent">{personalDetails.name}</span>
-              </h1>
+              <motion.div
+                initial={{ opacity: 0, y: 18, filter: 'blur(4px)' }}
+                animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+                transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
+              >
+                <h1 className="text-3xl xs:text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-[76px] font-extrabold tracking-tight text-white leading-tight sm:leading-none">
+                  {greetingPrefix ? (
+                    <span className="block text-base sm:text-xl font-semibold tracking-normal text-slate-300 mb-1 sm:mb-2">
+                      {greetingPrefix}
+                    </span>
+                  ) : null}
+                  <span className="text-gradient-accent-animated inline-block">
+                    {personalDetails.name}
+                  </span>
+                </h1>
+              </motion.div>
             )}
-            <p className="mt-3 text-base sm:text-2xl font-semibold text-slate-300 flex flex-wrap items-center gap-2 sm:gap-3">
+            <p className="mt-3 sm:mt-4 text-base sm:text-2xl font-semibold text-slate-300 flex flex-wrap items-center gap-2 sm:gap-3">
               {personalDetails.title && <span className="font-mono text-emerald-400 text-sm sm:text-xl">{personalDetails.title}</span>}
               {personalDetails.title && personalDetails.yearsExperience && <span className="text-slate-600 hidden xs:inline">•</span>}
               {personalDetails.yearsExperience && (
@@ -160,11 +170,12 @@ export const Hero: React.FC<HeroProps> = ({ onOpenResume, data, siteSettings }) 
             {/* Footer Link */}
             <div className="mt-6 pt-4 border-t border-white/10 flex items-center justify-end">
               <button
-                onClick={onOpenResume}
-                className="text-xs font-semibold text-emerald-400 hover:text-emerald-300 flex items-center gap-1 group"
+                onClick={() => downloadResume(siteSettings)}
+                className="text-xs sm:text-sm font-bold text-emerald-400 hover:text-emerald-300 flex items-center gap-2 group apple-glass-pill px-4 py-2 rounded-xl border border-emerald-500/30 hover:border-emerald-500/60 shadow-md hover:scale-105 transition-all cursor-pointer"
+                title="Download Resume PDF"
               >
-                <span>View Full PDF</span>
-                <ExternalLink className="w-3.5 h-3.5 group-hover:scale-110 transition-transform" />
+                <span>Download Resume PDF</span>
+                <Download className="w-4 h-4 group-hover:translate-y-0.5 transition-transform" />
               </button>
             </div>
 

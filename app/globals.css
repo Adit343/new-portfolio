@@ -297,6 +297,26 @@
   -webkit-text-fill-color: transparent;
 }
 
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.text-gradient-accent-animated {
+  background: linear-gradient(135deg, var(--accent-hex) 0%, #34d399 25%, #06b6d4 50%, #a855f7 75%, var(--accent-hex) 100%);
+  background-size: 250% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: gradientShift 5s ease infinite;
+}
+
 @keyframes appleOrbFloat {
   0%, 100% {
     transform: translate3d(0, 0, 0) scale(1);

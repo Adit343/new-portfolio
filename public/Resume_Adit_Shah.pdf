@@ -1,0 +1,106 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [3 0 R] /Count 1 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /Resources << /Font << /F1 4 0 R >> >> /MediaBox [0 0 612 792] /Contents 5 0 R >>
+endobj
+4 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+5 0 obj
+<< /Length 2217 >>
+stream
+
+1 0 0 1 0 0 cm
+
+BT
+/F1 22 Tf
+40 750 Td
+(ADIT SHAH) Tj
+0 -24 Td
+/F1 12 Tf
+(MERN Stack Developer | 2 Years Hands-on Experience) Tj
+0 -18 Td
+/F1 10 Tf
+(Email: shahadit68@gmail.com | Phone: +91 9265955849 | Location: India) Tj
+0 -25 Td
+/F1 14 Tf
+(PROFESSIONAL SUMMARY) Tj
+0 -16 Td
+/F1 10 Tf
+(MERN Stack Developer with 2 years of hands-on experience, specializing in building fast,) Tj
+0 -14 Td
+(responsive, and user-centric web applications using React.js and Next.js. Skilled in) Tj
+0 -14 Td
+(component-based architecture, efficient state management, and seamless API integration.) Tj
+0 -25 Td
+/F1 14 Tf
+(WORK EXPERIENCE) Tj
+0 -16 Td
+/F1 11 Tf
+(MERN Developer - Inheritx Solutions (Apr 2025 - Present)) Tj
+0 -14 Td
+/F1 10 Tf
+(- Working on industry-level enterprise projects focusing on Next.js, React.js, and TypeScript.) Tj
+0 -14 Td
+(- Developing scalable, high-performance web apps following frontend best practices.) Tj
+0 -14 Td
+(- Engaging in direct client communication and requirement analysis.) Tj
+0 -18 Td
+/F1 11 Tf
+(MERN Intern - Inheritx Solutions (Dec 2024 - Mar 2025)) Tj
+0 -14 Td
+/F1 10 Tf
+(- Full-stack MERN development for production tasks and user interfaces.) Tj
+0 -14 Td
+(- Built responsive interfaces using React.js, Tailwind CSS, Node.js, and MongoDB.) Tj
+0 -25 Td
+/F1 14 Tf
+(FEATURED PROJECTS) Tj
+0 -16 Td
+/F1 11 Tf
+(1. Charge pilot pro (NextJS, TypeScript, TailwindCSS, Redux)) Tj
+0 -14 Td
+/F1 10 Tf
+(   End-to-end EV charging management platform with role-based auth & real-time monitoring.) Tj
+0 -16 Td
+/F1 11 Tf
+(2. QC Analytics Portal (ReactJS, TypeScript, TailwindCSS, ZOD, shadcn UI)) Tj
+0 -14 Td
+/F1 10 Tf
+(   Quality control dashboard for tracking product quality metrics & generating PDF/CSV reports.) Tj
+0 -16 Td
+/F1 11 Tf
+(3. KoraVision (NextJS, ReactJS, TypeScript, TailwindCSS, WebSockets, Firebase, Canvas API)) Tj
+0 -14 Td
+(   Football scouting platform with real-time chat, video trimmer, and RTL multilingual support.) Tj
+0 -25 Td
+/F1 14 Tf
+(EDUCATION & SKILLS) Tj
+0 -16 Td
+/F1 10 Tf
+(B.E. Computer Science Engineering - LJUniversity (2021 - 2025) | 8.19 CGPA) Tj
+0 -14 Td
+(Skills: ReactJS, NextJS, TypeScript, JavaScript, Tailwind CSS, Redux, NodeJS, MongoDB, Sanity CMS) Tj
+ET
+
+
+endstream
+endobj
+xref
+0 6
+0000000000 65535 f 
+0000000009 00000 n 
+0000000058 00000 n 
+0000000115 00000 n 
+0000000234 00000 n 
+0000000305 00000 n 
+trailer
+<< /Size 6 /Root 1 0 R >>
+startxref
+410
+%%EOF

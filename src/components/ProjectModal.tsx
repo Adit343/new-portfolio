@@ -47,7 +47,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
       >
         
         {/* Header Bar */}
-        <div className="p-5 border-b border-white/10 flex items-center justify-between bg-white/[0.02]">
+        <div className="p-5 border-b border-white/10 flex items-center justify-between bg-white/[0.03] shrink-0">
           <div className="flex items-center gap-3">
             <span 
               className="text-xs font-mono font-bold px-3 py-1 rounded-full text-white shadow-sm"
@@ -55,16 +55,17 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
             >
               {project.badge}
             </span>
-            <span className="text-xs font-mono text-slate-400">{project.category}</span>
+            <span className="text-xs font-mono font-semibold text-cyan-300 tracking-wide">{project.category}</span>
           </div>
 
           <div className="flex items-center gap-3">
             <button
               onClick={onClose}
-              className="p-2 rounded-xl apple-glass-button text-slate-400 hover:text-white transition-colors"
+              className="p-2.5 rounded-xl apple-glass-button bg-slate-900/90 text-slate-100 hover:text-white hover:bg-rose-500/20 hover:border-rose-500/40 border border-white/20 transition-all flex items-center justify-center shrink-0 shadow-lg cursor-pointer group"
               aria-label="Close modal"
+              title="Close Modal"
             >
-              <X className="w-5 h-5" />
+              <X className="w-5 h-5 text-slate-100 group-hover:text-white group-hover:scale-110 transition-transform" />
             </button>
           </div>
         </div>

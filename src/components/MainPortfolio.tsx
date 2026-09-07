@@ -10,7 +10,7 @@ import { Skills } from '@/src/components/Skills';
 import { Education } from '@/src/components/Education';
 import { Contact } from '@/src/components/Contact';
 import { Footer } from '@/src/components/Footer';
-import { ResumeModal } from '@/src/components/ResumeModal';
+import { downloadResume } from '@/src/utils/downloadResume';
 import type { PersonalDetails, Project, ExperienceItem, SkillCategory, EducationItem } from '@/src/data/portfolioData';
 
 interface MainPortfolioProps {
@@ -32,7 +32,6 @@ export function MainPortfolio({
 }: MainPortfolioProps) {
   const [accent, setAccent] = useState<string>('emerald');
   const [theme, setTheme] = useState<'dark' | 'light'>('dark');
-  const [isResumeOpen, setIsResumeOpen] = useState<boolean>(false);
 
   useEffect(() => {
     const savedTheme = localStorage.getItem('portfolio_theme') as 'dark' | 'light' | null;
@@ -58,7 +57,7 @@ export function MainPortfolio({
         <Navbar
           accent={accent}
           setAccent={setAccent}
-          onOpenResume={() => setIsResumeOpen(true)}
+          onOpenResume={() => downloadResume(initialSiteSettings)}
           siteSettings={initialSiteSettings}
         />
 
@@ -67,7 +66,7 @@ export function MainPortfolio({
             <Hero 
               data={initialHeroData} 
               siteSettings={initialSiteSettings} 
-              onOpenResume={() => setIsResumeOpen(true)} 
+              onOpenResume={() => downloadResume(initialSiteSettings)} 
             />
           )}
           {initialExperience && initialExperience.length > 0 && (
@@ -87,14 +86,6 @@ export function MainPortfolio({
 
         <Footer siteSettings={initialSiteSettings} />
       </div>
-
-      {/* Full Resume PDF Modal */}
-      <ResumeModal
-        isOpen={isResumeOpen}
-        onClose={() => setIsResumeOpen(false)}
-        siteSettings={initialSiteSettings}
-      />
-
     </div>
   );
 }

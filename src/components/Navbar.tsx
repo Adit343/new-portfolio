@@ -1,13 +1,14 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { Menu, X, FileText, Sparkles, Code, User, Briefcase, FolderGit2, GraduationCap, Mail, Sun, Moon } from 'lucide-react';
+import { Menu, X, FileText, Download, Sparkles, Code, User, Briefcase, FolderGit2, GraduationCap, Mail, Sun, Moon } from 'lucide-react';
 import { personalDetails } from '../data/portfolioData';
+import { downloadResume } from '../utils/downloadResume';
 
 interface NavbarProps {
   accent: string;
   setAccent: (accent: string) => void;
-  onOpenResume: () => void;
+  onOpenResume?: () => void;
   siteSettings?: any;
 }
 
@@ -150,10 +151,11 @@ export const Navbar: React.FC<NavbarProps> = ({ accent, setAccent, onOpenResume,
 
               {/* Resume Button */}
               <button
-                onClick={onOpenResume}
+                onClick={() => downloadResume(siteSettings)}
                 className="apple-glass-button-primary px-6 py-2.5 rounded-full text-xs sm:text-sm font-bold text-white flex items-center gap-2 shadow-lg hover:scale-105 transition-all group min-h-[40px] shrink-0"
+                title="Download Resume PDF"
               >
-                <FileText className="w-4 h-4 text-white group-hover:scale-110 transition-transform" />
+                <Download className="w-4 h-4 text-white group-hover:translate-y-0.5 transition-transform" />
                 <span>Resume PDF</span>
               </button>
             </div>
@@ -161,10 +163,11 @@ export const Navbar: React.FC<NavbarProps> = ({ accent, setAccent, onOpenResume,
             {/* Mobile Actions: Resume + Hamburger Menu Button */}
             <div className="flex lg:hidden items-center gap-2">
               <button
-                onClick={onOpenResume}
+                onClick={() => downloadResume(siteSettings)}
                 className="apple-glass-button-primary px-3 sm:px-4 py-2 rounded-full text-[11px] sm:text-xs font-bold text-white flex items-center gap-1.5 min-h-[38px]"
+                title="Download Resume PDF"
               >
-                <FileText className="w-3.5 h-3.5" />
+                <Download className="w-3.5 h-3.5" />
                 <span>Resume</span>
               </button>
 
@@ -277,12 +280,12 @@ export const Navbar: React.FC<NavbarProps> = ({ accent, setAccent, onOpenResume,
               <button
                 onClick={() => {
                   setMobileMenuOpen(false);
-                  onOpenResume();
+                  downloadResume(siteSettings);
                 }}
                 className="w-full apple-glass-button-primary py-3.5 rounded-2xl text-xs font-bold text-white flex items-center justify-center gap-2 shadow-lg"
               >
-                <FileText className="w-4 h-4" />
-                <span>View Resume PDF</span>
+                <Download className="w-4 h-4" />
+                <span>Download Resume PDF</span>
               </button>
             </div>
 
