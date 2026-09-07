@@ -164,16 +164,16 @@ export const Skills: React.FC<SkillsProps> = ({ data, siteSettings }) => {
 
               {/* Skill Tags List */}
               {cat.skills && cat.skills.length > 0 && (
-                <div className="flex flex-wrap gap-2.5 pt-2">
+                <div className="flex flex-wrap gap-2 sm:gap-2.5 pt-2">
                   {cat.skills.map((skill) => (
                     <div 
                       key={skill.name}
-                      className="apple-glass-pill px-3.5 py-2 rounded-xl flex items-center gap-2 border border-white/10 hover:border-emerald-500/50 hover:bg-white/[0.08] transition-all group cursor-default"
+                      className="apple-glass-pill px-3 py-1.5 sm:px-3.5 sm:py-2 rounded-xl flex items-center gap-1.5 sm:gap-2 border border-white/10 hover:border-emerald-500/50 hover:bg-white/[0.08] transition-all group cursor-default max-w-full min-w-0"
                     >
-                      <CheckCircle className="w-3.5 h-3.5 text-emerald-400 group-hover:scale-110 transition-transform" />
-                      <span className="text-xs font-semibold text-slate-200 group-hover:text-white">{skill.name}</span>
+                      <CheckCircle className="w-3.5 h-3.5 text-emerald-400 group-hover:scale-110 transition-transform shrink-0" />
+                      <span className="text-xs font-semibold text-slate-200 group-hover:text-white truncate">{skill.name}</span>
                       {skill.tag && (
-                        <span className="text-[9px] font-mono font-bold px-2 py-0.5 rounded-md bg-white/10 text-slate-300 uppercase">
+                        <span className="text-[9px] font-mono font-bold px-1.5 py-0.5 sm:px-2 sm:py-0.5 rounded-md bg-white/10 text-slate-300 uppercase shrink-0">
                           {skill.tag}
                         </span>
                       )}

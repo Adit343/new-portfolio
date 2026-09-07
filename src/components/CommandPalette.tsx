@@ -90,9 +90,9 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({ isOpen, onClose,
   );
 
   return (
-    <div className="fixed inset-0 z-50 flex items-start justify-center pt-20 px-4 bg-black/80 backdrop-blur-md animate-fadeIn" onClick={onClose}>
+    <div className="fixed inset-0 z-50 flex items-start justify-center pt-12 sm:pt-20 px-3 sm:px-4 bg-black/80 backdrop-blur-md animate-fadeIn" onClick={onClose}>
       <div 
-        className="apple-glass-panel w-full max-w-2xl rounded-3xl overflow-hidden border border-white/20 shadow-2xl animate-scaleUp"
+        className="apple-glass-panel w-full max-w-2xl rounded-2xl sm:rounded-3xl overflow-hidden border border-white/20 shadow-2xl animate-scaleUp max-h-[85dvh] sm:max-h-[90vh] flex flex-col"
         onClick={e => e.stopPropagation()}
       >
         

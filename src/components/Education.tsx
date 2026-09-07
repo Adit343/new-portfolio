@@ -49,18 +49,18 @@ export const Education: React.FC<EducationProps> = ({ data, siteSettings }) => {
 
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-5 pb-6 border-b border-white/10">
             
-            <div className="flex items-start gap-3.5 sm:gap-4">
-              <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl apple-glass-pill flex items-center justify-center border border-white/20 shrink-0">
-                <BookOpen className="w-6 h-6 sm:w-7 sm:h-7 text-emerald-400" />
+            <div className="flex items-start gap-3.5 sm:gap-4 min-w-0">
+              <div className="w-10 h-10 sm:w-14 sm:h-14 rounded-2xl apple-glass-pill flex items-center justify-center border border-white/20 shrink-0">
+                <BookOpen className="w-5 h-5 sm:w-7 sm:h-7 text-emerald-400" />
               </div>
-              <div>
+              <div className="min-w-0 flex-1">
                 {educationData.degree && (
-                  <h3 className="text-lg sm:text-2xl font-extrabold text-white tracking-tight">
+                  <h3 className="text-base sm:text-2xl font-extrabold text-white tracking-tight">
                     {educationData.degree}
                   </h3>
                 )}
                 {educationData.institution && (
-                  <p className="text-xs sm:text-sm font-semibold text-emerald-400 mt-1 flex items-center gap-2">
+                  <p className="text-xs sm:text-sm font-semibold text-emerald-400 mt-1 flex items-center gap-2 truncate">
                     <span>{educationData.institution}</span>
                   </p>
                 )}

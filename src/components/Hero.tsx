@@ -21,12 +21,12 @@ export const Hero: React.FC<HeroProps> = ({ onOpenResume, data, siteSettings }) 
   const summaryTitle = siteSettings?.recruiterSummaryTitle || 'Recruiter Quick Summary';
 
   return (
-    <section id="about" className="relative pt-28 pb-10 sm:pt-40 md:pt-44 lg:pt-48 md:pb-16 px-3.5 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+    <section id="about" className="relative pt-24 pb-10 sm:pt-40 md:pt-44 lg:pt-48 md:pb-16 px-3.5 sm:px-6 lg:px-8 max-w-7xl mx-auto">
       {/* Hero Container */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center min-w-0">
         
         {/* Left Content (7 Cols) */}
-        <div className="lg:col-span-7 flex flex-col items-start gap-5 sm:gap-6">
+        <div className="lg:col-span-7 flex flex-col items-start gap-5 sm:gap-6 min-w-0 w-full">
           
           {/* Status Pill */}
           {statusPill && (
@@ -44,8 +44,8 @@ export const Hero: React.FC<HeroProps> = ({ onOpenResume, data, siteSettings }) 
                 animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
                 transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
               >
-                <h1 className="text-5xl xs:text-[52px] sm:text-5xl md:text-6xl lg:text-7xl xl:text-[76px] font-extrabold tracking-tight text-white leading-tight sm:leading-none">
-                  <span className="text-gradient-accent-animated inline-block">
+                <h1 className="text-3xl xs:text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-[76px] font-extrabold tracking-tight text-white leading-tight sm:leading-none">
+                  <span className="text-gradient-accent-animated inline-block break-words max-w-full">
                     {personalDetails.name}
                   </span>
                 </h1>
@@ -53,7 +53,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenResume, data, siteSettings }) 
             )}
             <p className="mt-3 sm:mt-4 text-base sm:text-2xl font-semibold text-slate-300 flex flex-wrap items-center gap-2 sm:gap-3">
               {personalDetails.title && <span className="font-mono text-emerald-400 text-sm sm:text-xl">{personalDetails.title}</span>}
-              {personalDetails.title && personalDetails.yearsExperience && <span className="text-slate-600 hidden xs:inline">•</span>}
+              {personalDetails.title && personalDetails.yearsExperience && <span className="text-slate-600 hidden sm:inline">•</span>}
               {personalDetails.yearsExperience && (
                 <span className="text-slate-300 text-xs sm:text-sm font-normal apple-glass-pill px-2.5 py-0.5 sm:px-3 sm:py-1 rounded-xl">
                   {personalDetails.yearsExperience}

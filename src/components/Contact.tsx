@@ -198,106 +198,110 @@ export const Contact: React.FC<ContactProps> = ({ siteSettings, aboutData }) => 
         )}
       </div>
 
-      <div className={`grid grid-cols-1 ${hasAnyContactInfo ? 'lg:grid-cols-12' : ''} gap-8 max-w-6xl mx-auto`}>
+      <div className={`grid grid-cols-1 ${hasAnyContactInfo ? 'lg:grid-cols-12 items-stretch' : ''} gap-8 max-w-6xl mx-auto min-w-0`}>
         
         {/* Left Column: Direct Contact Info Cards (5 Cols) */}
         {hasAnyContactInfo && (
-          <div className="lg:col-span-5 flex flex-col justify-between space-y-6">
+          <div className="lg:col-span-5 flex flex-col h-full min-w-0">
             
-            <div className="apple-glass-panel p-4 sm:p-8 rounded-2xl sm:rounded-3xl space-y-5 sm:space-y-6 border border-cyan-500/30 ring-1 ring-cyan-500/40 shadow-xl shadow-cyan-500/10 bg-cyan-950/[0.08]">
-              {(contactCardTitle || contactCardSubtitle || contactCardBadge) && (
-                <div className="flex items-center justify-between pb-4 border-b border-white/10">
-                  <div>
-                    {contactCardTitle && <h3 className="text-xl sm:text-2xl font-bold text-white">{contactCardTitle}</h3>}
-                    {contactCardSubtitle && <p className="text-xs text-slate-400 mt-0.5">{contactCardSubtitle}</p>}
+            <div className="apple-glass-panel p-4 sm:p-8 rounded-2xl sm:rounded-3xl border border-cyan-500/30 ring-1 ring-cyan-500/40 shadow-xl shadow-cyan-500/10 bg-cyan-950/[0.08] h-full flex flex-col justify-between">
+              <div>
+                {(contactCardTitle || contactCardSubtitle || contactCardBadge) && (
+                  <div className="flex items-center justify-between pb-4 border-b border-white/10 mb-5 sm:mb-6">
+                    <div>
+                      {contactCardTitle && <h3 className="text-xl sm:text-2xl font-bold text-white">{contactCardTitle}</h3>}
+                      {contactCardSubtitle && <p className="text-xs text-slate-400 mt-0.5">{contactCardSubtitle}</p>}
+                    </div>
+                    {contactCardBadge && (
+                      <span className="text-[10px] font-mono font-bold px-2.5 py-1 rounded-full bg-cyan-500/20 text-cyan-300 border border-cyan-500/30">
+                        {contactCardBadge}
+                      </span>
+                    )}
                   </div>
-                  {contactCardBadge && (
-                    <span className="text-[10px] font-mono font-bold px-2.5 py-1 rounded-full bg-cyan-500/20 text-cyan-300 border border-cyan-500/30">
-                      {contactCardBadge}
-                    </span>
+                )}
+
+                <div className="space-y-3.5 sm:space-y-4">
+                  {/* Email Card */}
+                  {email && (
+                    <a 
+                      href={`mailto:${email}`} 
+                      className="apple-glass-pill p-3.5 sm:p-4 rounded-2xl border border-emerald-500/30 hover:border-emerald-500/60 flex items-center gap-3 group transition-all min-w-0"
+                    >
+                      <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl apple-glass-button flex items-center justify-center text-emerald-400 border border-emerald-500/30 shrink-0 group-hover:scale-105 transition-transform">
+                        <Mail className="w-4 h-4 sm:w-5 sm:h-5" />
+                      </div>
+                      <div className="min-w-0 flex-1">
+                        <div className="text-[10px] sm:text-[11px] font-mono text-slate-400">Email Address</div>
+                        <div className="text-xs sm:text-sm font-bold text-white group-hover:text-emerald-300 truncate">
+                          {email}
+                        </div>
+                      </div>
+                    </a>
+                  )}
+
+                  {/* Phone Card */}
+                  {phone && (
+                    <a 
+                      href={`tel:${phoneRaw || phone}`} 
+                      className="apple-glass-pill p-3.5 sm:p-4 rounded-2xl border border-cyan-500/30 hover:border-cyan-500/60 flex items-center gap-3 group transition-all min-w-0"
+                    >
+                      <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl apple-glass-button flex items-center justify-center text-cyan-400 border border-cyan-500/30 shrink-0 group-hover:scale-105 transition-transform">
+                        <Phone className="w-4 h-4 sm:w-5 sm:h-5" />
+                      </div>
+                      <div className="min-w-0 flex-1">
+                        <div className="text-[10px] sm:text-[11px] font-mono text-slate-400">Phone Number</div>
+                        <div className="text-xs sm:text-sm font-bold text-white group-hover:text-cyan-300 truncate">
+                          {phone}
+                        </div>
+                      </div>
+                    </a>
+                  )}
+
+                  {/* LinkedIn Card */}
+                  {linkedin && (
+                    <a 
+                      href={linkedin} 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="apple-glass-pill p-3.5 sm:p-4 rounded-2xl border border-purple-500/30 hover:border-purple-500/60 flex items-center gap-3 group transition-all min-w-0"
+                    >
+                      <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl apple-glass-button flex items-center justify-center text-purple-400 border border-purple-500/30 shrink-0 group-hover:scale-105 transition-transform">
+                        <svg className="w-4 h-4 sm:w-5 sm:h-5 fill-current" viewBox="0 0 24 24">
+                          <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/>
+                        </svg>
+                      </div>
+                      <div className="min-w-0 flex-1">
+                        <div className="text-[10px] sm:text-[11px] font-mono text-slate-400">LinkedIn Profile</div>
+                        <div className="text-xs sm:text-sm font-bold text-white group-hover:text-purple-300 truncate">
+                          {getLinkedInDisplay(linkedin)}
+                        </div>
+                      </div>
+                    </a>
+                  )}
+
+                  {/* GitHub Card */}
+                  {github && (
+                    <a 
+                      href={github} 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="apple-glass-pill p-3.5 sm:p-4 rounded-2xl border border-slate-500/30 hover:border-emerald-500/60 flex items-center gap-3 group transition-all min-w-0"
+                    >
+                      <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl apple-glass-button flex items-center justify-center text-slate-200 border border-white/20 shrink-0 group-hover:scale-105 transition-transform">
+                        <svg className="w-4 h-4 sm:w-5 sm:h-5 fill-current" viewBox="0 0 24 24">
+                          <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+                        </svg>
+                      </div>
+                      <div className="min-w-0 flex-1">
+                        <div className="text-[10px] sm:text-[11px] font-mono text-slate-400">GitHub Profile</div>
+                        <div className="text-xs sm:text-sm font-bold text-white group-hover:text-emerald-300 truncate">
+                          {getGitHubDisplay(github)}
+                        </div>
+                      </div>
+                    </a>
                   )}
                 </div>
-              )}
-
-              {/* Email Card */}
-              {email && (
-                <a 
-                  href={`mailto:${email}`} 
-                  className="apple-glass-pill p-3.5 sm:p-4 rounded-2xl border border-emerald-500/30 hover:border-emerald-500/60 flex items-center gap-3 group transition-all min-w-0"
-                >
-                  <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl apple-glass-button flex items-center justify-center text-emerald-400 border border-emerald-500/30 shrink-0 group-hover:scale-105 transition-transform">
-                    <Mail className="w-4 h-4 sm:w-5 sm:h-5" />
-                  </div>
-                  <div className="min-w-0 flex-1">
-                    <div className="text-[10px] sm:text-[11px] font-mono text-slate-400">Email Address</div>
-                    <div className="text-xs sm:text-sm font-bold text-white group-hover:text-emerald-300 truncate">
-                      {email}
-                    </div>
-                  </div>
-                </a>
-              )}
-
-              {/* Phone Card */}
-              {phone && (
-                <a 
-                  href={`tel:${phoneRaw || phone}`} 
-                  className="apple-glass-pill p-3.5 sm:p-4 rounded-2xl border border-cyan-500/30 hover:border-cyan-500/60 flex items-center gap-3 group transition-all min-w-0"
-                >
-                  <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl apple-glass-button flex items-center justify-center text-cyan-400 border border-cyan-500/30 shrink-0 group-hover:scale-105 transition-transform">
-                    <Phone className="w-4 h-4 sm:w-5 sm:h-5" />
-                  </div>
-                  <div className="min-w-0 flex-1">
-                    <div className="text-[10px] sm:text-[11px] font-mono text-slate-400">Phone Number</div>
-                    <div className="text-xs sm:text-sm font-bold text-white group-hover:text-cyan-300 truncate">
-                      {phone}
-                    </div>
-                  </div>
-                </a>
-              )}
-
-              {/* LinkedIn Card */}
-              {linkedin && (
-                <a 
-                  href={linkedin} 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="apple-glass-pill p-3.5 sm:p-4 rounded-2xl border border-purple-500/30 hover:border-purple-500/60 flex items-center gap-3 group transition-all min-w-0"
-                >
-                  <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl apple-glass-button flex items-center justify-center text-purple-400 border border-purple-500/30 shrink-0 group-hover:scale-105 transition-transform">
-                    <svg className="w-4 h-4 sm:w-5 sm:h-5 fill-current" viewBox="0 0 24 24">
-                      <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/>
-                    </svg>
-                  </div>
-                  <div className="min-w-0 flex-1">
-                    <div className="text-[10px] sm:text-[11px] font-mono text-slate-400">LinkedIn Profile</div>
-                    <div className="text-xs sm:text-sm font-bold text-white group-hover:text-purple-300 truncate">
-                      {getLinkedInDisplay(linkedin)}
-                    </div>
-                  </div>
-                </a>
-              )}
-
-              {/* GitHub Card */}
-              {github && (
-                <a 
-                  href={github} 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="apple-glass-pill p-3.5 sm:p-4 rounded-2xl border border-slate-500/30 hover:border-emerald-500/60 flex items-center gap-3 group transition-all min-w-0"
-                >
-                  <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl apple-glass-button flex items-center justify-center text-slate-200 border border-white/20 shrink-0 group-hover:scale-105 transition-transform">
-                    <svg className="w-4 h-4 sm:w-5 sm:h-5 fill-current" viewBox="0 0 24 24">
-                      <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
-                    </svg>
-                  </div>
-                  <div className="min-w-0 flex-1">
-                    <div className="text-[10px] sm:text-[11px] font-mono text-slate-400">GitHub Profile</div>
-                    <div className="text-xs sm:text-sm font-bold text-white group-hover:text-emerald-300 truncate">
-                      {getGitHubDisplay(github)}
-                    </div>
-                  </div>
-                </a>
-              )}
+              </div>
 
             </div>
 
@@ -305,8 +309,8 @@ export const Contact: React.FC<ContactProps> = ({ siteSettings, aboutData }) => 
         )}
 
         {/* Right Column: Direct Message Form with Formik + Yup Validation (7 Cols) */}
-        <div className="lg:col-span-7">
-          <div className="apple-glass-panel p-6 sm:p-8 rounded-3xl border border-emerald-500/40 ring-1 ring-emerald-500/40 shadow-xl shadow-emerald-500/10 bg-emerald-950/[0.08] relative">
+        <div className="lg:col-span-7 flex flex-col h-full min-w-0">
+          <div className="apple-glass-panel p-4 sm:p-8 rounded-2xl sm:rounded-3xl border border-emerald-500/40 ring-1 ring-emerald-500/40 shadow-xl shadow-emerald-500/10 bg-emerald-950/[0.08] relative h-full flex flex-col justify-between">
             
             <div className="flex items-center justify-between gap-2.5 mb-6 pb-4 border-b border-white/10">
               <div className="min-w-0">

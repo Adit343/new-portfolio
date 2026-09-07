@@ -44,7 +44,7 @@ export const Experience: React.FC<ExperienceProps> = ({ data, siteSettings }) =>
       <div className="relative max-w-5xl mx-auto">
         
         {/* Animated Central Vertical Glowing Connector Line */}
-        <div className="absolute left-3.5 sm:left-1/2 top-4 bottom-4 w-1 bg-gradient-to-b from-emerald-400 via-cyan-400 to-purple-500 opacity-60 rounded-full transform sm:-translate-x-1/2 shadow-sm shadow-emerald-500/50"></div>
+        <div className="absolute left-3.5 lg:left-1/2 top-4 bottom-4 w-1 bg-gradient-to-b from-emerald-400 via-cyan-400 to-purple-500 opacity-60 rounded-full transform lg:-translate-x-1/2 shadow-sm shadow-emerald-500/50"></div>
 
         {/* Experience Items in Alternating Zig-Zag Pattern */}
         <div className="space-y-8 sm:space-y-12">
@@ -54,13 +54,13 @@ export const Experience: React.FC<ExperienceProps> = ({ data, siteSettings }) =>
             return (
               <div 
                 key={exp.id || index} 
-                className={`relative flex flex-col sm:flex-row items-start ${
-                  isEven ? 'sm:flex-row-reverse' : ''
+                className={`relative flex flex-col lg:flex-row items-start ${
+                  isEven ? 'lg:flex-row-reverse' : ''
                 } group transition-all duration-300`}
               >
                 
                 {/* Timeline Node Badge */}
-                <div className="absolute left-3.5 sm:left-1/2 transform -translate-x-1/2 z-10 w-8 h-8 sm:w-11 sm:h-11 rounded-xl sm:rounded-2xl apple-glass-panel border border-emerald-400/60 flex items-center justify-center group-hover:scale-115 transition-all duration-300 shadow-xl shadow-emerald-500/25 bg-slate-950">
+                <div className="absolute left-3.5 lg:left-1/2 transform -translate-x-1/2 z-10 w-8 h-8 sm:w-11 sm:h-11 rounded-xl sm:rounded-2xl apple-glass-panel border border-emerald-400/60 flex items-center justify-center group-hover:scale-115 transition-all duration-300 shadow-xl shadow-emerald-500/25 bg-slate-950">
                   <div className={`w-2.5 h-2.5 sm:w-3.5 sm:h-3.5 rounded-full ${
                     exp.isCurrent 
                       ? 'bg-emerald-400 animate-ping' 
@@ -70,7 +70,7 @@ export const Experience: React.FC<ExperienceProps> = ({ data, siteSettings }) =>
                 </div>
 
                 {/* Glass Card Content */}
-                <div className="w-full sm:w-[calc(50%-2rem)] pl-9 sm:pl-0">
+                <div className="w-full lg:w-[calc(50%-2rem)] pl-9 lg:pl-0">
                   <div 
                     className={`apple-glass-card p-4 sm:p-8 rounded-2xl sm:rounded-3xl relative overflow-hidden transition-all duration-400 ${
                       exp.isCurrent

@@ -52,16 +52,16 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
 
   return (
     <div 
-      className="fixed inset-0 z-50 flex items-center justify-center p-3.5 sm:p-6 overflow-y-auto bg-black/85 backdrop-blur-xl animate-fadeIn no-scrollbar"
+      className="fixed inset-0 z-50 flex items-center justify-center p-2.5 sm:p-6 overflow-y-auto bg-black/85 backdrop-blur-xl animate-fadeIn no-scrollbar"
       onClick={onClose}
     >
       <div 
-        className="apple-glass-panel w-full max-w-3xl rounded-3xl overflow-hidden border border-white/20 shadow-2xl relative animate-scaleUp max-h-[90vh] sm:max-h-[92vh] flex flex-col my-auto"
+        className="apple-glass-panel w-full max-w-3xl rounded-2xl sm:rounded-3xl overflow-hidden border border-white/20 shadow-2xl relative animate-scaleUp max-h-[88dvh] sm:max-h-[92vh] flex flex-col my-auto"
         onClick={(e) => e.stopPropagation()}
       >
         
         {/* Header Bar */}
-        <div className="p-3.5 sm:p-5 border-b border-white/10 flex items-center justify-between gap-2.5 bg-white/[0.03] shrink-0">
+        <div className="p-3 sm:p-5 border-b border-white/10 flex items-center justify-between gap-2.5 bg-white/[0.03] shrink-0">
           <div className="flex flex-wrap items-center gap-2 sm:gap-3 min-w-0 pr-1">
             {project.badge && (
               <span className={`text-[11px] sm:text-xs font-mono font-extrabold px-2.5 py-1 sm:px-3 sm:py-1 rounded-full border whitespace-nowrap shrink-0 ${getBadgeClasses(project.badge)}`}>
@@ -86,7 +86,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
         </div>
 
         {/* Scrollable Content Body */}
-        <div className="p-5 sm:p-8 space-y-6 overflow-y-auto no-scrollbar">
+        <div className="p-4 sm:p-8 space-y-5 sm:space-y-6 overflow-y-auto no-scrollbar">
           
           {/* Title & Subtitle */}
           <div>
