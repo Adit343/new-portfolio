@@ -12,6 +12,7 @@ node_modules
 # Next.js build output
 .next
 out
+dist
 
 # Local environment files
 .env
