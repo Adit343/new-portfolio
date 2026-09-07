@@ -8,12 +8,6 @@ export const about = defineType({
   icon: UserIcon,
   fields: [
     defineField({
-      name: 'greetingPrefix',
-      title: 'Greeting Prefix (e.g. Hello, I\'m)',
-      type: 'string',
-      initialValue: 'Hello, I\'m',
-    }),
-    defineField({
       name: 'name',
       title: 'Full Name',
       type: 'string',

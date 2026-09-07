@@ -15,7 +15,7 @@ import type { PersonalDetails, Project, ExperienceItem, SkillCategory, Education
 
 interface MainPortfolioProps {
   initialSiteSettings?: any;
-  initialHeroData?: (PersonalDetails & { greetingPrefix?: string }) | null;
+  initialHeroData?: PersonalDetails | null;
   initialExperience?: ExperienceItem[];
   initialProjects?: Project[];
   initialSkills?: SkillCategory[];

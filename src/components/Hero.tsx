@@ -8,7 +8,7 @@ import { downloadResume } from '../utils/downloadResume';
 
 interface HeroProps {
   onOpenResume?: () => void;
-  data?: (PersonalDetails & { greetingPrefix?: string }) | null;
+  data?: PersonalDetails | null;
   siteSettings?: any;
 }
 
@@ -19,7 +19,6 @@ export const Hero: React.FC<HeroProps> = ({ onOpenResume, data, siteSettings }) 
   const statusPill = siteSettings?.heroStatusPill ? siteSettings.heroStatusPill.replace(/[\u200B-\u200D\uFEFF]/g, '').trim() : '';
   const ctaText = siteSettings?.heroProjectsCtaText || 'Explore Production Projects';
   const summaryTitle = siteSettings?.recruiterSummaryTitle || 'Recruiter Quick Summary';
-  const greetingPrefix = personalDetails.greetingPrefix ? personalDetails.greetingPrefix.replace(/[\u200B-\u200D\uFEFF]/g, '').trim() : '';
 
   return (
     <section id="about" className="relative pt-28 pb-10 sm:pt-40 md:pt-44 lg:pt-48 md:pb-16 px-3.5 sm:px-6 lg:px-8 max-w-7xl mx-auto">
@@ -46,11 +45,6 @@ export const Hero: React.FC<HeroProps> = ({ onOpenResume, data, siteSettings }) 
                 transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
               >
                 <h1 className="text-5xl xs:text-[52px] sm:text-5xl md:text-6xl lg:text-7xl xl:text-[76px] font-extrabold tracking-tight text-white leading-tight sm:leading-none">
-                  {greetingPrefix ? (
-                    <span className="block text-base sm:text-xl font-semibold tracking-normal text-slate-300 mb-1 sm:mb-2">
-                      {greetingPrefix}
-                    </span>
-                  ) : null}
                   <span className="text-gradient-accent-animated inline-block">
                     {personalDetails.name}
                   </span>

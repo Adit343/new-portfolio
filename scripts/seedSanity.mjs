@@ -93,7 +93,6 @@ async function seedSanity() {
   await client.createIfNotExists({
     _id: 'about',
     _type: 'about',
-    greetingPrefix: "Hello, I'm",
     name: 'ADIT SHAH',
     title: 'MERN Stack Developer',
     yearsExperience: '2 Years Hands-on',
