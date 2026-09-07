@@ -20,11 +20,17 @@ export const Navbar: React.FC<NavbarProps> = ({ accent, setAccent, onOpenResume,
   useEffect(() => {
     if (mobileMenuOpen) {
       document.body.style.overflow = 'hidden';
+      document.body.style.touchAction = 'none';
+      document.documentElement.style.overflow = 'hidden';
     } else {
       document.body.style.overflow = '';
+      document.body.style.touchAction = '';
+      document.documentElement.style.overflow = '';
     }
     return () => {
       document.body.style.overflow = '';
+      document.body.style.touchAction = '';
+      document.documentElement.style.overflow = '';
     };
   }, [mobileMenuOpen]);
 
@@ -87,7 +93,9 @@ export const Navbar: React.FC<NavbarProps> = ({ accent, setAccent, onOpenResume,
 
   return (
     <>
-      <header className="fixed top-0 left-0 right-0 z-40 px-2.5 sm:px-8 py-3 sm:py-5 transition-all duration-300">
+      <header className={`fixed top-0 left-0 right-0 z-40 px-2.5 sm:px-8 py-3 sm:py-5 transition-all duration-300 ${
+        mobileMenuOpen ? 'hidden lg:block' : ''
+      }`}>
         <div className={`max-w-7xl mx-auto rounded-full transition-all duration-300 backdrop-blur-2xl backdrop-saturate-200 border border-white/20 shadow-2xl ${
           scrolled 
             ? 'bg-slate-950/60 py-2.5 pl-2.5 sm:pl-3.5 pr-2.5 sm:pr-3.5 ring-1 ring-white/15' 
@@ -184,17 +192,18 @@ export const Navbar: React.FC<NavbarProps> = ({ accent, setAccent, onOpenResume,
         </div>
       </header>
 
-      {/* Slide-over Side Drawer Navigation for Mobile */}
+      {/* Full-Screen Mobile Navigation Menu */}
       {mobileMenuOpen && (
-        <div className="fixed inset-0 z-50 lg:hidden animate-fade-in">
+        <div className="fixed inset-0 z-50 lg:hidden animate-fade-in touch-none">
           {/* Backdrop Overlay */}
           <div 
-            className="fixed inset-0 bg-slate-950/80 backdrop-blur-md transition-opacity"
+            className="fixed inset-0 bg-slate-950/80 backdrop-blur-md transition-opacity touch-none"
             onClick={() => setMobileMenuOpen(false)}
+            onTouchMove={(e) => e.preventDefault()}
           />
 
-          {/* Side Drawer Panel */}
-          <div className="fixed top-0 right-0 bottom-0 w-[290px] xs:w-[320px] max-w-[85vw] h-full bg-slate-950/95 backdrop-blur-2xl border-l border-white/20 p-6 z-50 flex flex-col justify-between shadow-2xl overflow-y-auto animate-slide-in-right">
+          {/* Full-Screen Mobile Navigation Panel */}
+          <div className="fixed inset-0 w-full h-full bg-slate-950/98 backdrop-blur-2xl p-6 z-50 flex flex-col justify-between shadow-2xl overflow-y-auto overscroll-contain animate-fade-in">
             
             {/* Drawer Header */}
             <div>

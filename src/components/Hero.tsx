@@ -78,11 +78,18 @@ export const Hero: React.FC<HeroProps> = ({ onOpenResume, data, siteSettings }) 
           )}
 
           {/* Human Touch & Recruiter Highlights */}
-          <div className="flex flex-wrap gap-2 pt-1">
+          <div className="flex flex-wrap items-center gap-2 pt-1">
             {personalDetails.englishProficiency && (
-              <div className="apple-glass-pill px-3 py-1.5 rounded-xl border border-cyan-500/40 text-cyan-300 text-[11px] sm:text-xs font-medium flex items-center gap-1.5">
+              <div className="apple-glass-pill px-3 py-1.5 rounded-xl border border-cyan-500/40 text-cyan-300 text-[11px] sm:text-xs font-medium flex items-center gap-1.5 shrink-0">
                 <Globe className="w-3.5 h-3.5 text-cyan-400 shrink-0" />
                 <span>{personalDetails.englishProficiency}</span>
+              </div>
+            )}
+
+            {personalDetails.location && (
+              <div className="apple-glass-pill px-3 py-1.5 rounded-xl border border-emerald-500/40 text-emerald-300 text-[11px] sm:text-xs font-medium flex items-center gap-1.5 shrink-0">
+                <MapPin className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
+                <span>{personalDetails.location}</span>
               </div>
             )}
 
@@ -90,13 +97,6 @@ export const Hero: React.FC<HeroProps> = ({ onOpenResume, data, siteSettings }) 
               <div className="apple-glass-pill px-3 py-1.5 rounded-xl border border-purple-500/40 text-purple-300 text-[11px] sm:text-xs font-medium flex items-center gap-1.5">
                 <Award className="w-3.5 h-3.5 text-purple-400 shrink-0" />
                 <span>{personalDetails.clientCommunication}</span>
-              </div>
-            )}
-
-            {personalDetails.location && (
-              <div className="apple-glass-pill px-3 py-1.5 rounded-xl border border-emerald-500/40 text-emerald-300 text-[11px] sm:text-xs font-medium flex items-center gap-1.5">
-                <MapPin className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
-                <span>{personalDetails.location}</span>
               </div>
             )}
           </div>

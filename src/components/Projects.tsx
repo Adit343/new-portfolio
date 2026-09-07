@@ -62,6 +62,20 @@ export const Projects: React.FC<ProjectsProps> = ({ data, siteSettings }) => {
     return matchesCategory && matchesSearch;
   });
 
+  const getBadgeClasses = (badge: string) => {
+    const lower = badge ? badge.toLowerCase() : '';
+    if (lower.includes('ev') || lower.includes('infrastructure')) {
+      return 'bg-emerald-500/20 text-emerald-300 border-emerald-500/50 shadow-[0_0_12px_rgba(16,185,129,0.25)]';
+    }
+    if (lower.includes('quality') || lower.includes('qa') || lower.includes('assurance')) {
+      return 'bg-cyan-500/20 text-cyan-300 border-cyan-500/50 shadow-[0_0_12px_rgba(6,182,212,0.25)]';
+    }
+    if (lower.includes('football') || lower.includes('platform') || lower.includes('sports')) {
+      return 'bg-purple-500/20 text-purple-300 border-purple-500/50 shadow-[0_0_12px_rgba(168,85,247,0.25)]';
+    }
+    return 'bg-emerald-500/20 text-emerald-300 border-emerald-500/50 shadow-[0_0_12px_rgba(16,185,129,0.25)]';
+  };
+
   return (
     <section id="projects" className="py-10 sm:py-14 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto relative">
       
@@ -168,13 +182,7 @@ export const Projects: React.FC<ProjectsProps> = ({ data, siteSettings }) => {
               {/* Badge & Category */}
               <div className="flex flex-wrap items-center justify-between gap-2.5 mb-4 pt-2">
                 {project.badge && (
-                  <span 
-                    className="text-[11px] font-mono font-bold px-3 py-1 rounded-full text-white shadow-sm whitespace-nowrap shrink-0"
-                    style={{ 
-                      backgroundColor: `${project.accentColor || '#10b981'}33`, 
-                      border: `1px solid ${project.accentColor || '#10b981'}66` 
-                    }}
-                  >
+                  <span className={`text-[11px] font-mono font-extrabold px-3 py-1 rounded-full border whitespace-nowrap shrink-0 ${getBadgeClasses(project.badge)}`}>
                     {project.badge}
                   </span>
                 )}

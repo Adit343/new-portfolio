@@ -29,3 +29,7 @@ dist
 *.njsproj
 *.sln
 *.sw?
+
+
+tsconfig.tsbuildinfo
+next-env.d.ts

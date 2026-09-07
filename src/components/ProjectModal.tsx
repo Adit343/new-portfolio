@@ -36,6 +36,20 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
 
   if (!project) return null;
 
+  const getBadgeClasses = (badge: string) => {
+    const lower = badge ? badge.toLowerCase() : '';
+    if (lower.includes('ev') || lower.includes('infrastructure')) {
+      return 'bg-emerald-500/20 text-emerald-300 border-emerald-500/50 shadow-[0_0_12px_rgba(16,185,129,0.25)]';
+    }
+    if (lower.includes('quality') || lower.includes('qa') || lower.includes('assurance')) {
+      return 'bg-cyan-500/20 text-cyan-300 border-cyan-500/50 shadow-[0_0_12px_rgba(6,182,212,0.25)]';
+    }
+    if (lower.includes('football') || lower.includes('platform') || lower.includes('sports')) {
+      return 'bg-purple-500/20 text-purple-300 border-purple-500/50 shadow-[0_0_12px_rgba(168,85,247,0.25)]';
+    }
+    return 'bg-emerald-500/20 text-emerald-300 border-emerald-500/50 shadow-[0_0_12px_rgba(16,185,129,0.25)]';
+  };
+
   return (
     <div 
       className="fixed inset-0 z-50 flex items-center justify-center p-3.5 sm:p-6 overflow-y-auto bg-black/85 backdrop-blur-xl animate-fadeIn no-scrollbar"
@@ -50,10 +64,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
         <div className="p-3.5 sm:p-5 border-b border-white/10 flex items-center justify-between gap-2.5 bg-white/[0.03] shrink-0">
           <div className="flex flex-wrap items-center gap-2 sm:gap-3 min-w-0 pr-1">
             {project.badge && (
-              <span 
-                className="text-[11px] sm:text-xs font-mono font-bold px-2.5 py-1 sm:px-3 sm:py-1 rounded-full text-white shadow-sm whitespace-nowrap shrink-0"
-                style={{ backgroundColor: `${project.accentColor}33`, border: `1px solid ${project.accentColor}` }}
-              >
+              <span className={`text-[11px] sm:text-xs font-mono font-extrabold px-2.5 py-1 sm:px-3 sm:py-1 rounded-full border whitespace-nowrap shrink-0 ${getBadgeClasses(project.badge)}`}>
                 {project.badge}
               </span>
             )}
@@ -91,9 +102,9 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
           {project.metrics && (
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
               {project.metrics.map((m, idx) => (
-                <div key={idx} className="apple-glass-pill p-3.5 rounded-2xl text-center border-white/10">
-                  <div className="text-[11px] font-mono text-slate-400 uppercase tracking-wider">{m.label}</div>
-                  <div className="text-sm font-bold text-white mt-1">{m.value}</div>
+                <div key={idx} className="apple-glass-pill p-4 rounded-2xl text-left flex flex-col items-start justify-center border border-white/10 bg-white/[0.02]">
+                  <div className="text-[11px] font-mono font-bold text-slate-400 uppercase tracking-wider">{m.label}</div>
+                  <div className="text-sm font-extrabold text-white mt-1">{m.value}</div>
                 </div>
               ))}
             </div>
