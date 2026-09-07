@@ -38,40 +38,44 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
 
   return (
     <div 
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 overflow-y-auto bg-black/85 backdrop-blur-xl animate-fadeIn"
+      className="fixed inset-0 z-50 flex items-center justify-center p-3.5 sm:p-6 overflow-y-auto bg-black/85 backdrop-blur-xl animate-fadeIn no-scrollbar"
       onClick={onClose}
     >
       <div 
-        className="apple-glass-panel w-full max-w-3xl rounded-3xl overflow-hidden border border-white/20 shadow-2xl relative animate-scaleUp max-h-[92vh] flex flex-col my-auto"
+        className="apple-glass-panel w-full max-w-3xl rounded-3xl overflow-hidden border border-white/20 shadow-2xl relative animate-scaleUp max-h-[90vh] sm:max-h-[92vh] flex flex-col my-auto"
         onClick={(e) => e.stopPropagation()}
       >
         
         {/* Header Bar */}
-        <div className="p-5 border-b border-white/10 flex items-center justify-between bg-white/[0.03] shrink-0">
-          <div className="flex items-center gap-3">
-            <span 
-              className="text-xs font-mono font-bold px-3 py-1 rounded-full text-white shadow-sm"
-              style={{ backgroundColor: `${project.accentColor}33`, border: `1px solid ${project.accentColor}` }}
-            >
-              {project.badge}
-            </span>
-            <span className="text-xs font-mono font-semibold text-cyan-300 tracking-wide">{project.category}</span>
+        <div className="p-3.5 sm:p-5 border-b border-white/10 flex items-center justify-between gap-2.5 bg-white/[0.03] shrink-0">
+          <div className="flex flex-wrap items-center gap-2 sm:gap-3 min-w-0 pr-1">
+            {project.badge && (
+              <span 
+                className="text-[11px] sm:text-xs font-mono font-bold px-2.5 py-1 sm:px-3 sm:py-1 rounded-full text-white shadow-sm whitespace-nowrap shrink-0"
+                style={{ backgroundColor: `${project.accentColor}33`, border: `1px solid ${project.accentColor}` }}
+              >
+                {project.badge}
+              </span>
+            )}
+            {project.category && (
+              <span className="text-[11px] sm:text-xs font-mono font-semibold text-cyan-300 tracking-wide whitespace-nowrap shrink-0">
+                {project.category}
+              </span>
+            )}
           </div>
 
-          <div className="flex items-center gap-3">
-            <button
-              onClick={onClose}
-              className="p-2.5 rounded-xl apple-glass-button bg-slate-900/90 text-slate-100 hover:text-white hover:bg-rose-500/20 hover:border-rose-500/40 border border-white/20 transition-all flex items-center justify-center shrink-0 shadow-lg cursor-pointer group"
-              aria-label="Close modal"
-              title="Close Modal"
-            >
-              <X className="w-5 h-5 text-slate-100 group-hover:text-white group-hover:scale-110 transition-transform" />
-            </button>
-          </div>
+          <button
+            onClick={onClose}
+            className="p-2 sm:p-2.5 rounded-xl apple-glass-button bg-slate-900/90 text-slate-100 hover:text-white hover:bg-rose-500/20 hover:border-rose-500/40 border border-white/20 transition-all flex items-center justify-center shrink-0 shadow-lg cursor-pointer group ml-auto"
+            aria-label="Close modal"
+            title="Close Modal"
+          >
+            <X className="w-4 h-4 sm:w-5 sm:h-5 text-slate-100 group-hover:text-white group-hover:scale-110 transition-transform" />
+          </button>
         </div>
 
         {/* Scrollable Content Body */}
-        <div className="p-6 sm:p-8 space-y-6 overflow-y-auto">
+        <div className="p-5 sm:p-8 space-y-6 overflow-y-auto no-scrollbar">
           
           {/* Title & Subtitle */}
           <div>
