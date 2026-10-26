@@ -107,7 +107,7 @@ export const Navbar: React.FC<NavbarProps> = ({ accent, setAccent, onOpenResume,
   return (
     <>
       <header className={`fixed top-0 left-0 right-0 z-40 px-2 sm:px-8 py-2 sm:py-5 transition-all duration-300 ${
-        mobileMenuOpen ? 'hidden lg:block' : ''
+        mobileMenuOpen ? 'hidden xl:block' : ''
       }`}>
         <div className={`max-w-7xl mx-auto rounded-full transition-all duration-300 backdrop-blur-2xl backdrop-saturate-200 border border-white/20 shadow-2xl ${
           scrolled 
@@ -208,7 +208,7 @@ export const Navbar: React.FC<NavbarProps> = ({ accent, setAccent, onOpenResume,
 
       {/* Full-Screen Mobile Navigation Menu */}
       {mobileMenuOpen && (
-        <div className="fixed inset-0 z-50 lg:hidden animate-fade-in touch-none">
+        <div className="fixed inset-0 z-50 xl:hidden animate-fade-in touch-none">
           {/* Backdrop Overlay */}
           <div 
             className="fixed inset-0 bg-slate-950/80 backdrop-blur-md transition-opacity touch-none"

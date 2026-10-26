@@ -13,8 +13,7 @@ interface ProjectsProps {
 }
 
 export const Projects: React.FC<ProjectsProps> = ({ data, siteSettings }) => {
-  if (!data || data.length === 0) return null;
-  const projectsData = data;
+  const projectsData = data ?? [];
   const [selectedCategory, setSelectedCategory] = useState<string>('All');
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [activeProject, setActiveProject] = useState<Project | null>(null);
@@ -45,6 +44,8 @@ export const Projects: React.FC<ProjectsProps> = ({ data, siteSettings }) => {
     }
   };
 
+  if (projectsData.length === 0) return null;
+
   const badge = siteSettings?.projectsBadge || 'Featured Production Applications';
   const title = siteSettings?.projectsTitle || 'Production Projects';
   const subtitle = siteSettings?.projectsSubtitle || 'Scanned direct from resume: Enterprise EV charging platforms, quality control analytics dashboards, and real-time football scouting software.';
@@ -59,6 +60,7 @@ export const Projects: React.FC<ProjectsProps> = ({ data, siteSettings }) => {
     const matchesSearch = 
       (project.title && project.title.toLowerCase().includes(searchQuery.toLowerCase())) ||
       (project.description && project.description.toLowerCase().includes(searchQuery.toLowerCase())) ||
+      (project.summary && project.summary.toLowerCase().includes(searchQuery.toLowerCase())) ||
       (project.tech && project.tech.some(t => t.toLowerCase().includes(searchQuery.toLowerCase())));
 
     return matchesCategory && matchesSearch;
@@ -167,8 +169,15 @@ export const Projects: React.FC<ProjectsProps> = ({ data, siteSettings }) => {
       {/* Projects Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {filteredProjects.map((project, idx) => (
-          <Reveal delay={(idx % 3) * 0.08} className="h-full"><TiltCard className="h-full"><div
-            key={project.id || idx}
+          <Reveal key={project.id || idx} delay={(idx % 3) * 0.08} className="h-full"><TiltCard className="h-full"><div
+            role="button"
+            tabIndex={0}
+            onKeyDown={(e) => {
+              if (e.target === e.currentTarget && (e.key === 'Enter' || e.key === ' ')) {
+                e.preventDefault();
+                setActiveProject(project);
+              }
+            }}
             className="apple-glass-card h-full rounded-3xl p-6 sm:p-7 flex flex-col justify-between relative group cursor-pointer border border-white/15 overflow-hidden"
             onClick={() => setActiveProject(project)}
           >
@@ -244,6 +253,18 @@ export const Projects: React.FC<ProjectsProps> = ({ data, siteSettings }) => {
           </TiltCard></Reveal>
         ))}
       </div>
+
+      {filteredProjects.length === 0 && (
+        <div className="text-center text-sm text-slate-400 py-10">
+          No projects match your filters.{' '}
+          <button
+            onClick={() => { setSelectedCategory('All'); setSearchQuery(''); }}
+            className="text-emerald-400 hover:text-emerald-300 font-semibold underline underline-offset-2"
+          >
+            Clear filters
+          </button>
+        </div>
+      )}
 
       {/* Project Detail Modal */}
       <ProjectModal

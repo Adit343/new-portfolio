@@ -11,6 +11,8 @@ export interface Project {
   keyFeatures: string[];
   metrics?: { label: string; value: string }[];
   accentColor: string;
+  liveUrl?: string;
+  githubUrl?: string;
 }
 
 export interface ExperienceItem {
@@ -25,6 +27,7 @@ export interface ExperienceItem {
 }
 
 export interface SkillCategory {
+  _id?: string;
   category: string;
   iconName: string;
   description: string;

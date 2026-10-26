@@ -13,10 +13,11 @@ interface SkillsProps {
 }
 
 export const Skills: React.FC<SkillsProps> = ({ data, siteSettings }) => {
-  if (!data || data.length === 0) return null;
-  const skillCategories = data;
+  const skillCategories = data ?? [];
   const [skillSearch, setSkillSearch] = useState<string>('');
   const [activeTab, setActiveTab] = useState<string>('All');
+
+  if (skillCategories.length === 0) return null;
 
   const badge = siteSettings?.skillsBadge || 'Technical Competencies & Stack';
   const title = siteSettings?.skillsTitle || 'Skills & Technologies';
@@ -65,14 +66,14 @@ export const Skills: React.FC<SkillsProps> = ({ data, siteSettings }) => {
   const filteredCategories = skillCategories.filter((cat) => {
     const matchesTab = 
       activeTab === 'All' ||
-      (activeTab === 'Frontend' && cat.category.includes('Frontend')) ||
-      (activeTab === 'Backend' && cat.category.includes('Backend')) ||
-      (activeTab === 'AI & Tools' && (cat.category.includes('AI') || cat.category.includes('Workflow')));
+      (activeTab === 'Frontend' && (cat.category ?? '').includes('Frontend')) ||
+      (activeTab === 'Backend' && (cat.category ?? '').includes('Backend')) ||
+      (activeTab === 'AI & Tools' && ((cat.category ?? '').includes('AI') || (cat.category ?? '').includes('Workflow')));
 
     const matchesSearch = 
       !skillSearch ||
       cat.category.toLowerCase().includes(skillSearch.toLowerCase()) ||
-      cat.description.toLowerCase().includes(skillSearch.toLowerCase()) ||
+      (cat.description ?? '').toLowerCase().includes(skillSearch.toLowerCase()) ||
       (cat.skills && cat.skills.some(s => s.name.toLowerCase().includes(skillSearch.toLowerCase())));
 
     return matchesTab && matchesSearch;
@@ -133,6 +134,18 @@ export const Skills: React.FC<SkillsProps> = ({ data, siteSettings }) => {
 
       </div>
 
+      {filteredCategories.length === 0 && (
+        <div className="text-center text-sm text-slate-400 py-10">
+          No skills match your filters.{' '}
+          <button
+            onClick={() => { setActiveTab('All'); setSkillSearch(''); }}
+            className="text-purple-400 hover:text-purple-300 font-semibold underline underline-offset-2"
+          >
+            Clear filters
+          </button>
+        </div>
+      )}
+
       {/* 4 Categorized Skill Cards Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         {filteredCategories.map((cat, idx) => {
@@ -145,8 +158,7 @@ export const Skills: React.FC<SkillsProps> = ({ data, siteSettings }) => {
           };
 
           return (
-            <Reveal delay={(idx % 2) * 0.1} className="h-full"><TiltCard className="h-full"><div 
-              key={cat.category || idx} 
+            <Reveal key={cat._id || cat.category || idx} delay={(idx % 2) * 0.1} className="h-full"><TiltCard className="h-full"><div 
               className={`apple-glass-card h-full p-6 sm:p-8 rounded-3xl relative overflow-hidden transition-all duration-300 ${style.ring}`}
             >
               
@@ -168,7 +180,7 @@ export const Skills: React.FC<SkillsProps> = ({ data, siteSettings }) => {
                 <div className="flex flex-wrap gap-2 sm:gap-2.5 pt-2">
                   {cat.skills.map((skill, sIdx) => (
                     <motion.div
-                      key={skill.name}
+                      key={`${skill.name}-${sIdx}`}
                       initial={{ opacity: 0, scale: 0.7, y: 12 }}
                       whileInView={{ opacity: 1, scale: 1, y: 0 }}
                       viewport={{ once: true }}

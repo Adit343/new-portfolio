@@ -8,14 +8,24 @@ const token = process.env.SANITY_API_WRITE_TOKEN;
 
 export async function POST(req: Request) {
   try {
-    const body = await req.json();
+    const body = await req.json().catch(() => null);
+    if (!body || typeof body !== 'object') {
+      return NextResponse.json({ error: 'Invalid request body.' }, { status: 400 });
+    }
     const { name, email, subject, message } = body;
 
-    if (!name || !email || !subject || !message) {
+    const fields = { name, email, subject, message };
+    if (Object.values(fields).some((v) => typeof v !== 'string' || !v.trim())) {
       return NextResponse.json(
         { error: 'All fields (name, email, subject, message) are required.' },
         { status: 400 }
       );
+    }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())) {
+      return NextResponse.json({ error: 'Please enter a valid email address.' }, { status: 400 });
+    }
+    if (name.length > 100 || email.length > 200 || subject.length > 200 || message.length > 5000) {
+      return NextResponse.json({ error: 'One or more fields are too long.' }, { status: 400 });
     }
 
     // Check if Sanity Write Token & Project ID are configured
@@ -30,10 +40,10 @@ export async function POST(req: Request) {
 
       const doc = await writeClient.create({
         _type: 'contactMessage',
-        name,
-        email,
-        subject,
-        message,
+        name: name.trim(),
+        email: email.trim(),
+        subject: subject.trim(),
+        message: message.trim(),
         submittedAt: new Date().toISOString(),
         status: 'new',
       });
@@ -58,7 +68,7 @@ export async function POST(req: Request) {
   } catch (error: any) {
     console.error('Error handling contact submission:', error);
     return NextResponse.json(
-      { error: error?.message || 'Failed to submit contact message' },
+      { error: 'Failed to submit your message. Please try again later.' },
       { status: 500 }
     );
   }

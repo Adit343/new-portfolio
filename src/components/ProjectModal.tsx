@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { X, CheckCircle2, ShieldCheck, Zap, Code2 } from 'lucide-react';
+import { X, CheckCircle2, ShieldCheck, Zap, Code2, ExternalLink } from 'lucide-react';
 import type { Project } from '../data/portfolioData';
 import { sanityAttr } from '@/src/sanity/lib/dataAttr';
 
@@ -53,6 +53,9 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
 
   return (
     <div 
+      role="dialog"
+      aria-modal="true"
+      aria-label={project.title}
       className="fixed inset-0 z-50 flex items-center justify-center p-2.5 sm:p-6 overflow-y-auto bg-black/85 backdrop-blur-xl animate-fadeIn no-scrollbar"
       onClick={onClose}
     >
@@ -94,13 +97,15 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
             <h2 {...sanityAttr(project, 'title')} className="text-2xl sm:text-4xl font-extrabold text-white tracking-tight">
               {project.title}
             </h2>
-            <p {...sanityAttr(project, 'subtitle')} className="mt-2 text-slate-300 text-sm sm:text-base font-medium">
-              {project.subtitle}
-            </p>
+            {project.subtitle && (
+              <p {...sanityAttr(project, 'subtitle')} className="mt-2 text-slate-300 text-sm sm:text-base font-medium">
+                {project.subtitle}
+              </p>
+            )}
           </div>
 
           {/* Metrics Row */}
-          {project.metrics && (
+          {project.metrics && project.metrics.length > 0 && (
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
               {project.metrics.map((m, idx) => (
                 <div key={idx} className="apple-glass-pill p-4 rounded-2xl text-left flex flex-col items-start justify-center border border-white/10 bg-white/[0.02]">
@@ -117,8 +122,8 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
               <Zap className="w-4 h-4 text-emerald-400" />
               <span>Project Overview & Architecture</span>
             </h4>
-            <p {...sanityAttr(project, 'description')} className="text-sm sm:text-base text-slate-300 leading-relaxed apple-glass-pill p-4 rounded-2xl border border-white/5">
-              {project.description}
+            <p {...sanityAttr(project, project.description ? 'description' : 'summary')} className="text-sm sm:text-base text-slate-300 leading-relaxed apple-glass-pill p-4 rounded-2xl border border-white/5">
+              {project.description || project.summary}
             </p>
           </div>
 
@@ -129,7 +134,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
               <span>Key Technical Highlights</span>
             </h4>
             <div className="grid grid-cols-1 gap-2.5">
-              {project.keyFeatures.map((feature, i) => (
+              {(project.keyFeatures ?? []).map((feature, i) => (
                 <div key={i} className="apple-glass-pill p-3.5 rounded-xl flex items-start gap-3 border-white/10 text-xs sm:text-sm text-slate-200">
                   <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
                   <span {...sanityAttr(project, `keyFeatures[${i}]`)} className="leading-relaxed">{feature}</span>
@@ -138,6 +143,36 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
             </div>
           </div>
 
+          {/* External Links */}
+          {(project.liveUrl || project.githubUrl) && (
+            <div className="flex flex-wrap gap-3">
+              {project.liveUrl && (
+                <a
+                  {...sanityAttr(project, 'liveUrl')}
+                  href={project.liveUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="apple-glass-button-primary px-5 py-2.5 rounded-xl text-xs font-bold text-white flex items-center gap-2"
+                >
+                  <ExternalLink className="w-4 h-4" />
+                  <span>Live Demo</span>
+                </a>
+              )}
+              {project.githubUrl && (
+                <a
+                  {...sanityAttr(project, 'githubUrl')}
+                  href={project.githubUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="apple-glass-button px-5 py-2.5 rounded-xl text-xs font-bold text-slate-200 hover:text-white flex items-center gap-2 border border-white/15"
+                >
+                  <Code2 className="w-4 h-4" />
+                  <span>Repository</span>
+                </a>
+              )}
+            </div>
+          )}
+
           {/* Technologies Used */}
           <div className="space-y-2 pt-2">
             <h4 className="text-xs font-semibold uppercase tracking-wider text-slate-400 flex items-center gap-2">
@@ -145,7 +180,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
               <span>Technology Stack</span>
             </h4>
             <div className="flex flex-wrap gap-2">
-              {project.tech.map((t, ti) => (
+              {(project.tech ?? []).map((t, ti) => (
                 <span 
                   key={t}
                   {...sanityAttr(project, `tech[${ti}]`)}

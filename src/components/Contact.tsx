@@ -35,6 +35,7 @@ interface ContactProps {
 
 export const Contact: React.FC<ContactProps> = ({ siteSettings, aboutData }) => {
   const [formSubmitted, setFormSubmitted] = useState(false);
+  const [submitError, setSubmitError] = useState('');
 
   const badge = siteSettings?.contactBadge || 'Direct Contact & Collaboration';
   const title = siteSettings?.contactTitle || 'Get In Touch';
@@ -145,6 +146,7 @@ export const Contact: React.FC<ContactProps> = ({ siteSettings, aboutData }) => 
     },
     validationSchema: contactValidationSchema,
     onSubmit: async (values, { resetForm, setSubmitting }) => {
+      setSubmitError('');
       try {
         const response = await fetch('/api/contact', {
           method: 'POST',
@@ -154,7 +156,7 @@ export const Contact: React.FC<ContactProps> = ({ siteSettings, aboutData }) => 
           body: JSON.stringify(values),
         });
 
-        const data = await response.json();
+        const data = await response.json().catch(() => ({}));
 
         if (response.ok && data.success) {
           setFormSubmitted(true);
@@ -164,19 +166,11 @@ export const Contact: React.FC<ContactProps> = ({ siteSettings, aboutData }) => 
           }, 5000);
         } else {
           console.error('Contact submission error:', data.error);
-          setFormSubmitted(true);
-          setTimeout(() => {
-            setFormSubmitted(false);
-            resetForm();
-          }, 5000);
+          setSubmitError(data.error || 'Something went wrong while sending your message. Please try again.');
         }
       } catch (error) {
         console.error('Network error during submission:', error);
-        setFormSubmitted(true);
-        setTimeout(() => {
-          setFormSubmitted(false);
-          resetForm();
-        }, 5000);
+        setSubmitError('Network error. Please check your connection and try again.');
       } finally {
         setSubmitting(false);
       }
@@ -482,14 +476,21 @@ export const Contact: React.FC<ContactProps> = ({ siteSettings, aboutData }) => 
                   )}
                 </div>
 
+                {submitError && (
+                  <p role="alert" className="text-[11px] font-mono text-red-400 flex items-center gap-1.5">
+                    <AlertCircle className="w-3.5 h-3.5 shrink-0" />
+                    <span>{submitError}</span>
+                  </p>
+                )}
+
                 {/* Submit Button */}
                 <button
                   type="submit"
                   disabled={formik.isSubmitting}
-                  className="w-full apple-glass-button-primary py-3.5 rounded-xl text-xs font-semibold flex items-center justify-center gap-2 group shadow-lg shadow-emerald-500/20"
+                  className="w-full apple-glass-button-primary disabled:opacity-60 disabled:cursor-not-allowed py-3.5 rounded-xl text-xs font-semibold flex items-center justify-center gap-2 group shadow-lg shadow-emerald-500/20"
                 >
                   <Send className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                  <span>Send Direct Message</span>
+                  <span>{formik.isSubmitting ? 'Sending...' : 'Send Direct Message'}</span>
                   <ArrowRight className="w-4 h-4 opacity-70 group-hover:translate-x-1 transition-transform" />
                 </button>
               </form>
