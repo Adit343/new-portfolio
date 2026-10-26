@@ -100,7 +100,7 @@ export const QCAnalyticsSimulator: React.FC = () => {
           </div>
           <div className="w-full bg-slate-800 rounded-full h-2 overflow-hidden">
             <div 
-              className="bg-gradient-to-r from-cyan-500 to-emerald-400 h-full transition-all duration-300"
+              className="bg-emerald-400 h-full transition-all duration-300"
               style={{ width: `${inspectionScore}%` }}
             />
           </div>

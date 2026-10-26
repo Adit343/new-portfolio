@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import { draftMode } from 'next/headers';
-import { VisualEditing } from 'next-sanity/visual-editing';
+import { StudioOverlay } from '@/src/components/StudioOverlay';
 import './globals.css';
 
 export const metadata: Metadata = {
@@ -35,7 +35,7 @@ export default async function RootLayout({
       </head>
       <body className="bg-[#030509] text-slate-100 font-sans antialiased selection:bg-emerald-500/30 selection:text-emerald-200 overflow-x-hidden">
         {children}
-        {isEnabled && <VisualEditing />}
+        {isEnabled && <StudioOverlay />}
       </body>
     </html>
   );

@@ -10,6 +10,7 @@ import { Skills } from '@/src/components/Skills';
 import { Education } from '@/src/components/Education';
 import { Contact } from '@/src/components/Contact';
 import { Footer } from '@/src/components/Footer';
+import { MotionProvider } from '@/src/components/Reveal';
 import { downloadResume } from '@/src/utils/downloadResume';
 import type { PersonalDetails, Project, ExperienceItem, SkillCategory, EducationItem } from '@/src/data/portfolioData';
 
@@ -47,6 +48,7 @@ export function MainPortfolio({
   }, [accent]);
 
   return (
+    <MotionProvider>
     <div className="min-h-screen relative bg-[#030509] text-slate-100 selection:bg-emerald-500/30 selection:text-emerald-200">
       
       {/* Dynamic Ambient Light Backdrop */}
@@ -87,5 +89,6 @@ export function MainPortfolio({
         <Footer siteSettings={initialSiteSettings} />
       </div>
     </div>
+    </MotionProvider>
   );
 }

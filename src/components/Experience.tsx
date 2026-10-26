@@ -3,6 +3,7 @@
 import React from 'react';
 import { Briefcase, Calendar, MapPin, CheckCircle2, Building2, Code2 } from 'lucide-react';
 import { ExperienceItem } from '../data/portfolioData';
+import { Reveal, SplitText, ScrollLine } from './Reveal';
 
 interface ExperienceProps {
   data?: ExperienceItem[];
@@ -21,7 +22,7 @@ export const Experience: React.FC<ExperienceProps> = ({ data, siteSettings }) =>
     <section id="experience" className="py-10 sm:py-14 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto relative">
       
       {/* Section Header */}
-      <div className="flex flex-col items-center text-center mb-16">
+      <Reveal className="flex flex-col items-center text-center mb-16">
         {badge && (
           <div className="apple-glass-pill px-4 py-1.5 rounded-full text-xs font-semibold text-emerald-400 border border-emerald-500/30 mb-3 flex items-center gap-2 shadow-lg shadow-emerald-500/10">
             <Briefcase className="w-3.5 h-3.5" />
@@ -29,22 +30,20 @@ export const Experience: React.FC<ExperienceProps> = ({ data, siteSettings }) =>
           </div>
         )}
         {title && (
-          <h2 className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight">
-            {title}
-          </h2>
+          <h2 className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight"><SplitText text={title} /></h2>
         )}
         {subtitle && (
           <p className="mt-3 text-slate-400 max-w-2xl text-sm sm:text-base">
             {subtitle}
           </p>
         )}
-      </div>
+      </Reveal>
 
       {/* Zig-Zag Timeline Container */}
       <div className="relative max-w-5xl mx-auto">
         
         {/* Animated Central Vertical Glowing Connector Line */}
-        <div className="absolute left-3.5 lg:left-1/2 top-4 bottom-4 w-1 bg-gradient-to-b from-emerald-400 via-cyan-400 to-purple-500 opacity-60 rounded-full transform lg:-translate-x-1/2 shadow-sm shadow-emerald-500/50"></div>
+        <ScrollLine className="absolute left-3.5 lg:left-1/2 top-4 bottom-4 w-1 lg:-translate-x-1/2" />
 
         {/* Experience Items in Alternating Zig-Zag Pattern */}
         <div className="space-y-8 sm:space-y-12">
@@ -52,7 +51,7 @@ export const Experience: React.FC<ExperienceProps> = ({ data, siteSettings }) =>
             const isEven = index % 2 === 0;
 
             return (
-              <div 
+              <Reveal x={isEven ? 40 : -40} y={20} 
                 key={exp.id || index} 
                 className={`relative flex flex-col lg:flex-row items-start ${
                   isEven ? 'lg:flex-row-reverse' : ''
@@ -82,7 +81,7 @@ export const Experience: React.FC<ExperienceProps> = ({ data, siteSettings }) =>
                     {/* Top Specular Line Accent */}
                     <div 
                       className={`absolute top-0 left-0 right-0 h-1 transition-all ${
-                        exp.isCurrent ? 'bg-gradient-to-r from-emerald-400 to-cyan-400' : 'bg-gradient-to-r from-cyan-400 to-purple-400'
+                        exp.isCurrent ? 'bg-emerald-400' : 'bg-cyan-400'
                       }`}
                     />
 
@@ -174,7 +173,7 @@ export const Experience: React.FC<ExperienceProps> = ({ data, siteSettings }) =>
                   </div>
                 </div>
 
-              </div>
+              </Reveal>
             );
           })}
         </div>

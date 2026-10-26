@@ -1,8 +1,10 @@
 'use client';
 
 import React, { useState } from 'react';
+import { motion } from 'framer-motion';
 import { Code2, Database, Sparkles, Wrench, Search, CheckCircle, Cpu } from 'lucide-react';
 import { SkillCategory } from '../data/portfolioData';
+import { Reveal, SplitText, TiltCard } from './Reveal';
 
 interface SkillsProps {
   data?: SkillCategory[];
@@ -79,7 +81,7 @@ export const Skills: React.FC<SkillsProps> = ({ data, siteSettings }) => {
     <section id="skills" className="py-10 sm:py-14 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto relative">
       
       {/* Section Title */}
-      <div className="flex flex-col items-center text-center mb-12">
+      <Reveal className="flex flex-col items-center text-center mb-12">
         {badge && (
           <div className="apple-glass-pill px-4 py-1.5 rounded-full text-xs font-semibold text-purple-400 border border-purple-500/30 mb-3 flex items-center gap-2 shadow-lg shadow-purple-500/10">
             <Cpu className="w-3.5 h-3.5" />
@@ -87,16 +89,14 @@ export const Skills: React.FC<SkillsProps> = ({ data, siteSettings }) => {
           </div>
         )}
         {title && (
-          <h2 className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight">
-            {title}
-          </h2>
+          <h2 className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight"><SplitText text={title} /></h2>
         )}
         {subtitle && (
           <p className="mt-3 text-slate-400 max-w-2xl text-sm sm:text-base">
             {subtitle}
           </p>
         )}
-      </div>
+      </Reveal>
 
       {/* Filter Tabs & Search Bar */}
       <div className="flex flex-col md:flex-row items-center justify-between gap-4 mb-10 max-w-5xl mx-auto w-full">
@@ -144,9 +144,9 @@ export const Skills: React.FC<SkillsProps> = ({ data, siteSettings }) => {
           };
 
           return (
-            <div 
+            <Reveal delay={(idx % 2) * 0.1} className="h-full"><TiltCard className="h-full"><div 
               key={cat.category || idx} 
-              className={`apple-glass-card p-6 sm:p-8 rounded-3xl relative overflow-hidden transition-all duration-300 ${style.ring}`}
+              className={`apple-glass-card h-full p-6 sm:p-8 rounded-3xl relative overflow-hidden transition-all duration-300 ${style.ring}`}
             >
               
               {/* Category Header */}
@@ -165,9 +165,13 @@ export const Skills: React.FC<SkillsProps> = ({ data, siteSettings }) => {
               {/* Skill Tags List */}
               {cat.skills && cat.skills.length > 0 && (
                 <div className="flex flex-wrap gap-2 sm:gap-2.5 pt-2">
-                  {cat.skills.map((skill) => (
-                    <div 
+                  {cat.skills.map((skill, sIdx) => (
+                    <motion.div
                       key={skill.name}
+                      initial={{ opacity: 0, scale: 0.7, y: 12 }}
+                      whileInView={{ opacity: 1, scale: 1, y: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ type: 'spring', stiffness: 260, damping: 20, delay: 0.15 + sIdx * 0.04 }}
                       className="apple-glass-pill px-3 py-1.5 sm:px-3.5 sm:py-2 rounded-xl flex items-center gap-1.5 sm:gap-2 border border-white/10 hover:border-emerald-500/50 hover:bg-white/[0.08] transition-all group cursor-default max-w-full min-w-0"
                     >
                       <CheckCircle className="w-3.5 h-3.5 text-emerald-400 group-hover:scale-110 transition-transform shrink-0" />
@@ -177,12 +181,13 @@ export const Skills: React.FC<SkillsProps> = ({ data, siteSettings }) => {
                           {skill.tag}
                         </span>
                       )}
-                    </div>
+                    </motion.div>
                   ))}
                 </div>
               )}
 
             </div>
+            </TiltCard></Reveal>
           );
         })}
       </div>

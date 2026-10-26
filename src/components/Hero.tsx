@@ -5,6 +5,7 @@ import { Mail, Phone, MapPin, Globe, Award, Sparkles, ChevronRight, Download } f
 import { motion } from 'framer-motion';
 import { PersonalDetails } from '../data/portfolioData';
 import { downloadResume } from '../utils/downloadResume';
+import { Reveal, Typewriter, TiltCard, Float } from './Reveal';
 
 interface HeroProps {
   onOpenResume?: () => void;
@@ -26,7 +27,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenResume, data, siteSettings }) 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center min-w-0">
         
         {/* Left Content (7 Cols) */}
-        <div className="lg:col-span-7 flex flex-col items-start gap-5 sm:gap-6 min-w-0 w-full">
+        <Reveal y={30} className="lg:col-span-7 flex flex-col items-start gap-5 sm:gap-6 min-w-0 w-full">
           
           {/* Status Pill */}
           {statusPill && (
@@ -39,17 +40,11 @@ export const Hero: React.FC<HeroProps> = ({ onOpenResume, data, siteSettings }) 
           {/* Main Name & Title */}
           <div className="w-full">
             {personalDetails.name && (
-              <motion.div
-                initial={{ opacity: 0, y: 18, filter: 'blur(4px)' }}
-                animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-                transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
-              >
-                <h1 className="text-3xl xs:text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-[76px] font-extrabold tracking-tight text-white leading-tight sm:leading-none">
-                  <span className="text-gradient-accent-animated inline-block break-words max-w-full">
-                    {personalDetails.name}
-                  </span>
+              <div>
+                <h1 className="text-3xl xs:text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-[76px] font-extrabold tracking-tight text-white leading-tight sm:leading-none break-words max-w-full">
+                  <Typewriter text={personalDetails.name} />
                 </h1>
-              </motion.div>
+              </div>
             )}
             <p className="mt-3 sm:mt-4 text-base sm:text-2xl font-semibold text-slate-300 flex flex-wrap items-center gap-2 sm:gap-3">
               {personalDetails.title && <span className="font-mono text-emerald-400 text-sm sm:text-xl">{personalDetails.title}</span>}
@@ -130,16 +125,16 @@ export const Hero: React.FC<HeroProps> = ({ onOpenResume, data, siteSettings }) 
             )}
           </div>
 
-        </div>
+        </Reveal>
 
         {/* Right Content: Apple Glass Interactive Widget (5 Cols) */}
-        <div className="lg:col-span-5 relative mt-4 lg:mt-0 w-full">
+        <Reveal x={40} y={0} delay={0.2} className="lg:col-span-5 relative mt-4 lg:mt-0 w-full">
           
           {/* Main Apple Glass Profile Card */}
+          <Float><TiltCard className="h-full" radius="rounded-3xl" max={5}>
           <div className="apple-glass-panel p-5 sm:p-8 rounded-3xl relative overflow-hidden border border-white/15 group shadow-2xl">
             
             {/* Ambient Inner Glowing Spot */}
-            <div className="absolute top-0 right-0 w-56 h-56 bg-emerald-500/15 rounded-full blur-3xl group-hover:bg-emerald-500/25 transition-all duration-700"></div>
 
             {/* Body: Recruiter Quick Summary */}
             {personalDetails.highlights && personalDetails.highlights.length > 0 && (
@@ -174,7 +169,8 @@ export const Hero: React.FC<HeroProps> = ({ onOpenResume, data, siteSettings }) 
             </div>
 
           </div>
-        </div>
+          </TiltCard></Float>
+        </Reveal>
 
       </div>
     </section>

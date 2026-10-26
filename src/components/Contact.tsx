@@ -5,6 +5,7 @@ import { Mail, Phone, Send, Copy, Check, Globe, MessageSquare, User, Tag, Sparkl
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { personalDetails } from '../data/portfolioData';
+import { Reveal, SplitText } from './Reveal';
 
 // Yup Validation Schema for Contact Form
 const contactValidationSchema = Yup.object({
@@ -179,7 +180,7 @@ export const Contact: React.FC<ContactProps> = ({ siteSettings, aboutData }) => 
     <section id="contact" className="py-10 sm:py-14 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto relative">
       
       {/* Header */}
-      <div className="flex flex-col items-center text-center mb-12">
+      <Reveal className="flex flex-col items-center text-center mb-12">
         {badge && (
           <div className="apple-glass-pill px-4 py-1.5 rounded-full text-xs font-semibold text-emerald-400 border border-emerald-500/30 mb-3 flex items-center gap-2 shadow-lg shadow-emerald-500/10">
             <MessageSquare className="w-3.5 h-3.5" />
@@ -187,22 +188,20 @@ export const Contact: React.FC<ContactProps> = ({ siteSettings, aboutData }) => 
           </div>
         )}
         {title && (
-          <h2 className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight">
-            {title}
-          </h2>
+          <h2 className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight"><SplitText text={title} /></h2>
         )}
         {subtitle && (
           <p className="mt-3 text-slate-400 max-w-2xl text-sm sm:text-base">
             {subtitle}
           </p>
         )}
-      </div>
+      </Reveal>
 
       <div className={`grid grid-cols-1 ${hasAnyContactInfo ? 'lg:grid-cols-12 items-stretch' : ''} gap-8 max-w-6xl mx-auto min-w-0`}>
         
         {/* Left Column: Direct Contact Info Cards (5 Cols) */}
         {hasAnyContactInfo && (
-          <div className="lg:col-span-5 flex flex-col h-full min-w-0">
+          <Reveal x={-40} y={0} className="lg:col-span-5 flex flex-col h-full min-w-0">
             
             <div className="apple-glass-panel p-4 sm:p-8 rounded-2xl sm:rounded-3xl border border-cyan-500/30 ring-1 ring-cyan-500/40 shadow-xl shadow-cyan-500/10 bg-cyan-950/[0.08] h-full flex flex-col justify-between">
               <div>
@@ -305,11 +304,11 @@ export const Contact: React.FC<ContactProps> = ({ siteSettings, aboutData }) => 
 
             </div>
 
-          </div>
+          </Reveal>
         )}
 
         {/* Right Column: Direct Message Form with Formik + Yup Validation (7 Cols) */}
-        <div className="lg:col-span-7 flex flex-col h-full min-w-0">
+        <Reveal x={40} y={0} delay={0.15} className="lg:col-span-7 flex flex-col h-full min-w-0">
           <div className="apple-glass-panel p-4 sm:p-8 rounded-2xl sm:rounded-3xl border border-emerald-500/40 ring-1 ring-emerald-500/40 shadow-xl shadow-emerald-500/10 bg-emerald-950/[0.08] relative h-full flex flex-col justify-between">
             
             <div className="flex items-center justify-between gap-2.5 mb-6 pb-4 border-b border-white/10">
@@ -490,7 +489,7 @@ export const Contact: React.FC<ContactProps> = ({ siteSettings, aboutData }) => 
             )}
 
           </div>
-        </div>
+        </Reveal>
 
       </div>
     </section>

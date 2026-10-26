@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { ArrowUp } from 'lucide-react';
+import { Reveal } from './Reveal';
 
 interface FooterProps {
   siteSettings?: any;
@@ -42,11 +43,11 @@ export const Footer: React.FC<FooterProps> = ({ siteSettings }) => {
       )}
 
       {/* Clean Minimalist Footer */}
-      <footer className="py-8 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto relative border-t border-white/10 mt-8 sm:mt-12 text-center">
+      <Reveal y={12} className="max-w-7xl mx-auto"><footer className="py-8 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto relative border-t border-white/10 mt-8 sm:mt-12 text-center">
         <p className="text-xs font-mono text-slate-400 tracking-wide">
           © {new Date().getFullYear()} Adit Shah. All rights reserved.
         </p>
-      </footer>
+      </footer></Reveal>
     </>
   );
 };

@@ -3,6 +3,7 @@
 import React from 'react';
 import { GraduationCap, Award, Calendar, CheckCircle, BookOpen } from 'lucide-react';
 import { EducationItem } from '../data/portfolioData';
+import { Reveal, SplitText } from './Reveal';
 
 interface EducationProps {
   data?: EducationItem;
@@ -21,7 +22,7 @@ export const Education: React.FC<EducationProps> = ({ data, siteSettings }) => {
     <section id="education" className="py-10 sm:py-14 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto relative">
       
       {/* Section Header */}
-      <div className="flex flex-col items-center text-center mb-12">
+      <Reveal className="flex flex-col items-center text-center mb-12">
         {badge && (
           <div className="apple-glass-pill px-4 py-1.5 rounded-full text-xs font-semibold text-emerald-400 border border-emerald-500/30 mb-3 flex items-center gap-2 shadow-lg shadow-emerald-500/10">
             <GraduationCap className="w-3.5 h-3.5" />
@@ -29,23 +30,20 @@ export const Education: React.FC<EducationProps> = ({ data, siteSettings }) => {
           </div>
         )}
         {title && (
-          <h2 className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight">
-            {title}
-          </h2>
+          <h2 className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight"><SplitText text={title} /></h2>
         )}
         {subtitle && (
           <p className="mt-3 text-slate-400 max-w-2xl text-sm sm:text-base">
             {subtitle}
           </p>
         )}
-      </div>
+      </Reveal>
 
       {/* Education Glass Card Container */}
-      <div className="max-w-4xl mx-auto">
+      <Reveal className="max-w-4xl mx-auto">
         <div className="apple-glass-panel p-5 sm:p-10 rounded-2xl sm:rounded-3xl relative overflow-hidden border border-white/10 group shadow-2xl">
           
           {/* Ambient Glow Blob */}
-          <div className="absolute -top-16 -right-16 w-64 h-64 bg-emerald-500/10 rounded-full blur-3xl group-hover:bg-emerald-500/20 transition-all duration-500"></div>
 
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-5 pb-6 border-b border-white/10">
             
@@ -105,7 +103,7 @@ export const Education: React.FC<EducationProps> = ({ data, siteSettings }) => {
           )}
 
         </div>
-      </div>
+      </Reveal>
 
     </section>
   );

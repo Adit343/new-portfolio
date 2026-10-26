@@ -4,6 +4,7 @@ import React, { useState, useRef } from 'react';
 import { FolderGit2, Search, ArrowUpRight, ChevronLeft, ChevronRight, Code2 } from 'lucide-react';
 import type { Project } from '../data/portfolioData';
 import { ProjectModal } from './ProjectModal';
+import { Reveal, SplitText, TiltCard } from './Reveal';
 
 interface ProjectsProps {
   data?: Project[];
@@ -80,7 +81,7 @@ export const Projects: React.FC<ProjectsProps> = ({ data, siteSettings }) => {
     <section id="projects" className="py-10 sm:py-14 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto relative">
       
       {/* Section Title */}
-      <div className="flex flex-col items-center text-center mb-12">
+      <Reveal className="flex flex-col items-center text-center mb-12">
         {badge && (
           <div className="apple-glass-pill px-4 py-1.5 rounded-full text-xs font-semibold text-cyan-400 border border-cyan-500/30 mb-3 flex items-center gap-2 shadow-lg shadow-cyan-500/10">
             <FolderGit2 className="w-3.5 h-3.5" />
@@ -88,16 +89,14 @@ export const Projects: React.FC<ProjectsProps> = ({ data, siteSettings }) => {
           </div>
         )}
         {title && (
-          <h2 className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight">
-            {title}
-          </h2>
+          <h2 className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight"><SplitText text={title} /></h2>
         )}
         {subtitle && (
           <p className="mt-3 text-slate-400 max-w-2xl text-sm sm:text-base">
             {subtitle}
           </p>
         )}
-      </div>
+      </Reveal>
 
       {/* Filter Tabs & Search Bar */}
       <div className="flex flex-col md:flex-row items-center justify-between gap-4 mb-10 max-w-5xl mx-auto w-full">
@@ -167,9 +166,9 @@ export const Projects: React.FC<ProjectsProps> = ({ data, siteSettings }) => {
       {/* Projects Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {filteredProjects.map((project, idx) => (
-          <div
+          <Reveal delay={(idx % 3) * 0.08} className="h-full"><TiltCard className="h-full"><div
             key={project.id || idx}
-            className="apple-glass-card rounded-3xl p-6 sm:p-7 flex flex-col justify-between relative group cursor-pointer border border-white/15 overflow-hidden"
+            className="apple-glass-card h-full rounded-3xl p-6 sm:p-7 flex flex-col justify-between relative group cursor-pointer border border-white/15 overflow-hidden"
             onClick={() => setActiveProject(project)}
           >
             {/* Top Specular Line */}
@@ -239,6 +238,7 @@ export const Projects: React.FC<ProjectsProps> = ({ data, siteSettings }) => {
             </div>
 
           </div>
+          </TiltCard></Reveal>
         ))}
       </div>
 
