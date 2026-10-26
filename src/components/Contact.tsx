@@ -310,14 +310,14 @@ export const Contact: React.FC<ContactProps> = ({ siteSettings, aboutData }) => 
 
         {/* Right Column: Direct Message Form with Formik + Yup Validation (7 Cols) */}
         <Reveal x={40} y={0} delay={0.15} className="lg:col-span-7 flex flex-col h-full min-w-0">
-          <div className="apple-glass-panel p-4 sm:p-8 rounded-2xl sm:rounded-3xl border border-emerald-500/40 ring-1 ring-emerald-500/40 shadow-xl shadow-emerald-500/10 bg-emerald-950/[0.08] relative h-full flex flex-col justify-between">
+          <div className="apple-glass-panel p-5 sm:p-8 rounded-2xl sm:rounded-3xl border border-emerald-500/40 ring-1 ring-emerald-500/40 shadow-xl shadow-emerald-500/10 bg-emerald-950/[0.08] relative h-full flex flex-col justify-between">
             
-            <div className="flex items-center justify-between gap-2.5 mb-6 pb-4 border-b border-white/10">
+            <div className="flex flex-col-reverse items-start gap-3 sm:flex-row sm:items-center sm:justify-between sm:gap-2.5 mb-6 pb-5 sm:pb-4 border-b border-white/10">
               <div className="min-w-0">
-                {formTitle && <h3 {...sanityAttr(siteSettings, 'contactFormTitle')} className="text-xl sm:text-2xl font-bold text-white">{formTitle}</h3>}
-                {formSubtitle && <p {...sanityAttr(siteSettings, 'contactFormSubtitle')} className="text-xs text-slate-400 mt-0.5">{formSubtitle}</p>}
+                {formTitle && <h3 {...sanityAttr(siteSettings, 'contactFormTitle')} className="text-2xl sm:text-2xl font-bold text-white tracking-tight">{formTitle}</h3>}
+                {formSubtitle && <p {...sanityAttr(siteSettings, 'contactFormSubtitle')} className="text-sm sm:text-xs text-slate-400 mt-1 sm:mt-0.5">{formSubtitle}</p>}
               </div>
-              <span className="text-[9px] sm:text-[10px] font-mono font-bold px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 flex items-center gap-1 shrink-0 whitespace-nowrap">
+              <span className="text-[10px] font-mono font-bold px-2.5 py-1 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 flex items-center gap-1 shrink-0 whitespace-nowrap">
                 <Sparkles className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-emerald-400 shrink-0" />
                 Quick Response
               </span>
@@ -332,12 +332,12 @@ export const Contact: React.FC<ContactProps> = ({ siteSettings, aboutData }) => 
                 <p className="text-xs text-slate-300">Thank you for reaching out. Adit will reply to your email shortly.</p>
               </div>
             ) : (
-              <form onSubmit={formik.handleSubmit} className="space-y-5">
+              <form onSubmit={formik.handleSubmit} className="space-y-6 sm:space-y-5">
                 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   {/* Name Input with Formik/Yup */}
                   <div>
-                    <label className="block text-xs font-mono text-slate-300 mb-1.5 font-semibold flex items-center gap-1.5">
+                    <label className="block text-[13px] sm:text-xs font-mono text-slate-300 mb-2 sm:mb-1.5 font-semibold flex items-center gap-1.5">
                       <User className="w-3.5 h-3.5 text-emerald-400" />
                       <span>Your Name</span>
                     </label>
@@ -349,7 +349,7 @@ export const Contact: React.FC<ContactProps> = ({ siteSettings, aboutData }) => 
                         value={formik.values.name}
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
-                        className={`w-full bg-black/40 border px-4 py-3 rounded-xl text-xs text-white placeholder-slate-500 focus:outline-none transition-all ${
+                        className={`w-full bg-black/40 border px-4 py-3.5 sm:py-3 rounded-xl text-base sm:text-xs text-white placeholder-slate-500 focus:outline-none transition-all ${
                           formik.touched.name && formik.errors.name
                             ? 'border-red-500/80 ring-2 ring-red-500/30'
                             : formik.touched.name && !formik.errors.name
@@ -358,9 +358,9 @@ export const Contact: React.FC<ContactProps> = ({ siteSettings, aboutData }) => 
                         }`}
                       />
                       {formik.touched.name && formik.errors.name ? (
-                        <AlertCircle className="w-4 h-4 text-red-400 absolute right-3 top-3.5" />
+                        <AlertCircle className="w-4 h-4 text-red-400 absolute right-3 top-4 sm:top-3.5" />
                       ) : formik.touched.name && !formik.errors.name ? (
-                        <CheckCircle2 className="w-4 h-4 text-emerald-400 absolute right-3 top-3.5" />
+                        <CheckCircle2 className="w-4 h-4 text-emerald-400 absolute right-3 top-4 sm:top-3.5" />
                       ) : null}
                     </div>
                     {formik.touched.name && formik.errors.name && (
@@ -372,8 +372,8 @@ export const Contact: React.FC<ContactProps> = ({ siteSettings, aboutData }) => 
 
                   {/* Email Input with Formik/Yup */}
                   <div>
-                    <label className="block text-xs font-mono text-slate-300 mb-1.5 font-semibold flex items-center gap-1.5">
-                      <Mail className="w-3.5 h-3.5 text-cyan-400" />
+                    <label className="block text-[13px] sm:text-xs font-mono text-slate-300 mb-2 sm:mb-1.5 font-semibold flex items-center gap-1.5">
+                      <Mail className="w-3.5 h-3.5 text-emerald-400" />
                       <span>Your Email</span>
                     </label>
                     <div className="relative">
@@ -384,18 +384,18 @@ export const Contact: React.FC<ContactProps> = ({ siteSettings, aboutData }) => 
                         value={formik.values.email}
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
-                        className={`w-full bg-black/40 border px-4 py-3 rounded-xl text-xs text-white placeholder-slate-500 focus:outline-none transition-all ${
+                        className={`w-full bg-black/40 border px-4 py-3.5 sm:py-3 rounded-xl text-base sm:text-xs text-white placeholder-slate-500 focus:outline-none transition-all ${
                           formik.touched.email && formik.errors.email
                             ? 'border-red-500/80 ring-2 ring-red-500/30'
                             : formik.touched.email && !formik.errors.email
-                            ? 'border-cyan-500/80 ring-2 ring-cyan-500/30'
-                            : 'border-white/20 focus:border-cyan-400 focus:ring-2 focus:ring-cyan-500/30'
+                            ? 'border-emerald-500/80 ring-2 ring-emerald-500/30'
+                            : 'border-white/20 focus:border-emerald-400 focus:ring-2 focus:ring-emerald-500/30'
                         }`}
                       />
                       {formik.touched.email && formik.errors.email ? (
-                        <AlertCircle className="w-4 h-4 text-red-400 absolute right-3 top-3.5" />
+                        <AlertCircle className="w-4 h-4 text-red-400 absolute right-3 top-4 sm:top-3.5" />
                       ) : formik.touched.email && !formik.errors.email ? (
-                        <CheckCircle2 className="w-4 h-4 text-cyan-400 absolute right-3 top-3.5" />
+                        <CheckCircle2 className="w-4 h-4 text-emerald-400 absolute right-3 top-4 sm:top-3.5" />
                       ) : null}
                     </div>
                     {formik.touched.email && formik.errors.email && (
@@ -408,8 +408,8 @@ export const Contact: React.FC<ContactProps> = ({ siteSettings, aboutData }) => 
 
                 {/* Subject Input with Formik/Yup */}
                 <div>
-                  <label className="block text-xs font-mono text-slate-300 mb-1.5 font-semibold flex items-center gap-1.5">
-                    <Tag className="w-3.5 h-3.5 text-purple-400" />
+                  <label className="block text-[13px] sm:text-xs font-mono text-slate-300 mb-2 sm:mb-1.5 font-semibold flex items-center gap-1.5">
+                    <Tag className="w-3.5 h-3.5 text-emerald-400" />
                     <span>Subject</span>
                   </label>
                   <div className="relative">
@@ -420,18 +420,18 @@ export const Contact: React.FC<ContactProps> = ({ siteSettings, aboutData }) => 
                       value={formik.values.subject}
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
-                      className={`w-full bg-black/40 border px-4 py-3 rounded-xl text-xs text-white placeholder-slate-500 focus:outline-none transition-all ${
+                      className={`w-full bg-black/40 border px-4 py-3.5 sm:py-3 rounded-xl text-base sm:text-xs text-white placeholder-slate-500 focus:outline-none transition-all ${
                         formik.touched.subject && formik.errors.subject
                           ? 'border-red-500/80 ring-2 ring-red-500/30'
                           : formik.touched.subject && !formik.errors.subject
-                          ? 'border-purple-500/80 ring-2 ring-purple-500/30'
-                          : 'border-white/20 focus:border-purple-400 focus:ring-2 focus:ring-purple-500/30'
+                          ? 'border-emerald-500/80 ring-2 ring-emerald-500/30'
+                          : 'border-white/20 focus:border-emerald-400 focus:ring-2 focus:ring-emerald-500/30'
                       }`}
                     />
                     {formik.touched.subject && formik.errors.subject ? (
-                      <AlertCircle className="w-4 h-4 text-red-400 absolute right-3 top-3.5" />
+                      <AlertCircle className="w-4 h-4 text-red-400 absolute right-3 top-4 sm:top-3.5" />
                     ) : formik.touched.subject && !formik.errors.subject ? (
-                      <CheckCircle2 className="w-4 h-4 text-purple-400 absolute right-3 top-3.5" />
+                      <CheckCircle2 className="w-4 h-4 text-emerald-400 absolute right-3 top-4 sm:top-3.5" />
                     ) : null}
                   </div>
                   {formik.touched.subject && formik.errors.subject && (
@@ -443,19 +443,19 @@ export const Contact: React.FC<ContactProps> = ({ siteSettings, aboutData }) => 
 
                 {/* Message Input with Formik/Yup */}
                 <div>
-                  <label className="block text-xs font-mono text-slate-300 mb-1.5 font-semibold flex items-center gap-1.5">
-                    <MessageSquare className="w-3.5 h-3.5 text-amber-400" />
+                  <label className="block text-[13px] sm:text-xs font-mono text-slate-300 mb-2 sm:mb-1.5 font-semibold flex items-center gap-1.5">
+                    <MessageSquare className="w-3.5 h-3.5 text-emerald-400" />
                     <span>Message</span>
                   </label>
                   <div className="relative">
                     <textarea
                       name="message"
-                      rows={4}
+                      rows={5}
                       placeholder="Tell me about your project or opportunity..."
                       value={formik.values.message}
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
-                      className={`w-full bg-black/40 border px-4 py-3 rounded-xl text-xs text-white placeholder-slate-500 focus:outline-none transition-all resize-none ${
+                      className={`w-full bg-black/40 border px-4 py-3.5 sm:py-3 rounded-xl text-base sm:text-xs text-white placeholder-slate-500 focus:outline-none transition-all resize-none ${
                         formik.touched.message && formik.errors.message
                           ? 'border-red-500/80 ring-2 ring-red-500/30'
                           : formik.touched.message && !formik.errors.message
@@ -464,9 +464,9 @@ export const Contact: React.FC<ContactProps> = ({ siteSettings, aboutData }) => 
                       }`}
                     />
                     {formik.touched.message && formik.errors.message ? (
-                      <AlertCircle className="w-4 h-4 text-red-400 absolute right-3 top-3.5" />
+                      <AlertCircle className="w-4 h-4 text-red-400 absolute right-3 top-4 sm:top-3.5" />
                     ) : formik.touched.message && !formik.errors.message ? (
-                      <CheckCircle2 className="w-4 h-4 text-emerald-400 absolute right-3 top-3.5" />
+                      <CheckCircle2 className="w-4 h-4 text-emerald-400 absolute right-3 top-4 sm:top-3.5" />
                     ) : null}
                   </div>
                   {formik.touched.message && formik.errors.message && (
@@ -487,7 +487,7 @@ export const Contact: React.FC<ContactProps> = ({ siteSettings, aboutData }) => 
                 <button
                   type="submit"
                   disabled={formik.isSubmitting}
-                  className="w-full apple-glass-button-primary disabled:opacity-60 disabled:cursor-not-allowed py-3.5 rounded-xl text-xs font-semibold flex items-center justify-center gap-2 group shadow-lg shadow-emerald-500/20"
+                  className="w-full apple-glass-button-primary disabled:opacity-60 disabled:cursor-not-allowed py-4 sm:py-3.5 rounded-xl text-sm sm:text-xs font-semibold flex items-center justify-center gap-2 group"
                 >
                   <Send className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                   <span>{formik.isSubmitting ? 'Sending...' : 'Send Direct Message'}</span>

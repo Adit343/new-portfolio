@@ -92,11 +92,11 @@ export const Hero: React.FC<HeroProps> = ({ onOpenResume, data, siteSettings }) 
           </div>
 
           {/* Quick Contact & Action Buttons */}
-          <div className="flex flex-col sm:flex-row flex-wrap items-stretch sm:items-center gap-3 pt-3 w-full">
+          <div className="grid grid-cols-2 sm:flex sm:flex-row sm:flex-wrap items-stretch sm:items-center gap-3 pt-3 w-full">
             {ctaText && (
               <a
                 href="#projects"
-                className="apple-glass-button-primary px-6 py-3.5 rounded-2xl font-bold text-xs sm:text-sm flex items-center justify-center gap-2 group shadow-lg transition-all hover:scale-[1.02] active:scale-[0.98] w-full sm:w-auto shrink-0 min-h-[46px]"
+                className="apple-glass-button-primary px-6 py-3.5 rounded-2xl font-bold text-xs sm:text-sm flex items-center justify-center gap-2 group shadow-lg transition-all hover:scale-[1.02] active:scale-[0.98] col-span-2 sm:col-span-1 w-full sm:w-auto shrink-0 min-h-[46px]"
               >
                 <span {...sanityAttr(siteSettings, 'heroProjectsCtaText')}>{ctaText}</span>
                 <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform shrink-0" />
@@ -106,7 +106,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenResume, data, siteSettings }) 
             {personalDetails.email && (
               <a
                 href={`mailto:${personalDetails.email}`}
-                className="apple-glass-button px-4 py-3.5 rounded-2xl font-medium text-xs sm:text-sm text-slate-200 hover:text-white flex items-center justify-center gap-2.5 transition-all hover:border-emerald-500/50 hover:bg-emerald-500/10 w-full sm:w-auto sm:flex-1 min-w-0 min-h-[46px]"
+                className="apple-glass-button px-2.5 sm:px-4 py-3.5 rounded-2xl font-medium text-xs sm:text-sm text-slate-200 hover:text-white flex items-center justify-center gap-2 sm:gap-2.5 transition-all hover:border-emerald-500/50 hover:bg-emerald-500/10 w-full sm:w-auto sm:flex-1 min-w-0 min-h-[46px]"
                 title="Send Direct Email"
               >
                 <Mail className="w-4 h-4 text-emerald-400 shrink-0" />
@@ -117,7 +117,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenResume, data, siteSettings }) 
             {personalDetails.phone && (
               <a
                 href={`tel:${personalDetails.phoneRaw || personalDetails.phone}`}
-                className="apple-glass-button px-4 py-3.5 rounded-2xl font-medium text-xs sm:text-sm text-slate-200 hover:text-white flex items-center justify-center gap-2.5 transition-all hover:border-cyan-500/50 hover:bg-cyan-500/10 w-full sm:w-auto sm:flex-1 min-w-0 min-h-[46px]"
+                className="apple-glass-button px-2.5 sm:px-4 py-3.5 rounded-2xl font-medium text-xs sm:text-sm text-slate-200 hover:text-white flex items-center justify-center gap-2 sm:gap-2.5 transition-all hover:border-cyan-500/50 hover:bg-cyan-500/10 w-full sm:w-auto sm:flex-1 min-w-0 min-h-[46px]"
                 title="Call Phone Number"
               >
                 <Phone className="w-4 h-4 text-cyan-400 shrink-0" />
