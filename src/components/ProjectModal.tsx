@@ -56,7 +56,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
       role="dialog"
       aria-modal="true"
       aria-label={project.title}
-      className="fixed inset-0 z-50 flex items-center justify-center p-2.5 sm:p-6 overflow-y-auto bg-black/85 backdrop-blur-xl animate-fadeIn no-scrollbar"
+      data-lenis-prevent className="fixed inset-0 z-50 flex items-center justify-center p-2.5 sm:p-6 overflow-y-auto bg-black/85 backdrop-blur-xl animate-fadeIn no-scrollbar"
       onClick={onClose}
     >
       <div 
@@ -90,7 +90,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
         </div>
 
         {/* Scrollable Content Body */}
-        <div className="p-4 sm:p-8 space-y-5 sm:space-y-6 overflow-y-auto no-scrollbar">
+        <div data-lenis-prevent className="p-4 sm:p-8 space-y-5 sm:space-y-6 overflow-y-auto no-scrollbar">
           
           {/* Title & Subtitle */}
           <div>

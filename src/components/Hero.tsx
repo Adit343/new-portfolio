@@ -6,7 +6,7 @@ import { motion } from 'framer-motion';
 import { PersonalDetails } from '../data/portfolioData';
 import { downloadResume } from '../utils/downloadResume';
 import { sanityAttr } from '@/src/sanity/lib/dataAttr';
-import { Reveal, Typewriter, TiltCard, Float } from './Reveal';
+import { Reveal, Typewriter, TiltCard } from './Reveal';
 
 interface HeroProps {
   onOpenResume?: () => void;
@@ -132,7 +132,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenResume, data, siteSettings }) 
         <Reveal x={40} y={0} delay={0.2} className="lg:col-span-5 relative mt-4 lg:mt-0 w-full">
           
           {/* Main Apple Glass Profile Card */}
-          <Float><TiltCard className="h-full" radius="rounded-3xl" max={5}>
+          <TiltCard className="h-full" radius="rounded-3xl" max={5}>
           <div className="apple-glass-panel p-5 sm:p-8 rounded-3xl relative overflow-hidden border border-white/15 group shadow-2xl">
             
             {/* Ambient Inner Glowing Spot */}
@@ -170,7 +170,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenResume, data, siteSettings }) 
             </div>
 
           </div>
-          </TiltCard></Float>
+          </TiltCard>
         </Reveal>
 
       </div>

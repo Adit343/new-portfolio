@@ -1,5 +1,10 @@
 @import "tailwindcss";
 
+@theme {
+  --default-transition-duration: 350ms;
+  --default-transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
 @layer base {
   :root, [data-theme="dark"] {
     --accent-rgb: 16, 185, 129; /* Emerald default */
@@ -136,7 +141,6 @@
   }
 
   html {
-    scroll-behavior: smooth;
     overflow-x: hidden;
     max-width: 100vw;
     -webkit-text-size-adjust: 100%;
@@ -199,8 +203,6 @@
 
 .apple-glass-panel {
   background: var(--panel-bg);
-  backdrop-filter: blur(40px) saturate(200%);
-  -webkit-backdrop-filter: blur(40px) saturate(200%);
   border: 1px solid var(--glass-border);
   box-shadow: 
     0 30px 60px -12px rgba(0, 0, 0, 0.25),
@@ -210,12 +212,10 @@
 
 .apple-glass-card {
   background: var(--card-bg);
-  backdrop-filter: blur(30px) saturate(180%);
-  -webkit-backdrop-filter: blur(30px) saturate(180%);
   border: 1px solid var(--glass-border);
   box-shadow: 
     0 16px 40px rgba(0, 0, 0, 0.15);
-  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
   position: relative;
   overflow: hidden;
 }
@@ -240,17 +240,13 @@
 
 .apple-glass-pill {
   background: var(--pill-bg);
-  backdrop-filter: blur(20px) saturate(180%);
-  -webkit-backdrop-filter: blur(20px) saturate(180%);
   border: 1px solid var(--glass-border);
 }
 
 .apple-glass-button {
   background: var(--pill-bg);
-  backdrop-filter: blur(24px) saturate(180%);
-  -webkit-backdrop-filter: blur(24px) saturate(180%);
   border: 1px solid var(--glass-border);
-  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all 0.45s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .apple-glass-button:hover {
@@ -273,7 +269,7 @@
   box-shadow: 
     0 10px 30px var(--accent-glow),
     inset 0 1px 1px 0 rgba(255, 255, 255, 0.4);
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .apple-glass-button-primary:hover {
@@ -378,4 +374,15 @@
 /* Icons never squash into ovals inside flex rows */
 svg.lucide {
   flex-shrink: 0;
+}
+
+/* Touch devices have no hover or tilt, so give taps the same tactile response */
+@media (hover: none) {
+  .apple-glass-card:active,
+  .apple-glass-button:active,
+  .apple-glass-button-primary:active,
+  .apple-glass-pill:active {
+    transform: scale(0.97);
+    transition-duration: 0.15s;
+  }
 }

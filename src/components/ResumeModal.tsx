@@ -86,7 +86,7 @@ EDUCATION
 
   return (
     <div 
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 overflow-y-auto bg-black/85 backdrop-blur-lg animate-fadeIn"
+      data-lenis-prevent className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 overflow-y-auto bg-black/85 backdrop-blur-lg animate-fadeIn"
       onClick={onClose}
     >
       <div 
@@ -143,7 +143,7 @@ EDUCATION
         </div>
 
         {/* Resume Content Body */}
-        <div className="p-6 sm:p-10 space-y-8 overflow-y-auto font-sans bg-slate-950/40 text-slate-200 text-sm">
+        <div data-lenis-prevent className="p-6 sm:p-10 space-y-8 overflow-y-auto font-sans bg-slate-950/40 text-slate-200 text-sm">
           
           {/* Header */}
           <div className="text-center pb-6 border-b border-white/10">

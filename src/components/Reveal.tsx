@@ -1,6 +1,8 @@
 'use client';
 
 import React, { useEffect, useRef } from 'react';
+import { ReactLenis } from 'lenis/react';
+import 'lenis/dist/lenis.css';
 import { motion, MotionConfig, useMotionValue, useReducedMotion, useScroll, useSpring } from 'framer-motion';
 
 const EASE = [0.16, 1, 0.3, 1] as const;
@@ -17,7 +19,7 @@ export const Reveal: React.FC<RevealProps> = ({ delay = 0, x = 0, y = 24, childr
     initial={{ opacity: 0, x, y, scale: 0.96 }}
     whileInView={{ opacity: 1, x: 0, y: 0, scale: 1 }}
     viewport={{ once: true, margin: '0px 0px -80px 0px' }}
-    transition={{ duration: 0.7, delay, ease: EASE }}
+    transition={{ duration: 0.9, delay, ease: EASE }}
     {...rest}
   >
     {children}
@@ -31,6 +33,7 @@ export const MotionProvider: React.FC<{ children: React.ReactNode }> = ({ childr
 
   return (
     <MotionConfig reducedMotion="user">
+      <SmoothScroll />
       <motion.div
         aria-hidden
         className="fixed top-0 left-0 right-0 h-[2px] origin-left z-[100] pointer-events-none"
@@ -48,23 +51,28 @@ export const SplitText: React.FC<{
   delay?: number;
   wordClassName?: string;
 }> = ({ text, delay = 0, wordClassName = '' }) => (
-  <span aria-label={text}>
+  <motion.span
+    aria-label={text}
+    initial="hidden"
+    whileInView="show"
+    viewport={{ once: true, margin: '0px 0px -40px 0px' }}
+    transition={{ staggerChildren: 0.07, delayChildren: delay }}
+  >
     {text.split(' ').map((word, i) => (
       <React.Fragment key={i}>
+        {/* The in-view trigger sits on the unclipped parent; a word sitting fully inside its own mask would never register as visible */}
         <span aria-hidden className="inline-block overflow-hidden align-bottom pb-[0.15em] -mb-[0.15em]">
           <motion.span
             className={`inline-block ${wordClassName}`}
-            initial={{ y: '115%', rotate: 5 }}
-            whileInView={{ y: 0, rotate: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.9, delay: delay + i * 0.07, ease: EASE }}
+            variants={{ hidden: { y: '115%', rotate: 5 }, show: { y: 0, rotate: 0 } }}
+            transition={{ duration: 0.9, ease: EASE }}
           >
             {word}
           </motion.span>
         </span>{' '}
       </React.Fragment>
     ))}
-  </span>
+  </motion.span>
 );
 
 /** 3D tilt toward the cursor with an accent spotlight that follows it. Mouse only. */
@@ -75,8 +83,8 @@ export const TiltCard: React.FC<{
   max?: number;
 }> = ({ children, className = '', radius = 'rounded-3xl', max = 7 }) => {
   const ref = useRef<HTMLDivElement>(null);
-  const rx = useSpring(useMotionValue(0), { stiffness: 220, damping: 18 });
-  const ry = useSpring(useMotionValue(0), { stiffness: 220, damping: 18 });
+  const rx = useSpring(useMotionValue(0), { stiffness: 160, damping: 20, mass: 0.6 });
+  const ry = useSpring(useMotionValue(0), { stiffness: 160, damping: 20, mass: 0.6 });
 
   const onMove = (e: React.PointerEvent<HTMLDivElement>) => {
     if (e.pointerType !== 'mouse' || !ref.current) return;
@@ -199,5 +207,17 @@ export const Typewriter: React.FC<{
         <span className="inline-block w-[0.06em] h-[0.85em] ml-[0.06em] align-baseline bg-[var(--accent-hex)] animate-caret" />
       </span>
     </span>
+  );
+};
+
+/** Inertia scrolling; also makes #anchor links glide. Skipped for reduced-motion users. */
+const SmoothScroll: React.FC = () => {
+  const reduced = useReducedMotion();
+  if (reduced) return null;
+  return (
+    <ReactLenis
+      root
+      options={{ lerp: 0.22, wheelMultiplier: 1.15, anchors: { offset: -88 } }}
+    />
   );
 };

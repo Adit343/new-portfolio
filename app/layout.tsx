@@ -23,7 +23,7 @@ export default async function RootLayout({
   const { isEnabled } = await draftMode();
 
   return (
-    <html lang="en" className="scroll-smooth">
+    <html lang="en">
       <head>
         <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />

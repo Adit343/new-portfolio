@@ -217,7 +217,7 @@ export const Navbar: React.FC<NavbarProps> = ({ accent, setAccent, onOpenResume,
           />
 
           {/* Full-Screen Mobile Navigation Panel */}
-          <div className="fixed inset-0 w-full min-h-[100dvh] bg-slate-950/98 backdrop-blur-2xl p-5 sm:p-6 z-50 flex flex-col justify-between shadow-2xl overflow-y-auto overscroll-contain animate-fade-in">
+          <div data-lenis-prevent className="fixed inset-0 w-full min-h-[100dvh] bg-slate-950/98 backdrop-blur-2xl p-5 sm:p-6 z-50 flex flex-col justify-between shadow-2xl overflow-y-auto overscroll-contain animate-fade-in">
             
             {/* Drawer Header */}
             <div>

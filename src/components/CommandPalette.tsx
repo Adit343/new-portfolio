@@ -113,7 +113,7 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({ isOpen, onClose,
         </div>
 
         {/* Action Items List */}
-        <div className="p-3 max-h-96 overflow-y-auto space-y-1">
+        <div data-lenis-prevent className="p-3 max-h-96 overflow-y-auto space-y-1">
           <div className="text-[10px] font-mono font-semibold uppercase tracking-wider text-slate-400 px-3 py-1.5">
             Quick Actions & Navigation
           </div>

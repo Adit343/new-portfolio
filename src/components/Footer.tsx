@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { ArrowUp } from 'lucide-react';
+import { useLenis } from 'lenis/react';
 import { Reveal } from './Reveal';
 import { sanityAttr } from '@/src/sanity/lib/dataAttr';
 
@@ -25,8 +26,10 @@ export const Footer: React.FC<FooterProps> = ({ siteSettings }) => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const lenis = useLenis();
   const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    if (lenis) lenis.scrollTo(0, { duration: 1.4 });
+    else window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   return (
