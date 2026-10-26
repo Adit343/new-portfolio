@@ -3,65 +3,33 @@
 @theme {
   --default-transition-duration: 350ms;
   --default-transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* One accent (soft blue) replaces emerald/teal; cyan/purple/etc. fall back to neutral slate */
+  --color-emerald-50: #effaff; --color-emerald-100: #d9f1ff; --color-emerald-200: #b3e3ff; --color-emerald-300: #85d0ff; --color-emerald-400: #5bbcff; --color-emerald-500: #38a3f2; --color-emerald-600: #2583cf; --color-emerald-700: #1f68a6; --color-emerald-800: #1d5183; --color-emerald-900: #1b436a; --color-emerald-950: #0e2640;
+  --color-teal-50: #effaff; --color-teal-100: #d9f1ff; --color-teal-200: #b3e3ff; --color-teal-300: #85d0ff; --color-teal-400: #5bbcff; --color-teal-500: #38a3f2; --color-teal-600: #2583cf; --color-teal-700: #1f68a6; --color-teal-800: #1d5183; --color-teal-900: #1b436a; --color-teal-950: #0e2640;
+  --color-cyan-50: #f8fafc; --color-cyan-100: #f1f5f9; --color-cyan-200: #e2e8f0; --color-cyan-300: #cbd5e1; --color-cyan-400: #94a3b8; --color-cyan-500: #64748b; --color-cyan-600: #475569; --color-cyan-700: #334155; --color-cyan-800: #1e293b; --color-cyan-900: #0f172a; --color-cyan-950: #020617;
+  --color-purple-50: #f8fafc; --color-purple-100: #f1f5f9; --color-purple-200: #e2e8f0; --color-purple-300: #cbd5e1; --color-purple-400: #94a3b8; --color-purple-500: #64748b; --color-purple-600: #475569; --color-purple-700: #334155; --color-purple-800: #1e293b; --color-purple-900: #0f172a; --color-purple-950: #020617;
+  --color-violet-50: #f8fafc; --color-violet-100: #f1f5f9; --color-violet-200: #e2e8f0; --color-violet-300: #cbd5e1; --color-violet-400: #94a3b8; --color-violet-500: #64748b; --color-violet-600: #475569; --color-violet-700: #334155; --color-violet-800: #1e293b; --color-violet-900: #0f172a; --color-violet-950: #020617;
+  --color-indigo-50: #f8fafc; --color-indigo-100: #f1f5f9; --color-indigo-200: #e2e8f0; --color-indigo-300: #cbd5e1; --color-indigo-400: #94a3b8; --color-indigo-500: #64748b; --color-indigo-600: #475569; --color-indigo-700: #334155; --color-indigo-800: #1e293b; --color-indigo-900: #0f172a; --color-indigo-950: #020617;
+  --color-sky-50: #f8fafc; --color-sky-100: #f1f5f9; --color-sky-200: #e2e8f0; --color-sky-300: #cbd5e1; --color-sky-400: #94a3b8; --color-sky-500: #64748b; --color-sky-600: #475569; --color-sky-700: #334155; --color-sky-800: #1e293b; --color-sky-900: #0f172a; --color-sky-950: #020617;
+  --color-blue-50: #f8fafc; --color-blue-100: #f1f5f9; --color-blue-200: #e2e8f0; --color-blue-300: #cbd5e1; --color-blue-400: #94a3b8; --color-blue-500: #64748b; --color-blue-600: #475569; --color-blue-700: #334155; --color-blue-800: #1e293b; --color-blue-900: #0f172a; --color-blue-950: #020617;
 }
 
 @layer base {
   :root, [data-theme="dark"] {
-    --accent-rgb: 16, 185, 129; /* Emerald default */
-    --accent-hex: #10b981;
-    --accent-glow: rgba(16, 185, 129, 0.12);
-    --accent-gradient: #10b981;
+    --accent-rgb: 91, 188, 255; /* Icy azure */
+    --accent-hex: #5bbcff;
+    --accent-glow: rgba(91, 188, 255, 0.14);
+    --accent-gradient: #5bbcff;
     --glass-bg: rgba(255, 255, 255, 0.03);
     --glass-border: rgba(255, 255, 255, 0.12);
-    --body-bg: #030509;
+    --body-bg: #070a10;
     --text-primary: #f1f5f9;
     --text-muted: #94a3b8;
-    --card-bg: rgba(18, 26, 42, 0.35);
-    --panel-bg: rgba(14, 20, 32, 0.75);
+    --card-bg: rgba(18, 26, 40, 0.55);
+    --panel-bg: rgba(12, 18, 30, 0.8);
     --pill-bg: rgba(255, 255, 255, 0.06);
     --input-bg: rgba(0, 0, 0, 0.4);
-  }
-
-  [data-accent="cyan"] {
-    --accent-rgb: 6, 182, 212;
-    --accent-hex: #06b6d4;
-    --accent-glow: rgba(6, 182, 212, 0.12);
-    --accent-gradient: #06b6d4;
-  }
-
-  [data-accent="violet"] {
-    --accent-rgb: 139, 92, 246;
-    --accent-hex: #8b5cf6;
-    --accent-glow: rgba(139, 92, 246, 0.12);
-    --accent-gradient: #8b5cf6;
-  }
-
-  [data-accent="amber"] {
-    --accent-rgb: 245, 158, 11;
-    --accent-hex: #f59e0b;
-    --accent-glow: rgba(245, 158, 11, 0.12);
-    --accent-gradient: #f59e0b;
-  }
-
-  [data-accent="rose"] {
-    --accent-rgb: 244, 63, 94;
-    --accent-hex: #f43f5e;
-    --accent-glow: rgba(244, 63, 94, 0.12);
-    --accent-gradient: #f43f5e;
-  }
-
-  [data-accent="indigo"] {
-    --accent-rgb: 99, 102, 241;
-    --accent-hex: #6366f1;
-    --accent-glow: rgba(99, 102, 241, 0.12);
-    --accent-gradient: #6366f1;
-  }
-
-  [data-accent="teal"] {
-    --accent-rgb: 20, 184, 166;
-    --accent-hex: #14b8a6;
-    --accent-glow: rgba(20, 184, 166, 0.12);
-    --accent-gradient: #14b8a6;
   }
 
   [data-theme="light"] {
@@ -264,8 +232,8 @@
 
 .apple-glass-button-primary {
   background: var(--accent-hex);
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  color: #0b1220 !important;
   box-shadow: 
     0 10px 30px var(--accent-glow),
     inset 0 1px 1px 0 rgba(255, 255, 255, 0.4);
@@ -325,7 +293,7 @@
   width: 8px;
 }
 ::-webkit-scrollbar-track {
-  background: #030509;
+  background: #070a10;
 }
 ::-webkit-scrollbar-thumb {
   background: rgba(255, 255, 255, 0.16);
@@ -385,4 +353,8 @@ svg.lucide {
     transform: scale(0.97);
     transition-duration: 0.15s;
   }
+}
+
+.apple-glass-button-primary svg {
+  color: #0b1220 !important;
 }

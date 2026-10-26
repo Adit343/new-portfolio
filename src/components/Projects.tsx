@@ -69,15 +69,15 @@ export const Projects: React.FC<ProjectsProps> = ({ data, siteSettings }) => {
   const getBadgeClasses = (badge: string) => {
     const lower = badge ? badge.toLowerCase() : '';
     if (lower.includes('ev') || lower.includes('infrastructure')) {
-      return 'bg-emerald-500/20 text-emerald-300 border-emerald-500/50 shadow-[0_0_12px_rgba(16,185,129,0.25)]';
+      return 'bg-emerald-500/20 text-emerald-300 border-emerald-500/50 shadow-[0_0_12px_rgba(91,188,255,0.25)]';
     }
     if (lower.includes('quality') || lower.includes('qa') || lower.includes('assurance')) {
-      return 'bg-cyan-500/20 text-cyan-300 border-cyan-500/50 shadow-[0_0_12px_rgba(6,182,212,0.25)]';
+      return 'bg-cyan-500/20 text-cyan-300 border-cyan-500/50 shadow-[0_0_12px_rgba(148,163,184,0.25)]';
     }
     if (lower.includes('football') || lower.includes('platform') || lower.includes('sports')) {
-      return 'bg-purple-500/20 text-purple-300 border-purple-500/50 shadow-[0_0_12px_rgba(168,85,247,0.25)]';
+      return 'bg-purple-500/20 text-purple-300 border-purple-500/50 shadow-[0_0_12px_rgba(148,163,184,0.25)]';
     }
-    return 'bg-emerald-500/20 text-emerald-300 border-emerald-500/50 shadow-[0_0_12px_rgba(16,185,129,0.25)]';
+    return 'bg-emerald-500/20 text-emerald-300 border-emerald-500/50 shadow-[0_0_12px_rgba(91,188,255,0.25)]';
   };
 
   return (
@@ -184,7 +184,7 @@ export const Projects: React.FC<ProjectsProps> = ({ data, siteSettings }) => {
             {/* Top Specular Line */}
             <div 
               className="absolute top-0 left-0 right-0 h-1 transition-all duration-500 group-hover:h-1.5"
-              style={{ backgroundColor: project.accentColor || '#10b981' }}
+              style={{ backgroundColor: project.accentColor || '#5bbcff' }}
               {...sanityAttr(project, 'accentColor')}
             />
 

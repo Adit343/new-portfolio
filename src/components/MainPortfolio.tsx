@@ -31,7 +31,6 @@ export function MainPortfolio({
   initialSkills = [],
   initialEducation,
 }: MainPortfolioProps) {
-  const [accent, setAccent] = useState<string>('emerald');
   const [theme, setTheme] = useState<'dark' | 'light'>('dark');
 
   useEffect(() => {
@@ -42,23 +41,20 @@ export function MainPortfolio({
   }, []);
 
   useEffect(() => {
-    document.documentElement.setAttribute('data-accent', accent);
     document.documentElement.setAttribute('data-theme', 'dark');
     document.documentElement.classList.add('dark');
-  }, [accent]);
+  }, []);
 
   return (
     <MotionProvider>
-    <div className="min-h-screen relative bg-[#030509] text-slate-100 selection:bg-emerald-500/30 selection:text-emerald-200">
+    <div className="min-h-screen relative bg-[#070a10] text-slate-100 selection:bg-emerald-500/30 selection:text-emerald-200">
       
       {/* Dynamic Ambient Light Backdrop */}
-      <AmbientBackground accent={accent} />
+      <AmbientBackground />
 
       {/* Main Page Content */}
       <div className="relative z-10">
         <Navbar
-          accent={accent}
-          setAccent={setAccent}
           onOpenResume={() => downloadResume(initialSiteSettings)}
           siteSettings={initialSiteSettings}
         />

@@ -2,11 +2,7 @@
 
 import React from 'react';
 
-interface AmbientBackgroundProps {
-  accent: string;
-}
-
-export const AmbientBackground: React.FC<AmbientBackgroundProps> = () => (
+export const AmbientBackground: React.FC = () => (
   <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden select-none">
     {/* Faint dot grid */}
     <div

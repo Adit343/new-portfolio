@@ -21,15 +21,13 @@ export function App() {
     <div className="min-h-screen relative bg-[#030509] text-slate-100 selection:bg-emerald-500/30 selection:text-emerald-200">
       
       {/* Dynamic Apple 2026 Ambient Light Mesh Backdrop */}
-      <AmbientBackground accent={accent} />
+      <AmbientBackground />
 
       {/* Main Page Layout */}
       <div className="relative z-10">
         
         {/* Floating Apple Liquid Glass Navbar */}
         <Navbar
-          accent={accent}
-          setAccent={setAccent}
           onOpenResume={() => downloadResume()}
         />
 

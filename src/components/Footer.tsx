@@ -38,7 +38,7 @@ export const Footer: React.FC<FooterProps> = ({ siteSettings }) => {
       {showTopBtn && (
         <button
           onClick={scrollToTop}
-          className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-40 w-11 h-11 sm:w-14 sm:h-14 aspect-square shrink-0 rounded-full border-2 border-emerald-400/60 bg-slate-900/90 backdrop-blur-2xl text-emerald-400 hover:bg-emerald-500 hover:text-white hover:border-emerald-300 shadow-[0_0_25px_rgba(16,185,129,0.35)] hover:shadow-[0_0_35px_rgba(16,185,129,0.7)] hover:scale-110 active:scale-95 transition-all duration-300 cursor-pointer flex items-center justify-center group animate-fadeIn ring-1 ring-white/20"
+          className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-40 w-11 h-11 sm:w-14 sm:h-14 aspect-square shrink-0 rounded-full border-2 border-emerald-400/60 bg-slate-900/90 backdrop-blur-2xl text-emerald-400 hover:bg-emerald-500 hover:text-white hover:border-emerald-300 shadow-[0_0_25px_rgba(91,188,255,0.35)] hover:shadow-[0_0_35px_rgba(91,188,255,0.7)] hover:scale-110 active:scale-95 transition-all duration-300 cursor-pointer flex items-center justify-center group animate-fadeIn ring-1 ring-white/20"
           title="Back to Top"
           aria-label="Back to Top"
         >
