@@ -374,3 +374,8 @@
 .animate-caret {
   animation: caret-blink 1s step-end infinite;
 }
+
+/* Icons never squash into ovals inside flex rows */
+svg.lucide {
+  flex-shrink: 0;
+}

@@ -9,11 +9,9 @@ export const client = createClient({
   dataset,
   apiVersion,
   useCdn: false, // false for real-time live data
-  stega: {
-    enabled: true,
-    studioUrl: '/studio',
-    filter: () => true, // Force stega metadata on every text field for complete visual editing
-  },
+  // Click-to-edit uses explicit data-sanity attributes (see dataAttr.ts), not stega, so text
+  // stays clean for typing/splitting/uppercasing and non-text fields are covered too.
+  stega: { enabled: false },
 });
 
 export const writeClient = createClient({

@@ -3,6 +3,7 @@
 import React from 'react';
 import { X, CheckCircle2, ShieldCheck, Zap, Code2 } from 'lucide-react';
 import type { Project } from '../data/portfolioData';
+import { sanityAttr } from '@/src/sanity/lib/dataAttr';
 
 interface ProjectModalProps {
   project: Project | null;
@@ -64,12 +65,12 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
         <div className="p-3 sm:p-5 border-b border-white/10 flex items-center justify-between gap-2.5 bg-white/[0.03] shrink-0">
           <div className="flex flex-wrap items-center gap-2 sm:gap-3 min-w-0 pr-1">
             {project.badge && (
-              <span className={`text-[11px] sm:text-xs font-mono font-extrabold px-2.5 py-1 sm:px-3 sm:py-1 rounded-full border whitespace-nowrap shrink-0 ${getBadgeClasses(project.badge)}`}>
+              <span {...sanityAttr(project, 'badge')} className={`text-[11px] sm:text-xs font-mono font-extrabold px-2.5 py-1 sm:px-3 sm:py-1 rounded-full border whitespace-nowrap shrink-0 ${getBadgeClasses(project.badge)}`}>
                 {project.badge}
               </span>
             )}
             {project.category && (
-              <span className="text-[11px] sm:text-xs font-mono font-semibold text-cyan-300 tracking-wide whitespace-nowrap shrink-0">
+              <span {...sanityAttr(project, 'category')} className="text-[11px] sm:text-xs font-mono font-semibold text-cyan-300 tracking-wide whitespace-nowrap shrink-0">
                 {project.category}
               </span>
             )}
@@ -90,10 +91,10 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
           
           {/* Title & Subtitle */}
           <div>
-            <h2 className="text-2xl sm:text-4xl font-extrabold text-white tracking-tight">
+            <h2 {...sanityAttr(project, 'title')} className="text-2xl sm:text-4xl font-extrabold text-white tracking-tight">
               {project.title}
             </h2>
-            <p className="mt-2 text-slate-300 text-sm sm:text-base font-medium">
+            <p {...sanityAttr(project, 'subtitle')} className="mt-2 text-slate-300 text-sm sm:text-base font-medium">
               {project.subtitle}
             </p>
           </div>
@@ -103,8 +104,8 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
               {project.metrics.map((m, idx) => (
                 <div key={idx} className="apple-glass-pill p-4 rounded-2xl text-left flex flex-col items-start justify-center border border-white/10 bg-white/[0.02]">
-                  <div className="text-[11px] font-mono font-bold text-slate-400 uppercase tracking-wider">{m.label}</div>
-                  <div className="text-sm font-extrabold text-white mt-1">{m.value}</div>
+                  <div {...sanityAttr(project, `metrics[${idx}].label`)} className="text-[11px] font-mono font-bold text-slate-400 uppercase tracking-wider">{m.label}</div>
+                  <div {...sanityAttr(project, `metrics[${idx}].value`)} className="text-sm font-extrabold text-white mt-1">{m.value}</div>
                 </div>
               ))}
             </div>
@@ -116,7 +117,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
               <Zap className="w-4 h-4 text-emerald-400" />
               <span>Project Overview & Architecture</span>
             </h4>
-            <p className="text-sm sm:text-base text-slate-300 leading-relaxed apple-glass-pill p-4 rounded-2xl border border-white/5">
+            <p {...sanityAttr(project, 'description')} className="text-sm sm:text-base text-slate-300 leading-relaxed apple-glass-pill p-4 rounded-2xl border border-white/5">
               {project.description}
             </p>
           </div>
@@ -131,7 +132,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
               {project.keyFeatures.map((feature, i) => (
                 <div key={i} className="apple-glass-pill p-3.5 rounded-xl flex items-start gap-3 border-white/10 text-xs sm:text-sm text-slate-200">
                   <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
-                  <span className="leading-relaxed">{feature}</span>
+                  <span {...sanityAttr(project, `keyFeatures[${i}]`)} className="leading-relaxed">{feature}</span>
                 </div>
               ))}
             </div>
@@ -144,9 +145,10 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
               <span>Technology Stack</span>
             </h4>
             <div className="flex flex-wrap gap-2">
-              {project.tech.map((t) => (
+              {project.tech.map((t, ti) => (
                 <span 
                   key={t}
+                  {...sanityAttr(project, `tech[${ti}]`)}
                   className="px-3 py-1.5 rounded-xl text-xs font-mono font-medium apple-glass-pill text-white border-white/15"
                 >
                   {t}

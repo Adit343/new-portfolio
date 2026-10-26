@@ -127,7 +127,7 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({ isOpen, onClose,
                 className="w-full apple-glass-pill p-3 rounded-2xl flex items-center justify-between text-left hover:bg-white/10 transition-all group border-white/5"
               >
                 <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 rounded-xl bg-white/5 flex items-center justify-center text-emerald-400 group-hover:scale-110 transition-transform">
+                  <div className="w-8 h-8 shrink-0 rounded-xl bg-white/5 flex items-center justify-center text-emerald-400 group-hover:scale-110 transition-transform">
                     <Icon className="w-4 h-4" />
                   </div>
                   <div>

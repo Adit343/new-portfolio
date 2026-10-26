@@ -3,6 +3,7 @@
 import React from 'react';
 import { Briefcase, Calendar, MapPin, CheckCircle2, Building2, Code2 } from 'lucide-react';
 import { ExperienceItem } from '../data/portfolioData';
+import { sanityAttr } from '@/src/sanity/lib/dataAttr';
 import { Reveal, SplitText, ScrollLine } from './Reveal';
 
 interface ExperienceProps {
@@ -26,14 +27,14 @@ export const Experience: React.FC<ExperienceProps> = ({ data, siteSettings }) =>
         {badge && (
           <div className="apple-glass-pill px-4 py-1.5 rounded-full text-xs font-semibold text-emerald-400 border border-emerald-500/30 mb-3 flex items-center gap-2 shadow-lg shadow-emerald-500/10">
             <Briefcase className="w-3.5 h-3.5" />
-            <span>{badge}</span>
+            <span {...sanityAttr(siteSettings, 'experienceBadge')}>{badge}</span>
           </div>
         )}
         {title && (
-          <h2 className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight"><SplitText text={title} /></h2>
+          <h2 {...sanityAttr(siteSettings, 'experienceTitle')} className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight"><SplitText text={title} /></h2>
         )}
         {subtitle && (
-          <p className="mt-3 text-slate-400 max-w-2xl text-sm sm:text-base">
+          <p {...sanityAttr(siteSettings, 'experienceSubtitle')} className="mt-3 text-slate-400 max-w-2xl text-sm sm:text-base">
             {subtitle}
           </p>
         )}
@@ -59,7 +60,7 @@ export const Experience: React.FC<ExperienceProps> = ({ data, siteSettings }) =>
               >
                 
                 {/* Timeline Node Badge */}
-                <div className="absolute left-3.5 lg:left-1/2 transform -translate-x-1/2 z-10 w-8 h-8 sm:w-11 sm:h-11 rounded-xl sm:rounded-2xl apple-glass-panel border border-emerald-400/60 flex items-center justify-center group-hover:scale-115 transition-all duration-300 shadow-xl shadow-emerald-500/25 bg-slate-950">
+                <div className="absolute left-3.5 lg:left-1/2 transform -translate-x-1/2 z-10 w-8 h-8 sm:w-11 sm:h-11 aspect-square shrink-0 rounded-xl sm:rounded-2xl apple-glass-panel border border-emerald-400/60 flex items-center justify-center group-hover:scale-115 transition-all duration-300 shadow-xl shadow-emerald-500/25 bg-slate-950">
                   <div className={`w-2.5 h-2.5 sm:w-3.5 sm:h-3.5 rounded-full ${
                     exp.isCurrent 
                       ? 'bg-emerald-400 animate-ping' 
@@ -88,19 +89,19 @@ export const Experience: React.FC<ExperienceProps> = ({ data, siteSettings }) =>
                     {/* Header Row */}
                     <div className="flex flex-wrap items-center justify-between gap-2 mb-3 pt-1">
                       {exp.period && (
-                        <span className="text-xs font-mono font-bold px-3 py-1 rounded-full apple-glass-pill border border-emerald-500/40 text-emerald-300 flex items-center gap-1.5 shadow-sm">
+                        <span {...sanityAttr(exp, 'period')} className="text-xs font-mono font-bold px-3 py-1 rounded-full apple-glass-pill border border-emerald-500/40 text-emerald-300 flex items-center gap-1.5 shadow-sm">
                           <Calendar className="w-3.5 h-3.5 text-emerald-400" />
                           {exp.period}
                         </span>
                       )}
 
                       {exp.isCurrent ? (
-                        <span className="text-[10px] font-mono font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 shadow-sm shadow-emerald-500/20 flex items-center gap-1.5">
+                        <span {...sanityAttr(exp, 'isCurrent')} className="text-[10px] font-mono font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 shadow-sm shadow-emerald-500/20 flex items-center gap-1.5">
                           <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
                           Present Role
                         </span>
                       ) : (
-                        <span className="text-[10px] font-mono font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-cyan-500/20 text-cyan-300 border border-cyan-500/40">
+                        <span {...sanityAttr(exp, 'isCurrent')} className="text-[10px] font-mono font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-cyan-500/20 text-cyan-300 border border-cyan-500/40">
                           Completed Role
                         </span>
                       )}
@@ -108,7 +109,7 @@ export const Experience: React.FC<ExperienceProps> = ({ data, siteSettings }) =>
 
                     {/* Role Title & Company */}
                     {exp.role && (
-                      <h3 className="text-xl sm:text-2xl font-extrabold text-white group-hover:text-emerald-300 transition-colors tracking-tight">
+                      <h3 {...sanityAttr(exp, 'role')} className="text-xl sm:text-2xl font-extrabold text-white group-hover:text-emerald-300 transition-colors tracking-tight">
                         {exp.role}
                       </h3>
                     )}
@@ -117,12 +118,12 @@ export const Experience: React.FC<ExperienceProps> = ({ data, siteSettings }) =>
                       {exp.company && (
                         <div className="flex items-center gap-1.5">
                           <Building2 className="w-4 h-4 text-cyan-400" />
-                          <span>{exp.company}</span>
+                          <span {...sanityAttr(exp, 'company')}>{exp.company}</span>
                         </div>
                       )}
                       {exp.company && exp.location && <span className="text-slate-600">•</span>}
                       {exp.location && (
-                        <span className="text-slate-400 text-xs flex items-center gap-1">
+                        <span {...sanityAttr(exp, 'location')} className="text-slate-400 text-xs flex items-center gap-1">
                           <MapPin className="w-3.5 h-3.5 text-slate-400" />
                           {exp.location}
                         </span>
@@ -142,7 +143,7 @@ export const Experience: React.FC<ExperienceProps> = ({ data, siteSettings }) =>
                           {exp.highlights.map((point, i) => (
                             <li key={i} className="flex items-start gap-3 apple-glass-pill p-3 rounded-xl border border-white/5 hover:border-white/20 transition-all">
                               <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
-                              <span className="leading-relaxed font-medium">{point}</span>
+                              <span {...sanityAttr(exp, `highlights[${i}]`)} className="leading-relaxed font-medium">{point}</span>
                             </li>
                           ))}
                         </ul>
@@ -158,9 +159,10 @@ export const Experience: React.FC<ExperienceProps> = ({ data, siteSettings }) =>
                         </div>
 
                         <div className="flex flex-wrap gap-2">
-                          {exp.tech.map((t) => (
+                          {exp.tech.map((t, ti) => (
                             <span 
                               key={t}
+                              {...sanityAttr(exp, `tech[${ti}]`)}
                               className="text-[11px] font-mono font-medium px-3 py-1 rounded-xl apple-glass-pill text-slate-200 border border-white/15 hover:border-emerald-500/50 hover:text-white transition-all shadow-sm"
                             >
                               {t}

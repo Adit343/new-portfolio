@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Code2, Database, Sparkles, Wrench, Search, CheckCircle, Cpu } from 'lucide-react';
 import { SkillCategory } from '../data/portfolioData';
+import { sanityAttr } from '@/src/sanity/lib/dataAttr';
 import { Reveal, SplitText, TiltCard } from './Reveal';
 
 interface SkillsProps {
@@ -85,14 +86,14 @@ export const Skills: React.FC<SkillsProps> = ({ data, siteSettings }) => {
         {badge && (
           <div className="apple-glass-pill px-4 py-1.5 rounded-full text-xs font-semibold text-purple-400 border border-purple-500/30 mb-3 flex items-center gap-2 shadow-lg shadow-purple-500/10">
             <Cpu className="w-3.5 h-3.5" />
-            <span>{badge}</span>
+            <span {...sanityAttr(siteSettings, 'skillsBadge')}>{badge}</span>
           </div>
         )}
         {title && (
-          <h2 className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight"><SplitText text={title} /></h2>
+          <h2 {...sanityAttr(siteSettings, 'skillsTitle')} className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight"><SplitText text={title} /></h2>
         )}
         {subtitle && (
-          <p className="mt-3 text-slate-400 max-w-2xl text-sm sm:text-base">
+          <p {...sanityAttr(siteSettings, 'skillsSubtitle')} className="mt-3 text-slate-400 max-w-2xl text-sm sm:text-base">
             {subtitle}
           </p>
         )}
@@ -102,12 +103,12 @@ export const Skills: React.FC<SkillsProps> = ({ data, siteSettings }) => {
       <div className="flex flex-col md:flex-row items-center justify-between gap-4 mb-10 max-w-5xl mx-auto w-full">
         
         {/* Category Pills */}
-        <div className="flex flex-nowrap overflow-x-auto no-scrollbar items-center gap-1.5 sm:gap-2 apple-glass-pill p-1.5 rounded-2xl border border-white/10 w-full md:w-auto">
+        <div className="grid grid-cols-4 md:flex md:flex-nowrap items-center gap-1 sm:gap-2 apple-glass-pill p-1.5 rounded-2xl border border-white/10 w-full md:w-auto">
           {tabs.map((tab) => (
             <button
               key={tab}
               onClick={() => setActiveTab(tab)}
-              className={`px-3.5 py-2 rounded-xl text-xs font-semibold shrink-0 transition-all duration-200 ${
+              className={`px-1 sm:px-3.5 py-2.5 md:py-2 rounded-xl text-[11px] sm:text-xs font-semibold text-center whitespace-nowrap md:shrink-0 transition-all duration-200 ${
                 activeTab === tab
                   ? 'apple-glass-button-primary text-white shadow-lg'
                   : 'text-slate-400 hover:text-white hover:bg-white/10'
@@ -151,13 +152,13 @@ export const Skills: React.FC<SkillsProps> = ({ data, siteSettings }) => {
               
               {/* Category Header */}
               <div className="flex items-start justify-between pb-4 border-b border-white/10 mb-4">
-                <div className="flex items-center gap-3">
-                  <div className="w-12 h-12 rounded-2xl apple-glass-pill flex items-center justify-center border border-white/15">
+                <div className="flex items-start gap-3">
+                  <div {...sanityAttr(cat, 'iconName')} className="w-11 h-11 sm:w-12 sm:h-12 aspect-square shrink-0 rounded-2xl apple-glass-pill flex items-center justify-center border border-white/15">
                     {iconsMap[cat.iconName] || <Code2 className="w-5 h-5 text-emerald-400" />}
                   </div>
                   <div>
-                    <h3 className="text-xl font-extrabold text-white tracking-tight">{cat.category}</h3>
-                    {cat.description && <p className="text-xs text-slate-400 mt-0.5">{cat.description}</p>}
+                    <h3 {...sanityAttr(cat, 'category')} className="text-xl font-extrabold text-white tracking-tight">{cat.category}</h3>
+                    {cat.description && <p {...sanityAttr(cat, 'description')} className="text-xs text-slate-400 mt-0.5">{cat.description}</p>}
                   </div>
                 </div>
               </div>
@@ -175,9 +176,9 @@ export const Skills: React.FC<SkillsProps> = ({ data, siteSettings }) => {
                       className="apple-glass-pill px-3 py-1.5 sm:px-3.5 sm:py-2 rounded-xl flex items-center gap-1.5 sm:gap-2 border border-white/10 hover:border-emerald-500/50 hover:bg-white/[0.08] transition-all group cursor-default max-w-full min-w-0"
                     >
                       <CheckCircle className="w-3.5 h-3.5 text-emerald-400 group-hover:scale-110 transition-transform shrink-0" />
-                      <span className="text-xs font-semibold text-slate-200 group-hover:text-white truncate">{skill.name}</span>
+                      <span {...sanityAttr(cat, `skills[${sIdx}].name`)} className="text-xs font-semibold text-slate-200 group-hover:text-white truncate">{skill.name}</span>
                       {skill.tag && (
-                        <span className="text-[9px] font-mono font-bold px-1.5 py-0.5 sm:px-2 sm:py-0.5 rounded-md bg-white/10 text-slate-300 uppercase shrink-0">
+                        <span {...sanityAttr(cat, `skills[${sIdx}].tag`)} className="text-[9px] font-mono font-bold px-1.5 py-0.5 sm:px-2 sm:py-0.5 rounded-md bg-white/10 text-slate-300 uppercase shrink-0">
                           {skill.tag}
                         </span>
                       )}

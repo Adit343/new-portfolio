@@ -5,6 +5,7 @@ import { Mail, Phone, MapPin, Globe, Award, Sparkles, ChevronRight, Download } f
 import { motion } from 'framer-motion';
 import { PersonalDetails } from '../data/portfolioData';
 import { downloadResume } from '../utils/downloadResume';
+import { sanityAttr } from '@/src/sanity/lib/dataAttr';
 import { Reveal, Typewriter, TiltCard, Float } from './Reveal';
 
 interface HeroProps {
@@ -31,7 +32,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenResume, data, siteSettings }) 
           
           {/* Status Pill */}
           {statusPill && (
-            <div className="inline-flex items-center gap-2 apple-glass-pill px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-full text-emerald-300 text-[11px] sm:text-xs font-semibold tracking-wide border border-emerald-500/30 shadow-lg shadow-emerald-500/10 max-w-full">
+            <div {...sanityAttr(siteSettings, 'heroStatusPill')} className="inline-flex items-center gap-2 apple-glass-pill px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-full text-emerald-300 text-[11px] sm:text-xs font-semibold tracking-wide border border-emerald-500/30 shadow-lg shadow-emerald-500/10 max-w-full">
               <span className="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-emerald-400 glow-pulse shrink-0"></span>
               <span className="truncate">{statusPill}</span>
             </div>
@@ -41,16 +42,16 @@ export const Hero: React.FC<HeroProps> = ({ onOpenResume, data, siteSettings }) 
           <div className="w-full">
             {personalDetails.name && (
               <div>
-                <h1 className="text-3xl xs:text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-[76px] font-extrabold tracking-tight text-white leading-tight sm:leading-none break-words max-w-full">
+                <h1 {...sanityAttr(personalDetails, 'name')} className="text-[2.6rem] min-[400px]:text-5xl md:text-6xl lg:text-7xl xl:text-[76px] font-extrabold tracking-tight text-white leading-tight sm:leading-none break-words max-w-full">
                   <Typewriter text={personalDetails.name} />
                 </h1>
               </div>
             )}
             <p className="mt-3 sm:mt-4 text-base sm:text-2xl font-semibold text-slate-300 flex flex-wrap items-center gap-2 sm:gap-3">
-              {personalDetails.title && <span className="font-mono text-emerald-400 text-sm sm:text-xl">{personalDetails.title}</span>}
+              {personalDetails.title && <span {...sanityAttr(personalDetails, 'title')} className="font-mono text-emerald-400 text-sm sm:text-xl">{personalDetails.title}</span>}
               {personalDetails.title && personalDetails.yearsExperience && <span className="text-slate-600 hidden sm:inline">•</span>}
               {personalDetails.yearsExperience && (
-                <span className="text-slate-300 text-xs sm:text-sm font-normal apple-glass-pill px-2.5 py-0.5 sm:px-3 sm:py-1 rounded-xl">
+                <span {...sanityAttr(personalDetails, 'yearsExperience')} className="text-slate-300 text-xs sm:text-sm font-normal apple-glass-pill px-2.5 py-0.5 sm:px-3 sm:py-1 rounded-xl">
                   {personalDetails.yearsExperience}
                 </span>
               )}
@@ -60,7 +61,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenResume, data, siteSettings }) 
           {/* Personal Developer Philosophy Statement */}
           {personalDetails.summary && (
             <div className="apple-glass-pill p-3.5 sm:p-4 rounded-2xl border border-white/10 w-full">
-              <p className="text-slate-200 text-xs sm:text-base leading-relaxed font-normal">
+              <p {...sanityAttr(personalDetails, 'summary')} className="text-slate-200 text-xs sm:text-base leading-relaxed font-normal">
                 "{personalDetails.summary}"
               </p>
             </div>
@@ -71,21 +72,21 @@ export const Hero: React.FC<HeroProps> = ({ onOpenResume, data, siteSettings }) 
             {personalDetails.englishProficiency && (
               <div className="apple-glass-pill px-3 py-1.5 rounded-xl border border-cyan-500/40 text-cyan-300 text-[11px] sm:text-xs font-medium flex items-center gap-1.5 shrink-0">
                 <Globe className="w-3.5 h-3.5 text-cyan-400 shrink-0" />
-                <span>{personalDetails.englishProficiency}</span>
+                <span {...sanityAttr(personalDetails, 'englishProficiency')}>{personalDetails.englishProficiency}</span>
               </div>
             )}
 
             {personalDetails.location && (
               <div className="apple-glass-pill px-3 py-1.5 rounded-xl border border-emerald-500/40 text-emerald-300 text-[11px] sm:text-xs font-medium flex items-center gap-1.5 shrink-0">
                 <MapPin className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
-                <span>{personalDetails.location}</span>
+                <span {...sanityAttr(personalDetails, 'location')}>{personalDetails.location}</span>
               </div>
             )}
 
             {personalDetails.clientCommunication && (
               <div className="apple-glass-pill px-3 py-1.5 rounded-xl border border-purple-500/40 text-purple-300 text-[11px] sm:text-xs font-medium flex items-center gap-1.5">
                 <Award className="w-3.5 h-3.5 text-purple-400 shrink-0" />
-                <span>{personalDetails.clientCommunication}</span>
+                <span {...sanityAttr(personalDetails, 'clientCommunication')}>{personalDetails.clientCommunication}</span>
               </div>
             )}
           </div>
@@ -97,7 +98,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenResume, data, siteSettings }) 
                 href="#projects"
                 className="apple-glass-button-primary px-6 py-3.5 rounded-2xl font-bold text-xs sm:text-sm flex items-center justify-center gap-2 group shadow-lg transition-all hover:scale-[1.02] active:scale-[0.98] w-full sm:w-auto shrink-0 min-h-[46px]"
               >
-                <span>{ctaText}</span>
+                <span {...sanityAttr(siteSettings, 'heroProjectsCtaText')}>{ctaText}</span>
                 <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform shrink-0" />
               </a>
             )}
@@ -109,7 +110,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenResume, data, siteSettings }) 
                 title="Send Direct Email"
               >
                 <Mail className="w-4 h-4 text-emerald-400 shrink-0" />
-                <span className="truncate">{personalDetails.email}</span>
+                <span {...sanityAttr(personalDetails, 'email')} className="truncate">{personalDetails.email}</span>
               </a>
             )}
 
@@ -120,7 +121,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenResume, data, siteSettings }) 
                 title="Call Phone Number"
               >
                 <Phone className="w-4 h-4 text-cyan-400 shrink-0" />
-                <span className="truncate">{personalDetails.phone}</span>
+                <span {...sanityAttr(personalDetails, 'phone')} className="truncate">{personalDetails.phone}</span>
               </a>
             )}
           </div>
@@ -140,7 +141,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenResume, data, siteSettings }) 
             {personalDetails.highlights && personalDetails.highlights.length > 0 && (
               <div className="space-y-3">
                 {summaryTitle && (
-                  <h4 className="text-xs font-semibold text-slate-400 uppercase tracking-wider">{summaryTitle}</h4>
+                  <h4 {...sanityAttr(siteSettings, 'recruiterSummaryTitle')} className="text-xs font-semibold text-slate-400 uppercase tracking-wider">{summaryTitle}</h4>
                 )}
                 <div className="grid grid-cols-1 gap-2.5">
                   {personalDetails.highlights.map((item, idx) => (
@@ -149,7 +150,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenResume, data, siteSettings }) 
                       className="apple-glass-pill p-3 rounded-xl flex items-center gap-3 text-xs text-slate-200 border border-white/5 hover:border-white/20 transition-all"
                     >
                       <div className="w-2 h-2 rounded-full bg-emerald-400"></div>
-                      <span className="font-medium">{item}</span>
+                      <span {...sanityAttr(personalDetails, `highlights[${idx}]`)} className="font-medium">{item}</span>
                     </div>
                   ))}
                 </div>

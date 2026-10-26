@@ -5,6 +5,7 @@ import { Mail, Phone, Send, Copy, Check, Globe, MessageSquare, User, Tag, Sparkl
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { personalDetails } from '../data/portfolioData';
+import { sanityAttr } from '@/src/sanity/lib/dataAttr';
 import { Reveal, SplitText } from './Reveal';
 
 // Yup Validation Schema for Contact Form
@@ -126,6 +127,12 @@ export const Contact: React.FC<ContactProps> = ({ siteSettings, aboutData }) => 
     return `Github/${formattedName}`;
   };
 
+  // The doc/path that actually supplies each value, so the click target opens the right field
+  const emailSrc = siteSettings?.socialLinks?.email ? sanityAttr(siteSettings, 'socialLinks.email') : sanityAttr(aboutData, 'email');
+  const phoneSrc = siteSettings?.socialLinks?.phone ? sanityAttr(siteSettings, 'socialLinks.phone') : sanityAttr(aboutData, 'phone');
+  const linkedinSrc = cleanAndNormalizeUrl(siteSettings?.socialLinks?.linkedin) === linkedin ? sanityAttr(siteSettings, 'socialLinks.linkedin') : sanityAttr(aboutData, 'linkedin');
+  const githubSrc = cleanAndNormalizeUrl(siteSettings?.socialLinks?.github) === github ? sanityAttr(siteSettings, 'socialLinks.github') : sanityAttr(aboutData, 'github');
+
   const hasAnyContactInfo = Boolean(email || phone || linkedin || github || globalClientText);
 
   // Formik Hook Integration with Yup Schema & Sanity CMS Submission
@@ -184,14 +191,14 @@ export const Contact: React.FC<ContactProps> = ({ siteSettings, aboutData }) => 
         {badge && (
           <div className="apple-glass-pill px-4 py-1.5 rounded-full text-xs font-semibold text-emerald-400 border border-emerald-500/30 mb-3 flex items-center gap-2 shadow-lg shadow-emerald-500/10">
             <MessageSquare className="w-3.5 h-3.5" />
-            <span>{badge}</span>
+            <span {...sanityAttr(siteSettings, 'contactBadge')}>{badge}</span>
           </div>
         )}
         {title && (
-          <h2 className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight"><SplitText text={title} /></h2>
+          <h2 {...sanityAttr(siteSettings, 'contactTitle')} className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight"><SplitText text={title} /></h2>
         )}
         {subtitle && (
-          <p className="mt-3 text-slate-400 max-w-2xl text-sm sm:text-base">
+          <p {...sanityAttr(siteSettings, 'contactSubtitle')} className="mt-3 text-slate-400 max-w-2xl text-sm sm:text-base">
             {subtitle}
           </p>
         )}
@@ -208,11 +215,11 @@ export const Contact: React.FC<ContactProps> = ({ siteSettings, aboutData }) => 
                 {(contactCardTitle || contactCardSubtitle || contactCardBadge) && (
                   <div className="flex items-center justify-between pb-4 border-b border-white/10 mb-5 sm:mb-6">
                     <div>
-                      {contactCardTitle && <h3 className="text-xl sm:text-2xl font-bold text-white">{contactCardTitle}</h3>}
-                      {contactCardSubtitle && <p className="text-xs text-slate-400 mt-0.5">{contactCardSubtitle}</p>}
+                      {contactCardTitle && <h3 {...sanityAttr(siteSettings, 'contactCardTitle')} className="text-xl sm:text-2xl font-bold text-white">{contactCardTitle}</h3>}
+                      {contactCardSubtitle && <p {...sanityAttr(siteSettings, 'contactCardSubtitle')} className="text-xs text-slate-400 mt-0.5">{contactCardSubtitle}</p>}
                     </div>
                     {contactCardBadge && (
-                      <span className="text-[10px] font-mono font-bold px-2.5 py-1 rounded-full bg-cyan-500/20 text-cyan-300 border border-cyan-500/30">
+                      <span {...sanityAttr(siteSettings, 'contactCardBadge')} className="text-[10px] font-mono font-bold px-2.5 py-1 rounded-full bg-cyan-500/20 text-cyan-300 border border-cyan-500/30">
                         {contactCardBadge}
                       </span>
                     )}
@@ -231,7 +238,7 @@ export const Contact: React.FC<ContactProps> = ({ siteSettings, aboutData }) => 
                       </div>
                       <div className="min-w-0 flex-1">
                         <div className="text-[10px] sm:text-[11px] font-mono text-slate-400">Email Address</div>
-                        <div className="text-xs sm:text-sm font-bold text-white group-hover:text-emerald-300 truncate">
+                        <div {...emailSrc} className="text-xs sm:text-sm font-bold text-white group-hover:text-emerald-300 truncate">
                           {email}
                         </div>
                       </div>
@@ -249,7 +256,7 @@ export const Contact: React.FC<ContactProps> = ({ siteSettings, aboutData }) => 
                       </div>
                       <div className="min-w-0 flex-1">
                         <div className="text-[10px] sm:text-[11px] font-mono text-slate-400">Phone Number</div>
-                        <div className="text-xs sm:text-sm font-bold text-white group-hover:text-cyan-300 truncate">
+                        <div {...phoneSrc} className="text-xs sm:text-sm font-bold text-white group-hover:text-cyan-300 truncate">
                           {phone}
                         </div>
                       </div>
@@ -271,7 +278,7 @@ export const Contact: React.FC<ContactProps> = ({ siteSettings, aboutData }) => 
                       </div>
                       <div className="min-w-0 flex-1">
                         <div className="text-[10px] sm:text-[11px] font-mono text-slate-400">LinkedIn Profile</div>
-                        <div className="text-xs sm:text-sm font-bold text-white group-hover:text-purple-300 truncate">
+                        <div {...linkedinSrc} className="text-xs sm:text-sm font-bold text-white group-hover:text-purple-300 truncate">
                           {getLinkedInDisplay(linkedin)}
                         </div>
                       </div>
@@ -293,7 +300,7 @@ export const Contact: React.FC<ContactProps> = ({ siteSettings, aboutData }) => 
                       </div>
                       <div className="min-w-0 flex-1">
                         <div className="text-[10px] sm:text-[11px] font-mono text-slate-400">GitHub Profile</div>
-                        <div className="text-xs sm:text-sm font-bold text-white group-hover:text-emerald-300 truncate">
+                        <div {...githubSrc} className="text-xs sm:text-sm font-bold text-white group-hover:text-emerald-300 truncate">
                           {getGitHubDisplay(github)}
                         </div>
                       </div>
@@ -313,8 +320,8 @@ export const Contact: React.FC<ContactProps> = ({ siteSettings, aboutData }) => 
             
             <div className="flex items-center justify-between gap-2.5 mb-6 pb-4 border-b border-white/10">
               <div className="min-w-0">
-                {formTitle && <h3 className="text-xl sm:text-2xl font-bold text-white">{formTitle}</h3>}
-                {formSubtitle && <p className="text-xs text-slate-400 mt-0.5">{formSubtitle}</p>}
+                {formTitle && <h3 {...sanityAttr(siteSettings, 'contactFormTitle')} className="text-xl sm:text-2xl font-bold text-white">{formTitle}</h3>}
+                {formSubtitle && <p {...sanityAttr(siteSettings, 'contactFormSubtitle')} className="text-xs text-slate-400 mt-0.5">{formSubtitle}</p>}
               </div>
               <span className="text-[9px] sm:text-[10px] font-mono font-bold px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 flex items-center gap-1 shrink-0 whitespace-nowrap">
                 <Sparkles className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-emerald-400 shrink-0" />
@@ -324,7 +331,7 @@ export const Contact: React.FC<ContactProps> = ({ siteSettings, aboutData }) => 
 
             {formSubmitted ? (
               <div className="p-8 rounded-2xl apple-glass-pill text-center space-y-3 border border-emerald-500/50 bg-emerald-500/10 animate-fadeIn">
-                <div className="w-12 h-12 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center mx-auto border border-emerald-400/30">
+                <div className="w-12 h-12 aspect-square shrink-0 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center mx-auto border border-emerald-400/30">
                   <Check className="w-6 h-6" />
                 </div>
                 <h4 className="text-lg font-bold text-white">Message Sent Successfully!</h4>

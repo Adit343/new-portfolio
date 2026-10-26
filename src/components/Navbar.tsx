@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { Menu, X, FileText, Download, Sparkles, Code, User, Briefcase, FolderGit2, GraduationCap, Mail, Sun, Moon } from 'lucide-react';
 import { personalDetails } from '../data/portfolioData';
 import { downloadResume } from '../utils/downloadResume';
+import { sanityAttr } from '@/src/sanity/lib/dataAttr';
 
 interface NavbarProps {
   accent: string;
@@ -79,7 +80,19 @@ export const Navbar: React.FC<NavbarProps> = ({ accent, setAccent, onOpenResume,
     { name: 'Skills', href: '#skills', icon: Code, id: 'skills' },
     { name: 'Education', href: '#education', icon: GraduationCap, id: 'education' },
     { name: 'Contact', href: '#contact', icon: Mail, id: 'contact' },
-  ];
+  ].map((link) => {
+    // Label comes from Sanity when a matching entry exists (matched by anchor)
+    const cms = siteSettings?.navLinks?.find((l: any) => l.href === link.href);
+    return {
+      ...link,
+      name: cms?.label || link.name,
+      attr: cms?._key ? sanityAttr(siteSettings, `navLinks[_key=="${cms._key}"].label`) : {},
+    };
+  });
+
+  const brandName = siteSettings?.brandName || personalDetails.name;
+  const brandRole = siteSettings?.brandRole || personalDetails.title;
+  const logoText = siteSettings?.logoText || 'AS';
 
   const accents = [
     { id: 'emerald', color: '#10b981', label: 'Emerald' },
@@ -105,16 +118,16 @@ export const Navbar: React.FC<NavbarProps> = ({ accent, setAccent, onOpenResume,
             
             {/* Logo Brand (Non-clickable) */}
             <div className="flex items-center gap-2 sm:gap-3 min-w-0 cursor-default select-none">
-              <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full apple-glass-pill flex items-center justify-center border border-white/30 shadow-md shrink-0">
-                <span className="font-extrabold text-[11px] sm:text-sm text-gradient-accent">AS</span>
+              <div className="w-8 h-8 sm:w-10 sm:h-10 aspect-square rounded-full apple-glass-pill flex items-center justify-center border border-white/30 shadow-md shrink-0">
+                <span {...sanityAttr(siteSettings, 'logoText')} className="font-extrabold text-[11px] sm:text-sm text-gradient-accent">{logoText}</span>
               </div>
               <div className="flex flex-col min-w-0">
-                <span className="font-extrabold tracking-tight text-xs sm:text-sm 2xl:text-base text-white truncate">
-                  {personalDetails.name}
+                <span {...sanityAttr(siteSettings, 'brandName')} className="font-extrabold tracking-tight text-xs sm:text-sm 2xl:text-base text-white truncate">
+                  {brandName}
                 </span>
-                <span className="text-[10px] sm:text-xs font-mono opacity-70 hidden 2xl:flex items-center gap-1.5 truncate text-slate-300">
+                <span {...sanityAttr(siteSettings, 'brandRole')} className="text-[10px] sm:text-xs font-mono opacity-70 hidden 2xl:flex items-center gap-1.5 truncate text-slate-300">
                   <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-                  {personalDetails.title}
+                  {brandRole}
                 </span>
               </div>
             </div>
@@ -123,8 +136,9 @@ export const Navbar: React.FC<NavbarProps> = ({ accent, setAccent, onOpenResume,
             <nav className="hidden xl:flex items-center gap-1 2xl:gap-2">
               {navLinks.map((link) => (
                 <a
-                  key={link.name}
+                  key={link.id}
                   href={link.href}
+                  {...link.attr}
                   className={`px-3 py-1.5 2xl:px-4 2xl:py-2 text-xs 2xl:text-sm font-semibold rounded-full transition-all duration-300 whitespace-nowrap ${
                     activeSection === link.id
                       ? 'bg-white/20 text-white shadow-md font-bold border border-white/30 backdrop-blur-sm scale-105'
@@ -147,7 +161,7 @@ export const Navbar: React.FC<NavbarProps> = ({ accent, setAccent, onOpenResume,
                     <button
                       key={item.id}
                       onClick={() => setAccent(item.id)}
-                      className={`w-3.5 h-3.5 2xl:w-4 2xl:h-4 rounded-full transition-all duration-200 ${
+                      className={`w-3.5 h-3.5 2xl:w-4 2xl:h-4 shrink-0 rounded-full transition-all duration-200 ${
                         accent === item.id ? 'scale-125 ring-2 ring-white shadow-md' : 'opacity-60 hover:opacity-100 hover:scale-110'
                       }`}
                       style={{ backgroundColor: item.color }}
@@ -181,7 +195,7 @@ export const Navbar: React.FC<NavbarProps> = ({ accent, setAccent, onOpenResume,
 
               <button
                 onClick={() => setMobileMenuOpen(true)}
-                className="p-2 sm:p-2.5 rounded-full apple-glass-button min-w-[38px] min-h-[38px] flex items-center justify-center"
+                className="p-2 sm:p-2.5 rounded-full apple-glass-button w-[38px] h-[38px] sm:w-[42px] sm:h-[42px] aspect-square shrink-0 flex items-center justify-center"
                 aria-label="Open side menu"
               >
                 <Menu className="w-5 h-5" />
@@ -209,22 +223,22 @@ export const Navbar: React.FC<NavbarProps> = ({ accent, setAccent, onOpenResume,
             <div>
               <div className="flex items-center justify-between pb-6 border-b border-white/10">
                 <div className="flex items-center gap-3 min-w-0">
-                  <div className="w-10 h-10 rounded-full apple-glass-pill flex items-center justify-center border border-white/30 shrink-0">
-                    <span className="font-extrabold text-sm text-gradient-accent">AS</span>
+                  <div className="w-10 h-10 aspect-square rounded-full apple-glass-pill flex items-center justify-center border border-white/30 shrink-0">
+                    <span className="font-extrabold text-sm text-gradient-accent">{logoText}</span>
                   </div>
                   <div className="flex flex-col min-w-0">
                     <span className="font-extrabold text-white text-base truncate">
-                      {personalDetails.name}
+                      {brandName}
                     </span>
                     <span className="text-[10px] font-mono text-emerald-400 truncate">
-                      {personalDetails.title}
+                      {brandRole}
                     </span>
                   </div>
                 </div>
 
                 <button
                   onClick={() => setMobileMenuOpen(false)}
-                  className="p-2 rounded-full apple-glass-button text-slate-300 hover:text-white shrink-0"
+                  className="p-2 w-10 h-10 aspect-square flex items-center justify-center rounded-full apple-glass-button text-slate-300 hover:text-white shrink-0"
                   aria-label="Close menu"
                 >
                   <X className="w-5 h-5" />
@@ -239,8 +253,9 @@ export const Navbar: React.FC<NavbarProps> = ({ accent, setAccent, onOpenResume,
 
                   return (
                     <a
-                      key={link.name}
+                      key={link.id}
                       href={link.href}
+                      {...link.attr}
                       onClick={() => setMobileMenuOpen(false)}
                       className={`flex items-center gap-3.5 px-4 py-3 rounded-2xl text-sm font-semibold transition-all ${
                         isActive
@@ -273,7 +288,7 @@ export const Navbar: React.FC<NavbarProps> = ({ accent, setAccent, onOpenResume,
                     <button
                       key={item.id}
                       onClick={() => setAccent(item.id)}
-                      className={`w-6 h-6 rounded-full transition-all duration-200 flex items-center justify-center ${
+                      className={`w-6 h-6 aspect-square shrink-0 rounded-full transition-all duration-200 flex items-center justify-center ${
                         accent === item.id ? 'ring-2 ring-white scale-110 shadow-lg' : 'opacity-70 hover:opacity-100'
                       }`}
                       style={{ backgroundColor: item.color }}

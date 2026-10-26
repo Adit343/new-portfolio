@@ -3,6 +3,7 @@
 import React from 'react';
 import { GraduationCap, Award, Calendar, CheckCircle, BookOpen } from 'lucide-react';
 import { EducationItem } from '../data/portfolioData';
+import { sanityAttr } from '@/src/sanity/lib/dataAttr';
 import { Reveal, SplitText } from './Reveal';
 
 interface EducationProps {
@@ -26,14 +27,14 @@ export const Education: React.FC<EducationProps> = ({ data, siteSettings }) => {
         {badge && (
           <div className="apple-glass-pill px-4 py-1.5 rounded-full text-xs font-semibold text-emerald-400 border border-emerald-500/30 mb-3 flex items-center gap-2 shadow-lg shadow-emerald-500/10">
             <GraduationCap className="w-3.5 h-3.5" />
-            <span>{badge}</span>
+            <span {...sanityAttr(siteSettings, 'educationBadge')}>{badge}</span>
           </div>
         )}
         {title && (
-          <h2 className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight"><SplitText text={title} /></h2>
+          <h2 {...sanityAttr(siteSettings, 'educationTitle')} className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight"><SplitText text={title} /></h2>
         )}
         {subtitle && (
-          <p className="mt-3 text-slate-400 max-w-2xl text-sm sm:text-base">
+          <p {...sanityAttr(siteSettings, 'educationSubtitle')} className="mt-3 text-slate-400 max-w-2xl text-sm sm:text-base">
             {subtitle}
           </p>
         )}
@@ -53,13 +54,13 @@ export const Education: React.FC<EducationProps> = ({ data, siteSettings }) => {
               </div>
               <div className="min-w-0 flex-1">
                 {educationData.degree && (
-                  <h3 className="text-base sm:text-2xl font-extrabold text-white tracking-tight">
+                  <h3 {...sanityAttr(educationData, 'degree')} className="text-base sm:text-2xl font-extrabold text-white tracking-tight">
                     {educationData.degree}
                   </h3>
                 )}
                 {educationData.institution && (
                   <p className="text-xs sm:text-sm font-semibold text-emerald-400 mt-1 flex items-center gap-2 truncate">
-                    <span>{educationData.institution}</span>
+                    <span {...sanityAttr(educationData, 'institution')}>{educationData.institution}</span>
                   </p>
                 )}
               </div>
@@ -67,13 +68,13 @@ export const Education: React.FC<EducationProps> = ({ data, siteSettings }) => {
 
             <div className="flex flex-wrap sm:flex-nowrap items-center gap-3 shrink-0">
               {educationData.period && (
-                <span className="text-xs font-mono px-3.5 py-1.5 rounded-full apple-glass-pill text-emerald-300 border border-emerald-500/30 flex items-center gap-1.5 whitespace-nowrap shrink-0">
+                <span {...sanityAttr(educationData, 'period')} className="text-xs font-mono px-3.5 py-1.5 rounded-full apple-glass-pill text-emerald-300 border border-emerald-500/30 flex items-center gap-1.5 whitespace-nowrap shrink-0">
                   <Calendar className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
-                  {educationData.period.replace('May 2025', 'Nov 2025')}
+                  {educationData.period}
                 </span>
               )}
               {educationData.cgpa && (
-                <span className="text-xs font-mono font-bold px-3.5 py-1.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 flex items-center gap-1.5 shadow-md shadow-emerald-500/10 whitespace-nowrap shrink-0">
+                <span {...sanityAttr(educationData, 'cgpa')} className="text-xs font-mono font-bold px-3.5 py-1.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 flex items-center gap-1.5 shadow-md shadow-emerald-500/10 whitespace-nowrap shrink-0">
                   <Award className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
                   {educationData.cgpa}
                 </span>
@@ -95,7 +96,7 @@ export const Education: React.FC<EducationProps> = ({ data, siteSettings }) => {
                     className="apple-glass-pill p-3.5 rounded-2xl flex items-start gap-3 border border-white/10 hover:border-white/20 transition-all text-xs text-slate-200"
                   >
                     <CheckCircle className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
-                    <span className="leading-relaxed font-medium">{highlight}</span>
+                    <span {...sanityAttr(educationData, `highlights[${index}]`)} className="leading-relaxed font-medium">{highlight}</span>
                   </div>
                 ))}
               </div>

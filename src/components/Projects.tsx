@@ -4,6 +4,7 @@ import React, { useState, useRef } from 'react';
 import { FolderGit2, Search, ArrowUpRight, ChevronLeft, ChevronRight, Code2 } from 'lucide-react';
 import type { Project } from '../data/portfolioData';
 import { ProjectModal } from './ProjectModal';
+import { sanityAttr } from '@/src/sanity/lib/dataAttr';
 import { Reveal, SplitText, TiltCard } from './Reveal';
 
 interface ProjectsProps {
@@ -85,14 +86,14 @@ export const Projects: React.FC<ProjectsProps> = ({ data, siteSettings }) => {
         {badge && (
           <div className="apple-glass-pill px-4 py-1.5 rounded-full text-xs font-semibold text-cyan-400 border border-cyan-500/30 mb-3 flex items-center gap-2 shadow-lg shadow-cyan-500/10">
             <FolderGit2 className="w-3.5 h-3.5" />
-            <span>{badge}</span>
+            <span {...sanityAttr(siteSettings, 'projectsBadge')}>{badge}</span>
           </div>
         )}
         {title && (
-          <h2 className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight"><SplitText text={title} /></h2>
+          <h2 {...sanityAttr(siteSettings, 'projectsTitle')} className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight"><SplitText text={title} /></h2>
         )}
         {subtitle && (
-          <p className="mt-3 text-slate-400 max-w-2xl text-sm sm:text-base">
+          <p {...sanityAttr(siteSettings, 'projectsSubtitle')} className="mt-3 text-slate-400 max-w-2xl text-sm sm:text-base">
             {subtitle}
           </p>
         )}
@@ -175,18 +176,19 @@ export const Projects: React.FC<ProjectsProps> = ({ data, siteSettings }) => {
             <div 
               className="absolute top-0 left-0 right-0 h-1 transition-all duration-500 group-hover:h-1.5"
               style={{ backgroundColor: project.accentColor || '#10b981' }}
+              {...sanityAttr(project, 'accentColor')}
             />
 
             <div>
               {/* Badge & Category */}
               <div className="flex flex-wrap items-center justify-between gap-2.5 mb-4 pt-2">
                 {project.badge && (
-                  <span className={`text-[11px] font-mono font-extrabold px-3 py-1 rounded-full border whitespace-nowrap shrink-0 ${getBadgeClasses(project.badge)}`}>
+                  <span {...sanityAttr(project, 'badge')} className={`text-[11px] font-mono font-extrabold px-3 py-1 rounded-full border whitespace-nowrap shrink-0 ${getBadgeClasses(project.badge)}`}>
                     {project.badge}
                   </span>
                 )}
                 {project.category && (
-                  <span className="text-[11px] font-mono font-semibold text-cyan-300 whitespace-nowrap shrink-0">
+                  <span {...sanityAttr(project, 'category')} className="text-[11px] font-mono font-semibold text-cyan-300 whitespace-nowrap shrink-0">
                     {project.category}
                   </span>
                 )}
@@ -195,19 +197,19 @@ export const Projects: React.FC<ProjectsProps> = ({ data, siteSettings }) => {
               {/* Title & Subtitle */}
               {project.title && (
                 <h3 className="text-xl sm:text-2xl font-extrabold text-white group-hover:text-emerald-300 transition-colors flex items-center justify-between tracking-tight">
-                  <span>{project.title}</span>
+                  <span {...sanityAttr(project, 'title')}>{project.title}</span>
                   <ArrowUpRight className="w-5 h-5 text-slate-400 group-hover:text-emerald-400 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform shrink-0 ml-2" />
                 </h3>
               )}
 
               {project.subtitle && (
-                <p className="mt-2 text-xs font-semibold text-cyan-300">
+                <p {...sanityAttr(project, 'subtitle')} className="mt-2 text-xs font-semibold text-cyan-300">
                   {project.subtitle}
                 </p>
               )}
 
               {(project.description || project.summary) && (
-                <p className="mt-4 text-xs sm:text-sm text-slate-300 line-clamp-3 leading-relaxed">
+                <p {...sanityAttr(project, project.description ? 'description' : 'summary')} className="mt-4 text-xs sm:text-sm text-slate-300 line-clamp-3 leading-relaxed">
                   {project.description || project.summary}
                 </p>
               )}
@@ -217,9 +219,10 @@ export const Projects: React.FC<ProjectsProps> = ({ data, siteSettings }) => {
             <div className="mt-6 pt-4 border-t border-white/10">
               {project.tech && project.tech.length > 0 && (
                 <div className="flex flex-wrap gap-1.5 mb-4">
-                  {project.tech.map((t) => (
+                  {project.tech.map((t, ti) => (
                     <span
                       key={t}
+                      {...sanityAttr(project, `tech[${ti}]`)}
                       className="text-[10px] font-mono px-2.5 py-1 rounded-lg apple-glass-pill text-slate-200 border border-white/10 whitespace-nowrap"
                     >
                       {t}

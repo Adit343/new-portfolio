@@ -20,7 +20,7 @@ async function getClientOptions() {
     return {
       perspective: 'previewDrafts' as const,
       token: process.env.SANITY_API_WRITE_TOKEN,
-      stega: true,
+      stega: false,
       useCdn: false,
     };
   }
