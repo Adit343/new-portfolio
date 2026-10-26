@@ -1,4 +1,6 @@
 import type { Metadata } from 'next';
+import { draftMode } from 'next/headers';
+import { VisualEditing } from 'next-sanity/visual-editing';
 import './globals.css';
 
 export const metadata: Metadata = {
@@ -13,11 +15,13 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const { isEnabled } = await draftMode();
+
   return (
     <html lang="en" className="scroll-smooth">
       <head>
@@ -31,6 +35,7 @@ export default function RootLayout({
       </head>
       <body className="bg-[#030509] text-slate-100 font-sans antialiased selection:bg-emerald-500/30 selection:text-emerald-200 overflow-x-hidden">
         {children}
+        {isEnabled && <VisualEditing />}
       </body>
     </html>
   );
